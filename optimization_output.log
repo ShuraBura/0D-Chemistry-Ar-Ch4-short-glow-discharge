@@ -1,0 +1,42 @@
+================================================================================
+ CONSTRAINED OPTIMIZATION TO MATCH TARGETS
+================================================================================
+
+Selecting tunable rates...
+  Selected 30 key rates
+
+Selected rates for optimization:
+--------------------------------------------------------------------------------
+ 1. loss_C2_11_3                             [1.00e-04, 2.00e+03] (20000000.0x)
+ 2. loss_C2H2Star_11_25                      [1.00e+02, 1.00e+04] (100.0x)
+ 3. loss_C3H4_11_18                          [1.00e+02, 1.50e+03] (15.0x)
+ 4. loss_CH_11_9                             [1.00e+03, 1.00e+04] (10.0x)
+ 5. loss_C3H_11_10                           [1.00e+02, 1.00e+03] (10.0x)
+ 6. loss_C3H6_11_16                          [1.00e+02, 1.00e+03] (10.0x)
+ 7. stick_H_9_1                              [3.89e+02, 3.89e+03] (10.0x)
+ 8. loss_C3H3_11_13                          [1.00e+02, 1.00e+03] (10.0x)
+ 9. loss_C2H_11_12                           [1.00e+02, 1.00e+03] (10.0x)
+10. loss_C3_11_14                            [1.00e+02, 1.00e+03] (10.0x)
+    ... and 20 more
+
+ Optimization parameters:
+  Tunable rates: 30
+  E field: [10, 200] V/cm
+  Total parameters: 31
+
+ Targets:
+  H:  5.18e+13 cm^-3
+  CH: 1.00e+09 cm^-3  (currently 46x too high - heavily weighted)
+  C2: 1.30e+11 cm^-3
+
+================================================================================
+ Running Differential Evolution Optimization
+================================================================================
+
+This may take 10-30 minutes...
+Progress will be shown as optimization runs.
+
+differential_evolution step 1: f(x)= 2492.0825277885447
+differential_evolution step 2: f(x)= 2492.0825277885447
+differential_evolution step 3: f(x)= 2492.0825277885447
+differential_evolution step 4: f(x)= 2116.8607590919514

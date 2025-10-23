@@ -218,7 +218,7 @@ def objective_function(x, param_names, params_base):
     """
     Objective function for optimization.
 
-    x : array of parameter values (rates + E_field)
+    x : array of parameter values (rates + E_field + ne)
     """
     # Progress counter
     if not hasattr(objective_function, 'counter'):
@@ -231,12 +231,17 @@ def objective_function(x, param_names, params_base):
         elapsed = time.time() - objective_function.start_time
         print(f"  [{objective_function.counter} evaluations, {elapsed/60:.1f} min elapsed]")
 
-    # Unpack parameters
-    rate_values = {name: val for name, val in zip(param_names[:-1], x[:-1])}
-    E_field = x[-1]
+    # Unpack parameters (last two are E_field and ne)
+    rate_values = {name: val for name, val in zip(param_names[:-2], x[:-2])}
+    E_field = x[-2]
+    ne = x[-1]
+
+    # Update params_base with ne
+    params_updated = params_base.copy()
+    params_updated['ne'] = ne
 
     # Run simulation
-    results = run_simulation(rate_values, E_field, params_base)
+    results = run_simulation(rate_values, E_field, params_updated)
 
     if results is None:
         return 1e10  # Penalize failed simulations
@@ -309,13 +314,18 @@ def main():
             bounds.append((db[name].min, db[name].max))
             param_names.append(name)
 
-    # Add E field
-    bounds.append((10.0, 200.0))  # V/cm
+    # Add E field (wider range since optimizer hit 200 V/cm max)
+    bounds.append((10.0, 300.0))  # V/cm (was 200)
     param_names.append('E_field')
 
+    # Add Ne (wider range since optimizer hit 1.65e9 minimum)
+    bounds.append((1.0e9, 5.0e9))  # cm^-3 (was 1.65e9-4.95e9)
+    param_names.append('ne')
+
     print(f"\n Optimization parameters:")
-    print(f"  Tunable rates: {len(param_names) - 1}")
-    print(f"  E field: [10, 200] V/cm")
+    print(f"  Tunable rates: {len(param_names) - 2}")
+    print(f"  E field: [10, 300] V/cm")
+    print(f"  Ne: [1.0e9, 5.0e9] cm^-3")
     print(f"  Total parameters: {len(param_names)}")
 
     print(f"\n Targets:")
@@ -366,17 +376,21 @@ def main():
     print(f"Iterations: {result.nit}")
 
     # Extract optimized parameters
-    optimized_rates = {name: val for name, val in zip(param_names[:-1], result.x[:-1])}
-    optimized_E = result.x[-1]
+    optimized_rates = {name: val for name, val in zip(param_names[:-2], result.x[:-2])}
+    optimized_E = result.x[-2]
+    optimized_ne = result.x[-1]
 
     print(f"\nOptimized E field: {optimized_E:.1f} V/cm (baseline: 50)")
+    print(f"Optimized Ne: {optimized_ne:.3e} cm^-3 (baseline: 3.3e9, 2-param: 1.66e9)")
 
     # Run final simulation with optimized parameters
     print("\n" + "=" * 80)
     print(" FINAL RESULTS WITH OPTIMIZED PARAMETERS")
     print("=" * 80)
 
-    final_results = run_simulation(optimized_rates, optimized_E, params_base, verbose=True)
+    params_final = params_base.copy()
+    params_final['ne'] = optimized_ne
+    final_results = run_simulation(optimized_rates, optimized_E, params_final, verbose=True)
 
     if final_results:
         print("\nFinal Densities:")
@@ -399,9 +413,10 @@ def main():
     print("=" * 80)
 
     with open('optimized_parameters.txt', 'w') as f:
-        f.write("OPTIMIZED PARAMETERS\n")
+        f.write("OPTIMIZED PARAMETERS (32-parameter optimization)\n")
         f.write("=" * 80 + "\n\n")
-        f.write(f"E_field: {optimized_E:.6f} V/cm\n\n")
+        f.write(f"E_field: {optimized_E:.6f} V/cm\n")
+        f.write(f"Ne: {optimized_ne:.6e} cm^-3\n\n")
         f.write("Rate Constants:\n")
         f.write("-" * 80 + "\n")
         for name in sorted(optimized_rates.keys()):

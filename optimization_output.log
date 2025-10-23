@@ -10,13 +10,13 @@ Selected rates for optimization:
  1. loss_C2_11_3                             [1.00e-04, 2.00e+03] (20000000.0x)
  2. loss_C2H2Star_11_25                      [1.00e+02, 1.00e+04] (100.0x)
  3. loss_C3H4_11_18                          [1.00e+02, 1.50e+03] (15.0x)
- 4. loss_CH_11_9                             [1.00e+03, 1.00e+04] (10.0x)
- 5. loss_C3H_11_10                           [1.00e+02, 1.00e+03] (10.0x)
- 6. loss_C3H6_11_16                          [1.00e+02, 1.00e+03] (10.0x)
- 7. stick_H_9_1                              [3.89e+02, 3.89e+03] (10.0x)
- 8. loss_C3H3_11_13                          [1.00e+02, 1.00e+03] (10.0x)
- 9. loss_C2H_11_12                           [1.00e+02, 1.00e+03] (10.0x)
-10. loss_C3_11_14                            [1.00e+02, 1.00e+03] (10.0x)
+ 4. loss_C3_11_14                            [1.00e+02, 1.00e+03] (10.0x)
+ 5. loss_C4H_11_15                           [1.00e+02, 1.00e+03] (10.0x)
+ 6. loss_C3H_11_10                           [1.00e+02, 1.00e+03] (10.0x)
+ 7. loss_C2H_11_12                           [1.00e+02, 1.00e+03] (10.0x)
+ 8. ArStar_CH4_CH3_H_cm3_3_1                 [5.00e-11, 5.00e-10] (10.0x)
+ 9. loss_C4H2_11_11                          [1.00e+02, 1.00e+03] (10.0x)
+10. loss_CH_11_9                             [1.00e+03, 1.00e+04] (10.0x)
     ... and 20 more
 
  Optimization parameters:
@@ -36,12 +36,87 @@ Selected rates for optimization:
 This may take 10-30 minutes...
 Progress will be shown as optimization runs.
 
-differential_evolution step 1: f(x)= 2492.0825277885447
-differential_evolution step 2: f(x)= 2492.0825277885447
-differential_evolution step 3: f(x)= 2492.0825277885447
-differential_evolution step 4: f(x)= 2116.8607590919514
-differential_evolution step 5: f(x)= 2087.4380091128482
-differential_evolution step 6: f(x)= 1545.3265194479218
-differential_evolution step 7: f(x)= 1545.3265194479218
-differential_evolution step 8: f(x)= 1545.3265194479218
-differential_evolution step 9: f(x)= 1545.3265194479218
+  [10 evaluations, 0.1 min elapsed]
+  [20 evaluations, 0.1 min elapsed]
+  [30 evaluations, 0.2 min elapsed]
+  [40 evaluations, 0.2 min elapsed]
+  [50 evaluations, 0.3 min elapsed]
+  [60 evaluations, 0.4 min elapsed]
+  [70 evaluations, 0.4 min elapsed]
+  [80 evaluations, 0.5 min elapsed]
+  [90 evaluations, 0.5 min elapsed]
+  [100 evaluations, 0.6 min elapsed]
+  [110 evaluations, 0.6 min elapsed]
+  [120 evaluations, 0.7 min elapsed]
+  [130 evaluations, 0.8 min elapsed]
+  [140 evaluations, 0.8 min elapsed]
+  [150 evaluations, 0.9 min elapsed]
+  [160 evaluations, 0.9 min elapsed]
+  [170 evaluations, 1.0 min elapsed]
+  [180 evaluations, 1.1 min elapsed]
+  [190 evaluations, 1.1 min elapsed]
+  [200 evaluations, 1.2 min elapsed]
+  [210 evaluations, 1.2 min elapsed]
+  [220 evaluations, 1.3 min elapsed]
+  [230 evaluations, 1.3 min elapsed]
+  [240 evaluations, 1.4 min elapsed]
+  [250 evaluations, 1.5 min elapsed]
+  [260 evaluations, 1.5 min elapsed]
+  [270 evaluations, 1.6 min elapsed]
+  [280 evaluations, 1.7 min elapsed]
+  [290 evaluations, 1.7 min elapsed]
+  [300 evaluations, 1.8 min elapsed]
+  [310 evaluations, 1.8 min elapsed]
+  [320 evaluations, 1.9 min elapsed]
+  [330 evaluations, 1.9 min elapsed]
+  [340 evaluations, 2.0 min elapsed]
+  [350 evaluations, 2.1 min elapsed]
+  [360 evaluations, 2.1 min elapsed]
+  [370 evaluations, 2.2 min elapsed]
+  [380 evaluations, 2.3 min elapsed]
+  [390 evaluations, 2.3 min elapsed]
+  [400 evaluations, 2.4 min elapsed]
+  [410 evaluations, 2.4 min elapsed]
+  [420 evaluations, 2.5 min elapsed]
+  [430 evaluations, 2.6 min elapsed]
+  [440 evaluations, 2.6 min elapsed]
+  [450 evaluations, 2.7 min elapsed]
+  [460 evaluations, 2.7 min elapsed]
+  [470 evaluations, 2.8 min elapsed]
+  [480 evaluations, 2.9 min elapsed]
+  [490 evaluations, 2.9 min elapsed]
+differential_evolution step 1: f(x)= 2399.5262713133448
+  [500 evaluations, 3.0 min elapsed]
+  [510 evaluations, 3.0 min elapsed]
+  [520 evaluations, 3.1 min elapsed]
+  [530 evaluations, 3.2 min elapsed]
+  [540 evaluations, 3.2 min elapsed]
+  [550 evaluations, 3.3 min elapsed]
+  [560 evaluations, 3.3 min elapsed]
+  [570 evaluations, 3.4 min elapsed]
+  [580 evaluations, 3.5 min elapsed]
+  [590 evaluations, 3.5 min elapsed]
+  [600 evaluations, 3.6 min elapsed]
+  [610 evaluations, 3.7 min elapsed]
+  [620 evaluations, 3.7 min elapsed]
+  [630 evaluations, 3.8 min elapsed]
+  [640 evaluations, 3.8 min elapsed]
+  [650 evaluations, 3.9 min elapsed]
+  [660 evaluations, 4.0 min elapsed]
+  [670 evaluations, 4.0 min elapsed]
+  [680 evaluations, 4.1 min elapsed]
+  [690 evaluations, 4.1 min elapsed]
+  [700 evaluations, 4.2 min elapsed]
+  [710 evaluations, 4.3 min elapsed]
+  [720 evaluations, 4.3 min elapsed]
+  [730 evaluations, 4.4 min elapsed]
+  [740 evaluations, 4.4 min elapsed]
+differential_evolution step 2: f(x)= 2385.583469090138
+  [750 evaluations, 4.5 min elapsed]
+  [760 evaluations, 4.6 min elapsed]
+  [770 evaluations, 4.6 min elapsed]
+  [780 evaluations, 4.7 min elapsed]
+  [790 evaluations, 4.8 min elapsed]
+  [800 evaluations, 4.8 min elapsed]
+  [810 evaluations, 4.9 min elapsed]
+  [820 evaluations, 5.0 min elapsed]

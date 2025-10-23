@@ -15,6 +15,8 @@ import numpy as np
 from scipy.integrate import solve_ivp
 from scipy.optimize import differential_evolution
 import time
+import signal
+from contextlib import contextmanager
 
 from define_rates import define_rates
 from rate_database_complete import get_complete_rate_database, get_tunable_rates_for_target
@@ -28,6 +30,23 @@ TARGETS = {
     'CH': 1.0e9,    # cm^-3  (currently 46x too high!)
     'C2': 1.3e11,   # cm^-3
 }
+
+
+class TimeoutException(Exception):
+    pass
+
+
+@contextmanager
+def time_limit(seconds):
+    """Context manager to timeout function calls."""
+    def signal_handler(signum, frame):
+        raise TimeoutException("Timed out!")
+    signal.signal(signal.SIGALRM, signal_handler)
+    signal.alarm(seconds)
+    try:
+        yield
+    finally:
+        signal.alarm(0)
 
 
 def select_tunable_rates():
@@ -147,19 +166,28 @@ def run_simulation(rate_values, E_field, params_base, verbose=False):
         set_density('CH3', 5e7)
         set_density('C', 5e7)
 
-        # Run simulation
+        # Run simulation with timeout (30 seconds max)
         ode_func = PlasmaODE_Optimized(params)
-        sol = solve_ivp(
-            ode_func,
-            (0, 100),
-            y0,
-            method='BDF',
-            rtol=1e-5,  # Slightly relaxed for speed
-            atol=1e-6,
-            max_step=10.0
-        )
+
+        try:
+            with time_limit(30):
+                sol = solve_ivp(
+                    ode_func,
+                    (0, 100),
+                    y0,
+                    method='BDF',
+                    rtol=1e-5,  # Slightly relaxed for speed
+                    atol=1e-6,
+                    max_step=10.0
+                )
+        except TimeoutException:
+            if verbose:
+                print("Simulation timed out after 30s")
+            return None
 
         if not sol.success:
+            if verbose:
+                print(f"Solver failed: {sol.message}")
             return None
 
         # Extract final densities
@@ -192,6 +220,17 @@ def objective_function(x, param_names, params_base):
 
     x : array of parameter values (rates + E_field)
     """
+    # Progress counter
+    if not hasattr(objective_function, 'counter'):
+        objective_function.counter = 0
+        objective_function.start_time = time.time()
+
+    objective_function.counter += 1
+
+    if objective_function.counter % 10 == 0:
+        elapsed = time.time() - objective_function.start_time
+        print(f"  [{objective_function.counter} evaluations, {elapsed/60:.1f} min elapsed]")
+
     # Unpack parameters
     rate_values = {name: val for name, val in zip(param_names[:-1], x[:-1])}
     E_field = x[-1]
@@ -298,8 +337,8 @@ def main():
         bounds,
         args=(param_names, params_base),
         strategy='best1bin',
-        maxiter=100,  # Limit iterations for reasonable time
-        popsize=10,   # Population size
+        maxiter=30,   # Reduced for reliability (was 100)
+        popsize=8,    # Reduced for speed (was 10)
         tol=0.01,
         atol=0.0,
         mutation=(0.5, 1.0),

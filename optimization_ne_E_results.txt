@@ -1,0 +1,18 @@
+2-PARAMETER OPTIMIZATION RESULTS (Ne and E only)
+================================================================================
+
+All reaction rates kept at literature values.
+
+Optimized Ne: 1.655449e+09 cm^-3
+Optimized E:  200.000000 V/cm
+
+Objective value: 37224.637638
+Improvement over baseline: 7.9%
+
+================================================================================
+FINAL RESULTS
+================================================================================
+
+H: 3.437787e+13 cm^-3  (target: 5.18e+13, ratio: 0.66x)
+CH: 4.410563e+10 cm^-3  (target: 1.00e+09, ratio: 44.11x)
+C2: 7.239227e+11 cm^-3  (target: 1.30e+11, ratio: 5.57x)

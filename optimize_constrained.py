@@ -347,8 +347,8 @@ def main():
         bounds,
         args=(param_names, params_base),
         strategy='best1bin',
-        maxiter=30,   # Reduced for reliability (was 100)
-        popsize=8,    # Reduced for speed (was 10)
+        maxiter=10,   # Very conservative to ensure completion
+        popsize=5,    # Smaller population for speed
         tol=0.01,
         atol=0.0,
         mutation=(0.5, 1.0),

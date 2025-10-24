@@ -1,0 +1,30 @@
+================================================================================
+ TARGETED OPTIMIZATION - EXPANDED TUNABLE RATES
+================================================================================
+
+Starting from f=684, but with expanded rate list including:
+  - CH2+H→CH, C2+H→CH, C+H→CH (key CH sources)
+  - C2H2+H→C2 (key C2 source)
+  - CH+CH4 reactions (CH sinks)
+  - All wall sticking and volume loss rates
+
+Total: ~42 tunable rates
+
+✓ Selected 41 parameters
+
+Creating warm-start population from f=684...
+✓ Population created
+
+================================================================================
+ Running Optimization (25 iterations)
+================================================================================
+differential_evolution step 1: f(x)= 1000000.0
+Polishing solution with 'L-BFGS-B'
+
+================================================================================
+ COMPLETE (0.0 minutes)
+================================================================================
+
+Final: f(x) = 1000000.00
+
+✓ Results saved to optimization_results_targeted/

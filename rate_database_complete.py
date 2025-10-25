@@ -137,16 +137,20 @@ def get_complete_rate_database():
     db['CH5Plus_e_CH4_H_cm3_6_3'] = RateConstant(7.50e-07, 4.00e-07, 6.00e-07, "UMIST (2012)", notes="Scaled: 6e-7 * (1/2)^(-0.7) ≈ 7.5e-7")
 
     # ========== ELECTRON-IMPACT REACTIONS ==========
-    db['e_CH4Plus_CH3_H_cm3_6_4'] = RateConstant(6.00e-07, 3.20e-07, 4.80e-07, "UMIST (2012)", notes="Scaled: 4.8e-7 * (1/2)^(-0.7) ≈ 6e-7")
+    # CH4+ dissociative recombination - Updated with Thomas et al. (2013) literature values
+    # Total rate: 1.71e-6 cm³/s at 300K, Temperature dependence: (Te/300)^(-0.66)
+    # Literature branching: CH3+H(18%), CH2+2H(51%), CH2+H2(6%), CH+H2+H(23%), CH+2H2(2%)
+    # Note: Dominant channel CH2+2H (51%) is NOT in model - CH2+H2 used as proxy
+    db['e_CH4Plus_CH3_H_cm3_6_4'] = RateConstant(3.08e-07, 1.00e-07, 9.00e-07, "Thomas et al. (2013) + UMIST", notes="Literature: 1.71e-6 * 0.18 = 3.08e-7 (18% branching)")
     db['CH3Minus_ArPlus_CH3_Ar_cm3_6_5'] = RateConstant(1.50e-07, 8.00e-08, 1.20e-07, "UMIST (2012)", notes="Scaled: 1.2e-7 * (1/2)^(-0.7) ≈ 1.5e-7", flag="6.5 Needs validation")
     db['CH3Minus_CH4Plus_CH4_CH3_cm3_6_6'] = RateConstant(1.50e-07, 8.00e-08, 1.20e-07, "UMIST (2012)", notes="Scaled: 1.2e-7 * (1/2)^(-0.7) ≈ 1.5e-7", flag="6.6 Needs validation")
     db['CH3Minus_CH3Plus_CH4_CH2_cm3_6_7'] = RateConstant(1.50e-07, 8.00e-08, 1.20e-07, "UMIST (2012)", notes="Scaled: 1.2e-7 * (1/2)^(-0.7) ≈ 1.5e-7")
     db['CH5Plus_e_CH3_H2_cm3_6_8'] = RateConstant(1.50e-07, 8.00e-08, 1.20e-07, "UMIST (2012)", notes="Scaled: 1.2e-7 * (1/2)^(-0.7) ≈ 1.5e-7")
-    db['e_CH4Plus_CH2_H2_cm3_6_9'] = RateConstant(6.00e-07, 3.20e-07, 4.80e-07, "UMIST (2012)", notes="Scaled: 4.8e-7 * (1/2)^(-0.7) ≈ 6e-7")
+    db['e_CH4Plus_CH2_H2_cm3_6_9'] = RateConstant(9.74e-07, 1.00e-07, 3.00e-06, "Thomas et al. (2013) + UMIST", notes="Literature: 1.71e-6 * (0.06 + 0.51) = 9.74e-7 (CH2+H2 6% + proxy for CH2+2H 51%)")
     db['CH5Plus_e_CH2_H2_H_cm3_6_10'] = RateConstant(1.50e-07, 8.00e-08, 1.20e-07, "UMIST (2012)", notes="Scaled: 1.2e-7 * (1/2)^(-0.7) ≈ 1.5e-7")
-    db['e_CH4Plus_CH_H2_H_cm3_6_11'] = RateConstant(6.00e-07, 3.20e-07, 4.80e-07, "UMIST (2012)", notes="Scaled: 4.8e-7 * (1/2)^(-0.7) ≈ 6e-7")
+    db['e_CH4Plus_CH_H2_H_cm3_6_11'] = RateConstant(3.93e-07, 1.00e-07, 1.20e-06, "Thomas et al. (2013) + UMIST", notes="Literature: 1.71e-6 * 0.23 = 3.93e-7 (23% branching)")
     db['CH5Plus_e_CH3_2H_cm3_6_12'] = RateConstant(1.50e-07, 8.00e-08, 1.20e-07, "UMIST (2012)", notes="Scaled: 1.2e-7 * (1/2)^(-0.7) ≈ 1.5e-7")
-    db['e_CH4Plus_C_2H2_cm3_6_13'] = RateConstant(5.00e-07, 3.20e-07, 4.80e-07, "UMIST (2012)", notes="Scaled: 4e-7 * (1/2)^(-0.7) ≈ 5e-7")
+    db['e_CH4Plus_C_2H2_cm3_6_13'] = RateConstant(3.42e-08, 1.00e-08, 1.00e-07, "Thomas et al. (2013) + UMIST", notes="Literature: 1.71e-6 * 0.02 = 3.42e-8 (2% branching)")
     db['C2H5Plus_e_C2H4_H_cm3_6_14'] = RateConstant(3.00e-07, 2.40e-07, 3.60e-07, "UMIST (2012)", notes="Scaled: 2.4e-7 * (1/2)^(-0.7) ≈ 3e-7")
     db['C2H4Plus_e_C2H2_H2_cm3_6_15'] = RateConstant(3.00e-07, 2.40e-07, 3.60e-07, "UMIST (2012)", notes="Scaled: 2.4e-7 * (1/2)^(-0.7) ≈ 3e-7")
     db['C2H3Plus_e_C2H2_H_cm3_6_16'] = RateConstant(3.00e-07, 2.40e-07, 3.60e-07, "UMIST (2012)", notes="Scaled: 2.4e-7 * (1/2)^(-0.7) ≈ 3e-7")

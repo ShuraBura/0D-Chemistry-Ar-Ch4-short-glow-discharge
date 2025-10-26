@@ -1,0 +1,87 @@
+{
+  "CH": {
+    "primary": [
+      "CH2 + H → CH + H2 (52.2%)",
+      "C2 + H → CH + C (21.5%)",
+      "C + H → CH (9.7%)",
+      "e + CH4 → CH + H2 + H (8.3%)",
+      "CH + CH4 → C2H4 + H (34.0% loss)",
+      "CH + CH4 → CH2 + CH3 (22.7% loss)",
+      "CH + CH3 → C2H3/C2H2 + products (13.8% loss)",
+      "wall losses (14.5% loss)"
+    ],
+    "secondary": [
+      "H + CH4 → CH3 + H2 (produces CH3 for CH+CH3 reactions)",
+      "C2H2 + H → C2 + H2 + H (produces C2 for C2+H→CH)",
+      "CH2 + CH2 → C2H4 (produces C2H4 from CH+CH4)",
+      "CH3 + CH3 → C2H2 + H2 + H2 (produces C2H2 from CH+CH3)",
+      "CH2 + CH3 → C2H2 + H + H2 (produces C2H2 from CH+CH3)",
+      "e + CH4 → CH3 + H (produces CH3 for CH reactions)",
+      "CH + H → C + H2 (produces C for C+H→CH)"
+    ],
+    "tertiary": [
+      "ArPlus + CH4 → CH3Plus + H (produces H for CH2+H→CH)",
+      "ArPlus + CH4 → Ar + CH4Plus (produces CH4Plus for e recombination)",
+      "CH5Plus + e → CH4 + H (H production pathway)",
+      "CH2 + CH2 → C2 + H2 + H2 (C2 production from CH2)",
+      "C + CH3 → C2 + H2 + H (C2 production pathway)",
+      "CH2 + H → CH + H2 (feedback to primary)",
+      "ArStar + CH4 → CH3 + H (CH3 production)"
+    ]
+  },
+  "C2": {
+    "primary": [
+      "C2H2 + H → C2 + H2 + H (95.8%)",
+      "CH2 + CH2 → C2 + H2 + H2 (2.3%)",
+      "C2H2 + C → C2 + CH2 (1.3%)",
+      "wall losses (70.8% loss)",
+      "C2 + H → CH + C (19.8% loss)"
+    ],
+    "secondary": [
+      "CH3 + CH3 → C2H2 + H2 + H2 (87.9% of C2H2 production)",
+      "CH2 + CH3 → C2H2 + H + H2 (4.6% of C2H2 production)",
+      "CH2 + CH2 → C2H2 + H2 (1.6% of C2H2 production)",
+      "CH2 + H → CH + H2 (CH production for C2+H reaction)",
+      "C + H → CH (CH production pathway)",
+      "CH + H → C + H2 (C production for C2H2+C reaction)"
+    ],
+    "tertiary": [
+      "H + CH4 → CH3 + H2 (99.5% of CH3 production for C2H2)",
+      "CH + CH4 → CH2 + CH3 (CH2/CH3 production)",
+      "e + CH4 → CH3 + H (CH3 production)",
+      "e + CH4 → CH2 + H2 (CH2 production)",
+      "ArPlus + CH4 → CH3Plus + H (ionization pathway)",
+      "CH3Plus + CH4 → CH5Plus + CH2 (CH2 production)"
+    ]
+  },
+  "H": {
+    "primary": [
+      "CH2 + CH3 → C2H2 + H + H2 (29.4%)",
+      "ArPlus + CH4 → CH3Plus + H (16.1%)",
+      "CH + CH4 → C2H4 + H (11.5%)",
+      "C + CH3 → C2 + H2 + H (6.8%)",
+      "ArStar + CH4 → CH3 + H (6.5%)",
+      "e + CH4 → CH3 + H (5.6%)",
+      "H + CH4 → CH3 + H2 (77.0% loss)",
+      "wall losses (22.1% loss)"
+    ],
+    "secondary": [
+      "CH3 + CH3 → C2H2 + H2 + H2 (CH3 consumption producing C2H2)",
+      "CH3 + CH3 → CH2 + CH4 (CH3 consumption producing CH2)",
+      "ArStar + Ar → ArPlus + e (ArPlus production)",
+      "e + Ar → ArPlus + 2e (ArPlus production)",
+      "e + Ar → ArStar (ArStar production)",
+      "ArPlus + CH4 → Ar + CH4Plus (CH4Plus production)",
+      "CH4Plus + H2 → CH5Plus + H (H production from ions)"
+    ],
+    "tertiary": [
+      "CH5Plus + e → CH4 + H (H production from recombination)",
+      "CH5Plus + e → CH3 + 2H (H production pathway)",
+      "CH3Plus + e → CH3 (ion recombination)",
+      "ArPlus + e → Ar (ion recombination)",
+      "e + CH4 → CH4Plus + 2e (ionization)",
+      "ArStar + CH4 → CH4Plus + e (Penning ionization)",
+      "CH + CH4 → C2H4 + H (feedback)"
+    ]
+  }
+}

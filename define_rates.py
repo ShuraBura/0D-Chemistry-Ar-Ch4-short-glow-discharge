@@ -30,6 +30,7 @@ def define_rates(params):
     k['e_C2H2_C2_H2_cm3_1_16'] = 5e-11
     k['e_C2H4_C2H2_H_H_cm3_1_17'] = 2.5e-11
     k['e_C2H6_C2H2_2H2_cm3_1_18'] = 1.5e-11
+    k['e_CH4_CH3_HMinus_cm3_8_1'] = 1.0e-13  # NEW IN V7: Dissociative attachment
 
     # Group 2: Electron-Impact Ionization
     k['e_CH4_CH3Plus_H_cm3_2_1'] = 1e-11
@@ -129,6 +130,7 @@ def define_rates(params):
     k['CH3Plus_CH3Minus_CH4_CH2_H_cm3_6_26'] = 1.25e-7
     k['C2H5Plus_CH3Minus_C2H6_H_cm3_6_27'] = 1.25e-7
     k['C2H5Plus_e_C2H4_H_cm3_6_28'] = 3.6e-7
+    k['ArHPlus_e_Ar_H_cm3_6_29'] = 2.0e-7  # NEW IN V7: ArH+ recombination
 
     # Group 7: Neutral-Neutral Reactions
     k['CH2_H_CH_H2_cm3_7_1'] = 1.0e-11

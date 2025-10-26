@@ -166,6 +166,14 @@ def get_complete_rate_database():
     db['CH3Plus_CH3Minus_CH4_CH2_H_cm3_6_26'] = RateConstant(1.25e-07, 8.00e-08, 1.20e-07, "UMIST (2012)", notes="Scaled: 1e-7 * (1/2)^(-0.7) ≈ 1.25e-7")
     db['C2H5Plus_CH3Minus_C2H6_H_cm3_6_27'] = RateConstant(1.25e-07, 8.00e-08, 1.20e-07, "UMIST (2012)", notes="Scaled: 1e-7 * (1/2)^(-0.7) ≈ 1.25e-7")
     db['C2H5Plus_e_C2H4_H_cm3_6_28'] = RateConstant(3.60e-07, 2.40e-07, 3.60e-07, "UMIST (2012)", notes="Scaled: 3.6e-7 * (1/2)^(-0.7) ≈ 4.5e-7")
+
+    # NEW IN V7: ArH+ dissociative recombination (7.8% of ions in V6!)
+    db['ArHPlus_e_Ar_H_cm3_6_29'] = RateConstant(2.00e-07, 1.00e-07, 3.00e-07, "Estimated from Ar+ literature", notes="Similar to Ar+ recombination, k~1-3e-7 cm³/s")
+
+    # ========== ATTACHMENT REACTIONS ==========
+    # NEW IN V7: Dissociative attachment
+    db['e_CH4_CH3_HMinus_cm3_8_1'] = RateConstant(1.00e-13, 1.00e-15, 1.00e-12, "Estimated", notes="Dissociative attachment, very slow at low e⁻ energies")
+
     db['CH2_H_CH_H2_cm3_7_1'] = RateConstant(1.00e-11, 1.00e-11, 2.25e-11, "Baulch et al. (2005)")
     db['CH2_H_C_H2_H_cm3_7_2'] = RateConstant(1.20e-11, 8.00e-12, 1.20e-11, "Baulch et al. (2005)", flag="7.2 Needs discussion")
 

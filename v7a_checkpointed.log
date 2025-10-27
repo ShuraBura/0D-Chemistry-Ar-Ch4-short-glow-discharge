@@ -1,0 +1,73 @@
+================================================================================
+ V7a OPTIMIZATION WITH CHECKPOINTING - PURE SPECIES FOCUS
+================================================================================
+
+STRATEGY:
+  ✓ NO charge balance penalty (CHARGE_WEIGHT = 0)
+  ✓ 100% focus on H, CH, C2 targets
+  ✓ Checkpointing: survives system restarts
+  ✓ 25 iterations, 5 per batch
+
+Selecting tunable rates...
+  V7a selection: 114 rates
+
+Starting fresh optimization: 25 iterations
+
+================================================================================
+ BATCH: Iterations 1-5 of 25
+================================================================================
+
+  *** NEW BEST: f(x) = 70874.06 at evaluation 1
+      H: 3.57e+13 (target: 5.18e+13, ratio: 0.69x)
+      CH: 4.96e+10 (target: 1.00e+09, ratio: 49.60x)
+      C2: 3.25e+11 (target: 1.30e+11, ratio: 2.50x)
+
+
+  *** NEW BEST: f(x) = 18785.99 at evaluation 2
+      H: 3.12e+13 (target: 5.18e+13, ratio: 0.60x)
+      CH: 2.60e+10 (target: 1.00e+09, ratio: 26.02x)
+      C2: 1.21e+11 (target: 1.30e+11, ratio: 0.93x)
+
+
+  *** NEW BEST: f(x) = 10937.88 at evaluation 3
+      H: 2.70e+13 (target: 5.18e+13, ratio: 0.52x)
+      CH: 2.01e+10 (target: 1.00e+09, ratio: 20.09x)
+      C2: 1.84e+11 (target: 1.30e+11, ratio: 1.41x)
+
+
+  *** NEW BEST: f(x) = 9942.19 at evaluation 7
+      H: 2.22e+13 (target: 5.18e+13, ratio: 0.43x)
+      CH: 1.92e+10 (target: 1.00e+09, ratio: 19.20x)
+      C2: 1.11e+11 (target: 1.30e+11, ratio: 0.85x)
+
+  [10 evaluations, 0.1 min elapsed]
+  [20 evaluations, 0.1 min elapsed]
+
+  *** NEW BEST: f(x) = 9882.53 at evaluation 23
+      H: 2.77e+13 (target: 5.18e+13, ratio: 0.53x)
+      CH: 1.91e+10 (target: 1.00e+09, ratio: 19.15x)
+      C2: 1.26e+11 (target: 1.30e+11, ratio: 0.97x)
+
+  [30 evaluations, 0.2 min elapsed]
+
+  *** NEW BEST: f(x) = 9039.95 at evaluation 37
+      H: 2.60e+13 (target: 5.18e+13, ratio: 0.50x)
+      CH: 1.84e+10 (target: 1.00e+09, ratio: 18.36x)
+      C2: 1.28e+11 (target: 1.30e+11, ratio: 0.98x)
+
+  [40 evaluations, 0.2 min elapsed]
+  [50 evaluations, 0.3 min elapsed]
+
+  *** NEW BEST: f(x) = 5712.33 at evaluation 52
+      H: 2.88e+13 (target: 5.18e+13, ratio: 0.56x)
+      CH: 1.48e+10 (target: 1.00e+09, ratio: 14.80x)
+      C2: 1.10e+11 (target: 1.30e+11, ratio: 0.85x)
+
+  [60 evaluations, 0.3 min elapsed]
+  [70 evaluations, 0.4 min elapsed]
+  [80 evaluations, 0.5 min elapsed]
+  [90 evaluations, 0.5 min elapsed]
+  [100 evaluations, 0.6 min elapsed]
+  [110 evaluations, 0.7 min elapsed]
+  [120 evaluations, 0.7 min elapsed]
+  [130 evaluations, 0.8 min elapsed]

@@ -72,6 +72,10 @@ def build_reactions(params):
     push(sto('e', 1, 'C2H2', 1), sto('C2', 1, 'H2', 1), k['e_C2H2_C2_H2_cm3_1_16'], 'e_C2H2_C2_H2_cm3_1_16')
     push(sto('e', 1, 'C2H4', 1), sto('C2H2', 1, 'H', 2), k['e_C2H4_C2H2_H_H_cm3_1_17'], 'e_C2H4_C2H2_H_H_cm3_1_17')
     push(sto('e', 1, 'C2H6', 1), sto('C2H2', 1, 'H2', 2), k['e_C2H6_C2H2_2H2_cm3_1_18'], 'e_C2H6_C2H2_2H2_cm3_1_18')
+    # New reactions from audit
+    push(sto('e', 1, 'C2H2', 1), sto('e', 1, 'C2H', 1, 'H', 1), k['e_C2H2_C2H_H_cm3_1_19'], 'e_C2H2_C2H_H_cm3_1_19')
+    push(sto('e', 1, 'C2H4', 1), sto('e', 1, 'C2H3', 1, 'H', 1), k['e_C2H4_C2H3_H_cm3_1_20'], 'e_C2H4_C2H3_H_cm3_1_20')
+    push(sto('e', 1, 'C2H6', 1), sto('e', 1, 'C2H5', 1, 'H', 1), k['e_C2H6_C2H5_H_cm3_1_21'], 'e_C2H6_C2H5_H_cm3_1_21')
 
     # Group 2: Electron-Impact Ionization
     push(sto('e', 1, 'CH4', 1), sto('CH3Plus', 1, 'H', 1, 'e', 2), k['e_CH4_CH3Plus_H_cm3_2_1'], 'e_CH4_CH3Plus_H_cm3_2_1')
@@ -236,10 +240,14 @@ def build_reactions(params):
     push(sto('CH3', 1, 'C2H5', 1), sto('C2H2', 1, 'CH3', 1, 'H2', 1), k['CH3_C2H5_C2H2_CH3_H2_cm3_7_61'], 'CH3_C2H5_C2H2_CH3_H2_cm3_7_61')
     push(sto('CH2', 1, 'CH3', 1), sto('C2H2', 1, 'H', 1, 'H2', 1), k['CH2_CH3_C2H2_H_H2_cm3_7_62'], 'CH2_CH3_C2H2_H_H2_cm3_7_62')
     push(sto('CH2', 1, 'C2H5', 1), sto('C2H2', 1, 'CH3', 1, 'H', 1), k['CH2_C2H5_C2H2_CH3_H_cm3_7_63'], 'CH2_C2H5_C2H2_CH3_H_cm3_7_63')
+    # New reactions from audit
+    push(sto('C', 2), sto('C2', 1), k['C_C_M_C2_M_cm6_7_64'], 'C_C_M_C2_M_cm6_7_64')
+    push(sto('H', 1, 'C2H4', 1), sto('C2H3', 1, 'H2', 1), k['H_C2H4_C2H3_H2_cm3_7_65'], 'H_C2H4_C2H3_H2_cm3_7_65')
 
     # Group 8: Termolecular Recombination
     push(sto('H', 2), sto('H2', 1), k['H_H_M_H2_M_cm6_8_1'], 'H_H_M_H2_M_cm6_8_1')
     push(sto('CH3', 2), sto('C2H6', 1), k['CH3_CH3_M_C2H6_M_cm6_8_2'], 'CH3_CH3_M_C2H6_M_cm6_8_2')
+    push(sto('CH3', 1, 'H', 1), sto('CH4', 1), k['CH3_H_M_CH4_M_cm6_8_3'], 'CH3_H_M_CH4_M_cm6_8_3')
 
     # Group 9: Stick Reactions
     push(sto('H', 1), sto(), k['stick_H_9_1'], 'stick_H_9_1')

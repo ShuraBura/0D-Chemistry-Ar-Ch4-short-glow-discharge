@@ -76,3 +76,29 @@ Starting fresh optimization: 25 iterations
   [90 evaluations, 0.5 min elapsed]
   [100 evaluations, 0.6 min elapsed]
   [110 evaluations, 0.7 min elapsed]
+  [120 evaluations, 0.7 min elapsed]
+  [130 evaluations, 0.8 min elapsed]
+  [140 evaluations, 0.8 min elapsed]
+  [150 evaluations, 0.9 min elapsed]
+  [160 evaluations, 0.9 min elapsed]
+  [170 evaluations, 1.0 min elapsed]
+  [180 evaluations, 1.1 min elapsed]
+  [190 evaluations, 1.1 min elapsed]
+  [200 evaluations, 1.2 min elapsed]
+  [210 evaluations, 1.2 min elapsed]
+  [220 evaluations, 1.3 min elapsed]
+  [230 evaluations, 1.4 min elapsed]
+
+  *** NEW BEST: f(x) = 4302.95 at evaluation 231
+      H: 2.33e+13 (target: 5.18e+13, ratio: 0.45x)
+      CH: 1.28e+10 (target: 1.00e+09, ratio: 12.77x)
+      C2: 9.83e+10 (target: 1.30e+11, ratio: 0.76x)
+      Ion/e: 0.14x (target: 4.5x, weight: 150.0)
+
+  [240 evaluations, 1.4 min elapsed]
+  [250 evaluations, 1.5 min elapsed]
+  [260 evaluations, 1.5 min elapsed]
+  [270 evaluations, 1.6 min elapsed]
+  [280 evaluations, 1.7 min elapsed]
+  [290 evaluations, 1.7 min elapsed]
+  [300 evaluations, 1.8 min elapsed]

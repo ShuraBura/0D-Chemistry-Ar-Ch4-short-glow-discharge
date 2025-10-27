@@ -32,7 +32,7 @@ CHARGE_BALANCE_WEIGHT = 150.0  # NO CHARGE PENALTY
 
 CHECKPOINT_FILE = 'v7b_checkpoint.pkl'
 RESULTS_DIR = 'optimization_results_v7b_pure_species'
-ITERATIONS_PER_BATCH = 5  # Save checkpoint every 5 iterations
+ITERATIONS_PER_BATCH = 1  # Save checkpoint after EVERY iteration (survive fast reboots)
 TOTAL_ITERATIONS = 25
 
 os.makedirs(RESULTS_DIR, exist_ok=True)

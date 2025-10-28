@@ -1,13 +1,9 @@
 #!/usr/bin/env python3
 """
-Focused Parameter Sweep for CG with Experimental Constraints
+REDUCED Parameter Sweep for CG - Faster Version
 
-Hard constraints:
-- ne ≤ 1e9 cm⁻³
-- E ~ 500 V/cm
-- CG: 0-2 mm from copper cathode
-- Tg: 570-800 K
-- L_diff: 0-1 mm
+Reduced grid for quick testing (108 runs vs 384)
+Runtime: ~15-25 minutes
 """
 
 import numpy as np
@@ -52,7 +48,7 @@ def calculate_initial_densities(params):
     set_density('CH5Plus', ne * 0.01)
     set_density('ArHPlus', ne * 0.1)
     set_density('CH3Minus', ne * 0.01)
-    set_density('H2', 5e12)  # Higher initial H2
+    set_density('H2', 5e12)
     set_density('ArStar', ne * 0.5)
     set_density('H', 1e15)
     set_density('C2', 1e11)
@@ -71,7 +67,6 @@ def calculate_initial_densities(params):
 def run_simulation(params_dict):
     """Run a single simulation."""
     try:
-        # Base parameters
         params = {
             'P': 0.4,
             'n_tot': 9.66e15,
@@ -92,21 +87,15 @@ def run_simulation(params_dict):
             }
         }
 
-        # Add variable parameters
         params.update(params_dict)
-
-        # Build reactions with tunable rates
         params['k'] = define_rates_tunable(params)
         params['R'], params['tags'] = build_reactions(params)
 
-        # Initial conditions
         y0 = calculate_initial_densities(params)
 
-        # Shorter time for sweep
         t_span = (0, 30)
         t_eval = [30]
 
-        # Solve
         ode_func = PlasmaODE(params)
         sol = solve_ivp(
             ode_func,
@@ -122,7 +111,6 @@ def run_simulation(params_dict):
         if not sol.success:
             return None
 
-        # Extract results
         species = params['species']
         results = {}
         for name in ['H', 'CH', 'C2']:
@@ -132,7 +120,6 @@ def run_simulation(params_dict):
             except ValueError:
                 results[name] = 1e-30
 
-        # Calculate error (log-scale)
         error_h = np.abs(np.log10(results['H'] / TARGETS['H']))
         error_ch = np.abs(np.log10(results['CH'] / TARGETS['CH']))
         error_c2 = np.abs(np.log10(results['C2'] / TARGETS['C2']))
@@ -156,51 +143,40 @@ def run_simulation(params_dict):
 
 
 def main():
-    """Run focused parameter sweep with experimental constraints."""
+    """Run REDUCED parameter sweep."""
     print("=" * 80)
-    print("COMPREHENSIVE PARAMETER SWEEP - CG with Experimental Constraints")
+    print("REDUCED PARAMETER SWEEP - CG (Faster Version)")
     print("=" * 80)
 
-    print("\nExperimental Constraints:")
-    print("  ne ≤ 1e9 cm⁻³  (cannot go higher in CG)")
-    print("  E: 400-800 V/cm (gradient in cathode fall, now TUNABLE!)")
-    print("  Cathode: Copper (clean initially, contaminated during operation)")
-    print("  Tg: 570-800 K (higher than assumed!)")
-    print("  L_diff: 0-1 mm")
-    print("  Spatial averaging: 0-1 mm from cathode (CRITICAL!)")
+    print("\nNote: This is a REDUCED grid for faster testing")
+    print("For comprehensive sweep, use: sweep_cg_constrained.py")
 
-    print("\nTALIF Targets (CG):")
+    print("\nTALIF Targets (spatially averaged over 0-1 mm):")
     print(f"  H:  {TARGETS['H']:.2e} cm⁻³")
     print(f"  CH: {TARGETS['CH']:.2e} cm⁻³")
     print(f"  C2: {TARGETS['C2']:.2e} cm⁻³")
 
-    # COMPREHENSIVE parameter ranges (with E-field sweep!)
+    # REDUCED parameter ranges
     param_grid = {
-        'ne': [3e8, 5e8, 8e8, 1e9],              # cm⁻³ (MAX 1e9!)
-        'Te': [3.0, 5.0, 7.0],                   # eV (high, non-thermal)
-        'E_field': [400, 500, 600, 800],         # V/cm (TUNABLE, gradient in cathode fall)
-        'Tgas': [570, 700],                      # K (from measurement)
-        'L_diff': [0.1],                         # cm (fixed at 1 mm)
-        'gamma_H': [0.001, 0.01, 0.05, 0.1],     # Copper: clean→contaminated
+        'ne': [5e8, 1e9],                        # cm⁻³ (2 values, focused on high)
+        'Te': [3.0, 5.0, 7.0],                   # eV (3 values)
+        'E_field': [400, 600, 800],              # V/cm (3 values, key points)
+        'Tgas': [570, 700],                      # K (2 values)
+        'L_diff': [0.1],                         # cm (fixed)
+        'gamma_H': [0.001, 0.01, 0.05],          # (3 values, typical range)
     }
 
-    print("\nParameter Ranges:")
+    print("\nParameter Ranges (REDUCED):")
     for param, values in param_grid.items():
         print(f"  {param}: {values}")
 
-    # Generate all combinations
     keys = list(param_grid.keys())
     values = list(param_grid.values())
     combinations = list(itertools.product(*values))
 
     total_runs = len(combinations)
     print(f"\nTotal runs: {total_runs}")
-    if total_runs > 200:
-        print(f"Expected runtime: ~30-60 minutes (comprehensive sweep)")
-    elif total_runs > 100:
-        print(f"Expected runtime: ~15-30 minutes")
-    else:
-        print(f"Expected runtime: ~5-15 minutes")
+    print(f"Expected runtime: ~15-25 minutes")
 
     # Run sweep
     print("\nStarting sweep...")
@@ -210,10 +186,10 @@ def main():
     for i, combo in enumerate(combinations):
         params_dict = dict(zip(keys, combo))
 
-        if (i + 1) % 5 == 0 or i == 0:
+        if (i + 1) % 10 == 0 or i == 0:
             print(f"  Progress: {i+1}/{total_runs} ({100*(i+1)/total_runs:.0f}%) "
-                  f"[Te={params_dict['Te']:.1f}, ne={params_dict['ne']:.1e}, "
-                  f"γ_H={params_dict['gamma_H']:.3f}]")
+                  f"[ne={params_dict['ne']:.1e}, Te={params_dict['Te']:.1f}, "
+                  f"E={params_dict['E_field']:.0f}, γ_H={params_dict['gamma_H']:.3f}]")
 
         result = run_simulation(params_dict)
         if result is not None:
@@ -227,11 +203,10 @@ def main():
         print("ERROR: No successful runs!")
         return
 
-    # Sort by error
+    # Sort and display
     results_sorted = sorted(results, key=lambda x: x['error'])
     best = results_sorted[0]
 
-    # Print results
     print("\n" + "=" * 80)
     print("BEST FIT PARAMETERS")
     print("=" * 80)
@@ -240,7 +215,7 @@ def main():
     print(f"  E-field: {best['E_field']:.0f} V/cm")
     print(f"  Tgas:    {best['Tgas']:.0f} K")
     print(f"  L_diff:  {best['L_diff']:.3f} cm")
-    print(f"  γ_H:     {best['gamma_H']:.4f} (copper recombination)")
+    print(f"  γ_H:     {best['gamma_H']:.4f}")
 
     print("\nResults vs Targets:")
     print(f"  {'Species':<8} {'Target':<15} {'Model':<15} {'Factor':<10} {'Log Error':<10}")
@@ -254,7 +229,7 @@ def main():
 
     print(f"\nTotal error: {best['error']:.3f}")
 
-    # Check if any species is close
+    # Assessment
     h_close = 0.1 < (best['H'] / TARGETS['H']) < 10
     ch_close = 0.1 < (best['CH'] / TARGETS['CH']) < 10
     c2_close = 0.1 < (best['C2'] / TARGETS['C2']) < 10
@@ -264,31 +239,33 @@ def main():
     print(f"  CH: {'✓ Within factor 10' if ch_close else '✗ Outside factor 10'}")
     print(f"  C2: {'✓ Within factor 10' if c2_close else '✗ Outside factor 10'}")
 
-    # Show top 10
+    # Top 10
     print("\n" + "=" * 80)
     print("TOP 10 PARAMETER SETS")
     print("=" * 80)
-    print(f"{'#':<3} {'ne':>10} {'Te':>6} {'Tg':>5} {'γ_H':>7} {'H_factor':>9} {'CH_factor':>10} {'C2_factor':>10} {'Error':>7}")
+    print(f"{'#':<3} {'ne':>10} {'Te':>6} {'E':>5} {'Tg':>5} {'γ_H':>7} "
+          f"{'H_fact':>8} {'CH_fact':>9} {'C2_fact':>9} {'Error':>7}")
     print("-" * 80)
 
     for i, r in enumerate(results_sorted[:10]):
         h_factor = r['H'] / TARGETS['H']
         ch_factor = r['CH'] / TARGETS['CH']
         c2_factor = r['C2'] / TARGETS['C2']
-        print(f"{i+1:<3} {r['ne']:>10.1e} {r['Te']:>6.1f} {r['Tgas']:>5.0f} "
-              f"{r['gamma_H']:>7.4f} {h_factor:>9.2f} {ch_factor:>10.2f} {c2_factor:>10.2f} {r['error']:>7.3f}")
+        print(f"{i+1:<3} {r['ne']:>10.1e} {r['Te']:>6.1f} {r['E_field']:>5.0f} {r['Tgas']:>5.0f} "
+              f"{r['gamma_H']:>7.4f} {h_factor:>8.2f} {ch_factor:>9.2f} {c2_factor:>9.2f} {r['error']:>7.3f}")
 
-    # Save results
+    # Save
     print("\nSaving results...")
-    with open('cg_constrained_sweep_results.json', 'w') as f:
+    with open('cg_reduced_sweep_results.json', 'w') as f:
         json.dump({
             'best': best,
-            'all_results': results_sorted[:50]  # Top 50
+            'all_results': results_sorted[:50]
         }, f, indent=2)
 
     print("\nFiles created:")
-    print("  - cg_constrained_sweep_results.json")
-    print("\nDone!")
+    print("  - cg_reduced_sweep_results.json")
+    print("\nFor comprehensive sweep (384 runs), use: sweep_cg_constrained.py")
+    print("Done!")
 
 
 if __name__ == '__main__':

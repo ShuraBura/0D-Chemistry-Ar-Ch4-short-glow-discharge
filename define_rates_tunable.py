@@ -312,11 +312,23 @@ def define_rates_tunable(params):
     # ===================================================================
     # Group 11: Loss Reactions (BASED ON L_diff!)
     # Formula: k_loss = D / L_diff²
+    # For H on copper: k_loss_eff = gamma_H × (D / L_diff²)
     # ===================================================================
+    # Get wall recombination coefficient for H on copper
+    gamma_H = params.get('gamma_H', 0.01)  # Default: 1% sticks on copper, 99% reflects
+
     # Calculate wall losses from diffusion length
     for species_name, D_400K in D_ref.items():
         D = D_400K * D_scale
-        k_loss = D / (L_diff ** 2)
+        k_loss_diffusion = D / (L_diff ** 2)
+
+        # For H atoms on copper: only fraction gamma_H actually recombines and is lost
+        # Fraction (1-gamma_H) reflects back to gas phase
+        if species_name == 'H':
+            k_loss = gamma_H * k_loss_diffusion
+        else:
+            k_loss = k_loss_diffusion  # Other species: assume full loss
+
         # Map to reaction names
         loss_map = {
             'H': None,  # H uses stick reaction instead

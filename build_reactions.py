@@ -86,6 +86,7 @@ def build_reactions(params):
     push(sto('e', 1, 'C2H4', 1), sto('e', 2, 'C2H4Plus', 1), k['e_C2H4_C2H4Plus_2e_cm3_2_6'], 'e_C2H4_C2H4Plus_2e_cm3_2_6')
     push(sto('e', 1, 'C2H4', 1), sto('e', 2, 'C2H3Plus', 1, 'H', 1), k['e_C2H4_C2H3Plus_H_2e_cm3_2_7'], 'e_C2H4_C2H3Plus_H_2e_cm3_2_7')
     push(sto('e', 1, 'C2H2', 1), sto('e', 2, 'C2HPlus', 1, 'H', 1), k['e_C2H2_C2HPlus_2e_cm3_2_8'], 'e_C2H2_C2HPlus_2e_cm3_2_8')
+    push(sto('e', 1, 'H2', 1), sto('e', 2, 'H2Plus', 1), k['e_H2_H2Plus_2e_cm3_2_9'], 'e_H2_H2Plus_2e_cm3_2_9')
 
     # Group 3: ArStar Reactions
     push(sto('ArStar', 1, 'CH4', 1), sto('Ar', 1, 'CH3', 1, 'H', 1), k['ArStar_CH4_CH3_H_cm3_3_1'], 'ArStar_CH4_CH3_H_cm3_3_1')
@@ -145,6 +146,10 @@ def build_reactions(params):
     push(sto('CH2', 1, 'CH3Plus', 1), sto('CH3', 1, 'CH2Plus', 1), k['CH2_CH3Plus_CH3_CH2Plus_cm3_5_10'], 'CH2_CH3Plus_CH3_CH2Plus_cm3_5_10')
     push(sto('CH3Plus', 1, 'CH4', 1), sto('C2H5Plus', 1, 'H2', 1), k['CH3Plus_CH4_C2H5Plus_H2_cm3_5_11'], 'CH3Plus_CH4_C2H5Plus_H2_cm3_5_11')
     push(sto('CH5Plus', 1, 'C2H4', 1), sto('C2H5Plus', 1, 'CH4', 1), k['CH5Plus_C2H4_C2H5Plus_CH4_cm3_5_12'], 'CH5Plus_C2H4_C2H5Plus_CH4_cm3_5_12')
+    # H3+ chemistry
+    push(sto('H2Plus', 1, 'H2', 1), sto('H3Plus', 1, 'H', 1), k['H2Plus_H2_H3Plus_H_cm3_5_13'], 'H2Plus_H2_H3Plus_H_cm3_5_13')
+    push(sto('H3Plus', 1, 'CH4', 1), sto('CH5Plus', 1, 'H2', 1), k['H3Plus_CH4_CH5Plus_H2_cm3_5_14'], 'H3Plus_CH4_CH5Plus_H2_cm3_5_14')
+    push(sto('H3Plus', 1, 'H2', 1), sto('H2Plus', 1, 'H2', 1), k['H3Plus_H2_H2Plus_H2_cm3_5_15'], 'H3Plus_H2_H2Plus_H2_cm3_5_15')
 
     # Group 6: Dissociative Recombination
     push(sto('ArPlus', 1, 'e', 1), sto('Ar', 1), k['ArPlus_e_Ar_cm3_6_1'], 'ArPlus_e_Ar_cm3_6_1')
@@ -175,6 +180,10 @@ def build_reactions(params):
     push(sto('CH3Plus', 1, 'CH3Minus', 1), sto('CH4', 1, 'CH2', 1, 'H', 1), k['CH3Plus_CH3Minus_CH4_CH2_H_cm3_6_26'], 'CH3Plus_CH3Minus_CH4_CH2_H_cm3_6_26')
     push(sto('C2H5Plus', 1, 'CH3Minus', 1), sto('C2H6', 1, 'H', 1), k['C2H5Plus_CH3Minus_C2H6_H_cm3_6_27'], 'C2H5Plus_CH3Minus_C2H6_H_cm3_6_27')
     push(sto('C2H5Plus', 1, 'e', 1), sto('C2H4', 1, 'H', 1), k['C2H5Plus_e_C2H4_H_cm3_6_28'], 'C2H5Plus_e_C2H4_H_cm3_6_28')
+    # H2+ and H3+ recombination
+    push(sto('H2Plus', 1, 'e', 1), sto('H', 2), k['H2Plus_e_H_H_cm3_6_29'], 'H2Plus_e_H_H_cm3_6_29')
+    push(sto('H3Plus', 1, 'e', 1), sto('H2', 1, 'H', 1), k['H3Plus_e_H2_H_cm3_6_30'], 'H3Plus_e_H2_H_cm3_6_30')
+    push(sto('H3Plus', 1, 'e', 1), sto('H', 3), k['H3Plus_e_H_H_H_cm3_6_31'], 'H3Plus_e_H_H_H_cm3_6_31')
 
     # Group 7: Neutral-Neutral Reactions (continuing...)
     push(sto('CH2', 1, 'H', 1), sto('CH', 1, 'H2', 1), k['CH2_H_CH_H2_cm3_7_1'], 'CH2_H_CH_H2_cm3_7_1')
@@ -278,6 +287,7 @@ def build_reactions(params):
     push(sto('H3Plus', 1), sto(), k['stick_H3Plus_9_26'], 'stick_H3Plus_9_26')
     push(sto('CHPlus', 1), sto(), k['stick_CHPlus_9_27'], 'stick_CHPlus_9_27')
     push(sto('C2HPlus', 1), sto(), k['stick_C2HPlus_9_28'], 'stick_C2HPlus_9_28')
+    push(sto('H2Plus', 1), sto(), k['stick_H2Plus_9_29'], 'stick_H2Plus_9_29')
 
     # Group 10: Drift Losses
     push(sto('ArPlus', 1), sto(), k['drift_ArPlus_10_1'], 'drift_ArPlus_10_1')
@@ -293,6 +303,7 @@ def build_reactions(params):
     push(sto('CHPlus', 1), sto(), k['drift_CHPlus_10_11'], 'drift_CHPlus_10_11')
     push(sto('CH3Minus', 1), sto(), k['drift_CH3Minus_10_12'], 'drift_CH3Minus_10_12')
     push(sto('C2HPlus', 1), sto(), k['drift_C2HPlus_10_13'], 'drift_C2HPlus_10_13')
+    push(sto('H2Plus', 1), sto(), k['drift_H2Plus_10_14'], 'drift_H2Plus_10_14')
 
     # Group 11: Loss Reactions
     push(sto('CH2', 1), sto(), k['loss_CH2_11_1'], 'loss_CH2_11_1')

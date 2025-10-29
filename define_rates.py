@@ -44,6 +44,7 @@ def define_rates(params):
     k['e_C2H4_C2H4Plus_2e_cm3_2_6'] = 1.2e-11
     k['e_C2H4_C2H3Plus_H_2e_cm3_2_7'] = 8e-12
     k['e_C2H2_C2HPlus_2e_cm3_2_8'] = 8e-12
+    k['e_H2_H2Plus_2e_cm3_2_9'] = 3e-12  # H2 ionization
 
     # Group 3: Ar* Reactions
     k['ArStar_CH4_CH3_H_cm3_3_1'] = 5e-10
@@ -103,6 +104,10 @@ def define_rates(params):
     k['CH2_CH3Plus_CH3_CH2Plus_cm3_5_10'] = 1e-9
     k['CH3Plus_CH4_C2H5Plus_H2_cm3_5_11'] = 1e-9
     k['CH5Plus_C2H4_C2H5Plus_CH4_cm3_5_12'] = 8e-10
+    # H3+ chemistry (CRITICAL!)
+    k['H2Plus_H2_H3Plus_H_cm3_5_13'] = 2.0e-9  # Very fast H3+ formation
+    k['H3Plus_CH4_CH5Plus_H2_cm3_5_14'] = 1.5e-9  # Proton transfer
+    k['H3Plus_H2_H2Plus_H2_cm3_5_15'] = 6.4e-10  # Reverse formation (minor)
 
     # Group 6: Dissociative Recombination
     k['ArPlus_e_Ar_cm3_6_1'] = 1.5e-7
@@ -133,6 +138,10 @@ def define_rates(params):
     k['CH3Plus_CH3Minus_CH4_CH2_H_cm3_6_26'] = 1.25e-7
     k['C2H5Plus_CH3Minus_C2H6_H_cm3_6_27'] = 1.25e-7
     k['C2H5Plus_e_C2H4_H_cm3_6_28'] = 3.6e-7
+    # H2+ and H3+ recombination
+    k['H2Plus_e_H_H_cm3_6_29'] = 2.3e-8  # H2+ + e → H + H
+    k['H3Plus_e_H2_H_cm3_6_30'] = 2.3e-7  # H3+ + e → H2 + H (dominant)
+    k['H3Plus_e_H_H_H_cm3_6_31'] = 4.8e-8  # H3+ + e → H + H + H
 
     # Group 7: Neutral-Neutral Reactions
     k['CH2_H_CH_H2_cm3_7_1'] = 1.0e-11
@@ -236,6 +245,7 @@ def define_rates(params):
     k['stick_H3Plus_9_26'] = 5e3
     k['stick_CHPlus_9_27'] = 5e3
     k['stick_C2HPlus_9_28'] = 5e3
+    k['stick_H2Plus_9_29'] = 5e3  # H2+ wall loss
 
     # Group 10: Drift Losses
     k['drift_ArPlus_10_1'] = mobilities['ArPlus'] * E_field / L_discharge
@@ -251,6 +261,7 @@ def define_rates(params):
     k['drift_CHPlus_10_11'] = mobilities['CHPlus'] * E_field / L_discharge
     k['drift_CH3Minus_10_12'] = mobilities['CH3Minus'] * E_field / L_discharge
     k['drift_C2HPlus_10_13'] = mobilities['C2HPlus'] * E_field / L_discharge
+    k['drift_H2Plus_10_14'] = mobilities['H2Plus'] * E_field / L_discharge  # H2+ drift
 
     # Group 11: Loss Reactions (reduced by 5-10x based on P=0.4 Torr, L=0.45 cm)
     k['loss_CH2_11_1'] = 5e2

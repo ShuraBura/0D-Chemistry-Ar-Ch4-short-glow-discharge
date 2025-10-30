@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-Test single simulation run to check timing
+CSB Validation with FIXED H density - SIMPLE VERSION
+Just set H derivative to zero after computing reactions
 """
 
 import numpy as np
@@ -11,26 +12,46 @@ from define_rates_tunable import define_rates_tunable
 from build_reactions import build_reactions
 from odefun import PlasmaODE
 
-# Updated CG Targets (Measured 2025-10-30)
+# CSB Targets
 TARGETS = {
-    'H': 9.58e15,    # cm⁻³ (measured spatial average)
-    'CH': 4.29e8,    # cm⁻³ (measured spatial average)
-    'C2': 1.50e11,   # cm⁻³ (measured spatial average)
+    'H': 6.35e14,    # cm⁻³ (FIXED)
+    'CH': 9.27e8,    # cm⁻³
+    'C2': 5.56e11,   # cm⁻³
 }
 
+# Fixed H ODE wrapper
+class PlasmaODE_FixedH(PlasmaODE):
+    """Plasma ODE with FIXED H density."""
+    def __init__(self, params, fixed_species=None):
+        super().__init__(params)
+        self.fixed_species = fixed_species or {}
+        self.fixed_indices = {}
+        for name in self.fixed_species:
+            try:
+                self.fixed_indices[name] = self.species.index(name)
+            except ValueError:
+                pass
+
+    def __call__(self, t, y):
+        dydt = super().__call__(t, y)
+        # Set derivatives to zero for fixed species
+        for name, idx in self.fixed_indices.items():
+            dydt[idx] = 0.0
+        return dydt
+
 print("="*80)
-print("SINGLE SIMULATION TEST - CG Region")
+print("CSB VALIDATION with FIXED H")
 print("="*80)
-print(f"\nTargets:")
-print(f"  H:  {TARGETS['H']:.2e} cm⁻³")
+print(f"\nCSB Targets:")
+print(f"  H:  {TARGETS['H']:.2e} cm⁻³  [FIXED]")
 print(f"  CH: {TARGETS['CH']:.2e} cm⁻³")
 print(f"  C2: {TARGETS['C2']:.2e} cm⁻³")
 
-# Test parameters
+# CSB parameters
 params = {
-    'P': 0.4,           # Torr
-    'n_tot': 9.66e15,   # cm⁻³
-    'L_discharge': 0.45,# cm
+    'P': 0.4,
+    'n_tot': 9.66e15,
+    'L_discharge': 0.45,
     'species': ['e', 'Ar', 'CH4', 'ArPlus', 'CH4Plus', 'CH3Plus', 'CH5Plus', 'ArHPlus',
                 'CH3Minus', 'H', 'C2', 'CH', 'H2', 'ArStar', 'C2H4', 'C2H6', 'CH2',
                 'C2H2', 'C2H5', 'CH3', 'C', 'H3Plus', 'C2H3', 'C3H2', 'CHPlus', 'C3H',
@@ -45,22 +66,20 @@ params = {
         'C2H3Plus': 4949.6, 'C2HPlus': 5000, 'H3Plus': 5000, 'CHPlus': 5000,
         'H2Plus': 5000, 'CH3Minus': 3000, 'HMinus': 3000
     },
-    'ne': 8e8,          # cm⁻³ (middle-high range)
-    'Te': 5.0,          # eV (middle range for non-thermal)
-    'E_field': 600,     # V/cm (middle of 400-800 range)
-    'Tgas': 570,        # K (measured)
-    'L_diff': 0.057,    # cm (MEASURED from H profile!)
-    'gamma_H': 0.01,    # wall recombination (middle range)
+    'ne': 5e9,          # cm⁻³
+    'Te': 1.0,          # eV
+    'E_field': 100,     # V/cm
+    'Tgas': 400,        # K
+    'L_diff': 0.1,      # cm
+    'gamma_H': 0.01,
     'scale_e_impact': 1.0
 }
 
-print(f"\nTest Parameters (Best Guess):")
+print(f"\nCSB Parameters:")
 print(f"  ne = {params['ne']:.1e} cm⁻³")
 print(f"  Te = {params['Te']} eV")
 print(f"  E = {params['E_field']} V/cm")
-print(f"  Tg = {params['Tgas']} K")
-print(f"  L_diff = {params['L_diff']} cm (MEASURED from profile!)")
-print(f"  γ_H = {params['gamma_H']}")
+print(f"  H = {TARGETS['H']:.2e} cm⁻³ [FIXED]")
 
 print("\nDefining rates...")
 t0 = time.time()
@@ -71,11 +90,8 @@ print("Building reactions...")
 t0 = time.time()
 params['R'], params['tags'] = build_reactions(params)
 print(f"  Done in {time.time()-t0:.2f}s")
-print(f"  Species: {len(params['species'])}, Reactions: {len(params['R'])}")
 
 species = params['species']
-
-# Initial densities
 ns = len(species)
 y0 = np.ones(ns) * 1e3
 
@@ -86,35 +102,24 @@ def set_density(name, value):
     except ValueError:
         pass
 
-n_tot = params['P'] * 9.66e15  # cm⁻³
-n_Ar = 0.85 * n_tot
-n_CH4 = 0.15 * n_tot
-
+n_tot = params['P'] * 9.66e15
 set_density('e', params['ne'])
-set_density('Ar', n_Ar)
-set_density('CH4', n_CH4)
+set_density('Ar', 0.85 * n_tot)
+set_density('CH4', 0.15 * n_tot)
+set_density('H', TARGETS['H'])  # FIXED
+set_density('ArPlus', params['ne'] * 0.5)
+set_density('CH', 5e8)
+set_density('C2', 5e11)
 
-print(f"\nInitial conditions set:")
-print(f"  ne = {params['ne']:.1e} cm⁻³")
-print(f"  n_Ar = {n_Ar:.2e} cm⁻³")
-print(f"  n_CH4 = {n_CH4:.2e} cm⁻³")
-
-# Time span
-t_span = (0, 30)  # 0 to 30 s
-t_eval = [30]  # Only final state
-
-print(f"\nIntegrating ODE system...")
-print(f"  Time span: 0 to {t_span[1]:.1f} s")
-print(f"  Method: BDF (stiff), max_step=0.5")
-
+print(f"\nIntegrating (H FIXED)...")
 t0 = time.time()
-ode = PlasmaODE(params)
+ode = PlasmaODE_FixedH(params, fixed_species={'H'})
 sol = solve_ivp(
     ode,
-    t_span,
+    (0, 5),
     y0,
     method='BDF',
-    t_eval=t_eval,
+    t_eval=[5],
     rtol=1e-5,
     atol=1e-6,
     max_step=0.5
@@ -124,16 +129,11 @@ runtime = time.time() - t0
 print(f"\n{'='*80}")
 if sol.success:
     print(f"✓ SUCCESS! Runtime: {runtime:.2f}s")
-    print(f"  Status: {sol.message}")
-    print(f"  Steps: {sol.nfev}")
-
-    # Extract final densities
-    y_final = sol.y[:, -1]
 
     def get_density(name):
         try:
             idx = species.index(name)
-            return y_final[idx]
+            return sol.y[idx, -1]
         except ValueError:
             return 0.0
 
@@ -141,27 +141,32 @@ if sol.success:
     nCH = get_density('CH')
     nC2 = get_density('C2')
 
-    print(f"\nFinal densities:")
-    print(f"  H:  {nH:.2e} cm⁻³  (target: {TARGETS['H']:.2e})")
-    print(f"  CH: {nCH:.2e} cm⁻³  (target: {TARGETS['CH']:.2e})")
-    print(f"  C2: {nC2:.2e} cm⁻³  (target: {TARGETS['C2']:.2e})")
+    print(f"\n{'Species':<10} {'Model':<15} {'Target':<15} {'Ratio':<10}")
+    print(f"{'-'*60}")
+    print(f"{'H (FIXED)':<10} {nH:<15.2e} {TARGETS['H']:<15.2e} {nH/TARGETS['H']:<10.2f}")
+    print(f"{'CH':<10} {nCH:<15.2e} {TARGETS['CH']:<15.2e} {nCH/TARGETS['CH']:<10.2f}")
+    print(f"{'C2':<10} {nC2:<15.2e} {TARGETS['C2']:<15.2e} {nC2/TARGETS['C2']:<10.2f}")
 
-    # Calculate errors
-    err_H = abs(np.log10(nH / TARGETS['H'])) if nH > 0 else 999
     err_CH = abs(np.log10(nCH / TARGETS['CH'])) if nCH > 0 else 999
     err_C2 = abs(np.log10(nC2 / TARGETS['C2'])) if nC2 > 0 else 999
-    total_error = err_H + err_CH + err_C2
 
-    print(f"\nLog errors:")
-    print(f"  H:  {err_H:.3f}")
+    print(f"\nErrors (log10):")
     print(f"  CH: {err_CH:.3f}")
     print(f"  C2: {err_C2:.3f}")
-    print(f"  Total: {total_error:.3f}")
+    print(f"  Total: {err_CH + err_C2:.3f}")
+
+    if err_CH + err_C2 < 0.5:
+        print("\n🎉 EXCELLENT!")
+    elif err_CH + err_C2 < 1.0:
+        print("\n✓ GOOD!")
 
 else:
-    print(f"✗ FAILED! Runtime: {runtime:.2f}s")
-    print(f"  Status: {sol.message}")
+    print(f"✗ FAILED: {sol.message}")
 
+print(f"\n{'='*80}")
+print(f"Ready for CSB parameter sweep with FIXED H!")
+print(f"Sweep ranges:")
+print(f"  ne: [1e9, 3e9, 5e9, 9e9] cm⁻³")
+print(f"  Te: [0.5, 1.0, 1.5, 2.0] eV")
+print(f"  E:  [20, 50, 100, 200, 300] V/cm")
 print(f"{'='*80}")
-print(f"\nEstimated time for 108 runs: {runtime*108/60:.1f} minutes")
-print(f"Estimated time for 384 runs: {runtime*384/60:.1f} minutes")

@@ -185,6 +185,13 @@ def build_reactions(params):
     push(sto('H3Plus', 1, 'e', 1), sto('H2', 1, 'H', 1), k['H3Plus_e_H2_H_cm3_6_30'], 'H3Plus_e_H2_H_cm3_6_30')
     push(sto('H3Plus', 1, 'e', 1), sto('H', 3), k['H3Plus_e_H_H_H_cm3_6_31'], 'H3Plus_e_H_H_H_cm3_6_31')
 
+    # NEW IN V7: ArH+ dissociative recombination
+    push(sto('ArHPlus', 1, 'e', 1), sto('Ar', 1, 'H', 1), k['ArHPlus_e_Ar_H_cm3_6_29'], 'ArHPlus_e_Ar_H_cm3_6_29')
+
+    # Group 8: Attachment Reactions
+    # NEW IN V7: Dissociative attachment
+    push(sto('e', 1, 'CH4', 1), sto('CH3', 1, 'HMinus', 1), k['e_CH4_CH3_HMinus_cm3_8_1'], 'e_CH4_CH3_HMinus_cm3_8_1')
+
     # Group 7: Neutral-Neutral Reactions (continuing...)
     push(sto('CH2', 1, 'H', 1), sto('CH', 1, 'H2', 1), k['CH2_H_CH_H2_cm3_7_1'], 'CH2_H_CH_H2_cm3_7_1')
     push(sto('CH2', 1, 'H', 1), sto('C', 1, 'H2', 1, 'H', 1), k['CH2_H_C_H2_H_cm3_7_2'], 'CH2_H_C_H2_H_cm3_7_2')

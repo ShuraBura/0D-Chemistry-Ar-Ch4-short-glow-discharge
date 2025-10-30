@@ -58,7 +58,7 @@ print("=" * 70)
 params = {
     'E_field': 50,
     'L_discharge': 0.45,
-    'ne': 1e10,
+    'ne': 3.3e9,  # Experimental value from sheath analysis
     'species': ['e', 'Ar', 'CH4', 'ArPlus', 'CH4Plus', 'CH3Plus', 'CH5Plus', 'ArHPlus',
                 'CH3Minus', 'H', 'C2', 'CH', 'H2', 'ArStar', 'C2H4', 'C2H6', 'CH2',
                 'C2H2', 'C2H5', 'CH3', 'C', 'H3Plus', 'C2H3', 'C3H2', 'CHPlus', 'C3H',

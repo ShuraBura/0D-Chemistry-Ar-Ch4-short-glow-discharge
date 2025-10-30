@@ -1,0 +1,318 @@
+================================================================================
+ CHARGE-BALANCED OPTIMIZATION V2 - CORRECTED STRATEGY
+================================================================================
+
+V2 CORRECTIONS (from v1 failure analysis):
+  ✓ Charge penalty weight: 200x (was 5.0 - too weak!)
+  ✓ Ionization rates FIXED (NOT tunable - per user guidance)
+  ✓ Only ion LOSS rates tunable (wall sticking)
+  ✓ E field biased LOW (10-50 V/cm to retain ions)
+  ✓ Critical neutral reactions included
+
+V1 failure: Optimizer minimized ionization → worse charge balance
+V2 strategy: Fix ionization, minimize ion LOSS → better charge balance
+
+Selecting tunable rates...
+  Selected 40 key rates
+
+Selected rates:
+--------------------------------------------------------------------------------
+ 1. loss_C2_11_3                                  [1.00e-04, 2.00e+03] (20000000.0x)
+ 2. loss_C2H2Star_11_25                           [1.00e+02, 1.00e+04] (100.0x)
+ 3. loss_C3H4_11_18                               [1.00e+02, 1.50e+03] (15.0x)
+ 4. stick_ArStar_9_5                              [7.14e+01, 7.14e+02] (10.0x)
+ 5. ArStar_CH4_CH3_H_cm3_3_1                      [5.00e-11, 5.00e-10] (10.0x)
+ 6. loss_C4H2_11_11                               [1.00e+02, 1.00e+03] (10.0x)
+ 7. loss_C2H_11_12                                [1.00e+02, 1.00e+03] (10.0x)
+ 8. stick_H_9_1                                   [3.89e+02, 3.89e+03] (10.0x)
+ 9. loss_C3_11_14                                 [1.00e+02, 1.00e+03] (10.0x)
+10. loss_C3H3_11_13                               [1.00e+02, 1.00e+03] (10.0x)
+    ... and 30 more
+
+ Optimization parameters:
+  Tunable rates: 40 (including ion reactions)
+  E field: [5, 300] V/cm (lower min to retain ions)
+  Ne: [1.0e9, 5.0e9] cm^-3
+  Total parameters: 42
+
+ Targets:
+  H:  5.18e+13 cm^-3
+  CH: 1.00e+09 cm^-3  (heavily weighted)
+  C2: 1.30e+11 cm^-3
+  Ion/e ratio: 4.5x (range: 3-6x for sheath region)
+
+================================================================================
+ Running Charge-Balanced Optimization (15 iterations, pop=6)
+================================================================================
+
+Detailed logs will be saved to optimization_results_charge_balanced_v2/
+Best results will be logged with full chemistry breakdown.
+
+
+  Creating warm-start population biased for CHARGE BALANCE...
+  ✓ Population biased: E~10-50 V/cm (LOW!), Ne~1.5e9, ion sticking minimal
+
+  *** NEW BEST: f(x) = 7141.92 at evaluation 1
+      H: 3.01e+13 (target: 5.18e+13, ratio: 0.58x)
+      CH: 1.97e+10 (target: 1.00e+09, ratio: 19.71x)
+      C2: 2.12e+11 (target: 1.30e+11, ratio: 1.63x)
+      Ion/e ratio: 1.33x (target: 4.5x)
+      Saved to: optimization_results_charge_balanced_v2/best_iteration_0000_f7141.9.json
+
+
+  *** NEW BEST: f(x) = 6923.25 at evaluation 7
+      H: 3.03e+13 (target: 5.18e+13, ratio: 0.58x)
+      CH: 1.94e+10 (target: 1.00e+09, ratio: 19.39x)
+      C2: 1.72e+11 (target: 1.30e+11, ratio: 1.32x)
+      Ion/e ratio: 0.94x (target: 4.5x)
+      Saved to: optimization_results_charge_balanced_v2/best_iteration_0000_f6923.3.json
+
+
+  *** NEW BEST: f(x) = 5142.30 at evaluation 8
+      H: 2.53e+13 (target: 5.18e+13, ratio: 0.49x)
+      CH: 1.68e+10 (target: 1.00e+09, ratio: 16.85x)
+      C2: 1.88e+11 (target: 1.30e+11, ratio: 1.44x)
+      Ion/e ratio: 1.85x (target: 4.5x)
+      Saved to: optimization_results_charge_balanced_v2/best_iteration_0000_f5142.3.json
+
+  [10 evaluations, 0.1 min elapsed]
+differential_evolution step 1: f(x)= 5142.300393627788
+differential_evolution step 2: f(x)= 5142.300393627788
+  [20 evaluations, 0.1 min elapsed]
+
+  *** NEW BEST: f(x) = 3797.57 at evaluation 20
+      H: 2.55e+13 (target: 5.18e+13, ratio: 0.49x)
+      CH: 1.46e+10 (target: 1.00e+09, ratio: 14.56x)
+      C2: 1.34e+11 (target: 1.30e+11, ratio: 1.03x)
+      Ion/e ratio: 1.83x (target: 4.5x)
+      Saved to: optimization_results_charge_balanced_v2/best_iteration_0000_f3797.6.json
+
+differential_evolution step 3: f(x)= 3797.5678959775855
+  [30 evaluations, 0.2 min elapsed]
+differential_evolution step 4: f(x)= 3797.5678959775855
+differential_evolution step 5: f(x)= 3797.5678959775855
+
+  *** NEW BEST: f(x) = 2825.49 at evaluation 37
+      H: 2.56e+13 (target: 5.18e+13, ratio: 0.49x)
+      CH: 1.28e+10 (target: 1.00e+09, ratio: 12.84x)
+      C2: 1.06e+11 (target: 1.30e+11, ratio: 0.82x)
+      Ion/e ratio: 4.97x (target: 4.5x)
+      Saved to: optimization_results_charge_balanced_v2/best_iteration_0000_f2825.5.json
+
+  [40 evaluations, 0.3 min elapsed]
+differential_evolution step 6: f(x)= 2825.48925960991
+differential_evolution step 7: f(x)= 2825.48925960991
+  [50 evaluations, 0.3 min elapsed]
+differential_evolution step 8: f(x)= 2825.48925960991
+
+  *** NEW BEST: f(x) = 2378.11 at evaluation 55
+      H: 2.56e+13 (target: 5.18e+13, ratio: 0.49x)
+      CH: 1.17e+10 (target: 1.00e+09, ratio: 11.68x)
+      C2: 1.05e+11 (target: 1.30e+11, ratio: 0.80x)
+      Ion/e ratio: 2.36x (target: 4.5x)
+      Saved to: optimization_results_charge_balanced_v2/best_iteration_0000_f2378.1.json
+
+  [60 evaluations, 0.4 min elapsed]
+differential_evolution step 9: f(x)= 2378.108789271991
+
+  *** NEW BEST: f(x) = 2375.86 at evaluation 61
+      H: 2.54e+13 (target: 5.18e+13, ratio: 0.49x)
+      CH: 1.17e+10 (target: 1.00e+09, ratio: 11.67x)
+      C2: 1.02e+11 (target: 1.30e+11, ratio: 0.78x)
+      Ion/e ratio: 2.30x (target: 4.5x)
+      Saved to: optimization_results_charge_balanced_v2/best_iteration_0000_f2375.9.json
+
+differential_evolution step 10: f(x)= 2375.8641098736693
+
+  *** NEW BEST: f(x) = 2219.51 at evaluation 68
+      H: 2.57e+13 (target: 5.18e+13, ratio: 0.50x)
+      CH: 1.13e+10 (target: 1.00e+09, ratio: 11.29x)
+      C2: 8.87e+10 (target: 1.30e+11, ratio: 0.68x)
+      Ion/e ratio: 2.18x (target: 4.5x)
+      Saved to: optimization_results_charge_balanced_v2/best_iteration_0000_f2219.5.json
+
+  [70 evaluations, 0.5 min elapsed]
+differential_evolution step 11: f(x)= 2219.5086387025713
+
+  *** NEW BEST: f(x) = 1918.69 at evaluation 76
+      H: 2.57e+13 (target: 5.18e+13, ratio: 0.50x)
+      CH: 1.08e+10 (target: 1.00e+09, ratio: 10.75x)
+      C2: 8.55e+10 (target: 1.30e+11, ratio: 0.66x)
+      Ion/e ratio: 4.14x (target: 4.5x)
+      Saved to: optimization_results_charge_balanced_v2/best_iteration_0000_f1918.7.json
+
+differential_evolution step 12: f(x)= 1918.6855333260417
+  [80 evaluations, 0.5 min elapsed]
+differential_evolution step 13: f(x)= 1918.6855333260417
+  [90 evaluations, 0.6 min elapsed]
+differential_evolution step 14: f(x)= 1918.6855333260417
+differential_evolution step 15: f(x)= 1918.6855333260417
+Polishing solution with 'L-BFGS-B'
+
+  *** NEW BEST: f(x) = 1918.69 at evaluation 98
+      H: 2.57e+13 (target: 5.18e+13, ratio: 0.50x)
+      CH: 1.08e+10 (target: 1.00e+09, ratio: 10.75x)
+      C2: 8.55e+10 (target: 1.30e+11, ratio: 0.66x)
+      Ion/e ratio: 4.14x (target: 4.5x)
+      Saved to: optimization_results_charge_balanced_v2/best_iteration_0000_f1918.7.json
+
+  [100 evaluations, 0.7 min elapsed]
+
+  *** NEW BEST: f(x) = 1918.69 at evaluation 105
+      H: 2.57e+13 (target: 5.18e+13, ratio: 0.50x)
+      CH: 1.08e+10 (target: 1.00e+09, ratio: 10.75x)
+      C2: 8.55e+10 (target: 1.30e+11, ratio: 0.66x)
+      Ion/e ratio: 4.14x (target: 4.5x)
+      Saved to: optimization_results_charge_balanced_v2/best_iteration_0000_f1918.7.json
+
+  [110 evaluations, 0.7 min elapsed]
+  [120 evaluations, 0.8 min elapsed]
+  [130 evaluations, 0.8 min elapsed]
+
+  *** NEW BEST: f(x) = 1911.32 at evaluation 132
+      H: 2.57e+13 (target: 5.18e+13, ratio: 0.50x)
+      CH: 1.08e+10 (target: 1.00e+09, ratio: 10.76x)
+      C2: 8.55e+10 (target: 1.30e+11, ratio: 0.66x)
+      Ion/e ratio: 4.34x (target: 4.5x)
+      Saved to: optimization_results_charge_balanced_v2/best_iteration_0000_f1911.3.json
+
+
+  *** NEW BEST: f(x) = 1911.30 at evaluation 136
+      H: 2.57e+13 (target: 5.18e+13, ratio: 0.50x)
+      CH: 1.07e+10 (target: 1.00e+09, ratio: 10.73x)
+      C2: 8.53e+10 (target: 1.30e+11, ratio: 0.66x)
+      Ion/e ratio: 4.14x (target: 4.5x)
+      Saved to: optimization_results_charge_balanced_v2/best_iteration_0000_f1911.3.json
+
+  [140 evaluations, 0.9 min elapsed]
+
+  *** NEW BEST: f(x) = 1867.77 at evaluation 140
+      H: 2.57e+13 (target: 5.18e+13, ratio: 0.50x)
+      CH: 1.06e+10 (target: 1.00e+09, ratio: 10.56x)
+      C2: 8.53e+10 (target: 1.30e+11, ratio: 0.66x)
+      Ion/e ratio: 5.36x (target: 4.5x)
+      Saved to: optimization_results_charge_balanced_v2/best_iteration_0000_f1867.8.json
+
+
+  *** NEW BEST: f(x) = 1867.77 at evaluation 141
+      H: 2.57e+13 (target: 5.18e+13, ratio: 0.50x)
+      CH: 1.06e+10 (target: 1.00e+09, ratio: 10.56x)
+      C2: 8.53e+10 (target: 1.30e+11, ratio: 0.66x)
+      Ion/e ratio: 5.36x (target: 4.5x)
+      Saved to: optimization_results_charge_balanced_v2/best_iteration_0000_f1867.8.json
+
+
+  *** NEW BEST: f(x) = 1848.25 at evaluation 145
+      H: 2.58e+13 (target: 5.18e+13, ratio: 0.50x)
+      CH: 1.06e+10 (target: 1.00e+09, ratio: 10.60x)
+      C2: 8.59e+10 (target: 1.30e+11, ratio: 0.66x)
+      Ion/e ratio: 4.37x (target: 4.5x)
+      Saved to: optimization_results_charge_balanced_v2/best_iteration_0000_f1848.3.json
+
+  [150 evaluations, 0.9 min elapsed]
+  [160 evaluations, 1.0 min elapsed]
+  [170 evaluations, 1.0 min elapsed]
+
+  *** NEW BEST: f(x) = 1848.16 at evaluation 176
+      H: 2.57e+13 (target: 5.18e+13, ratio: 0.50x)
+      CH: 1.05e+10 (target: 1.00e+09, ratio: 10.54x)
+      C2: 8.52e+10 (target: 1.30e+11, ratio: 0.66x)
+      Ion/e ratio: 5.09x (target: 4.5x)
+      Saved to: optimization_results_charge_balanced_v2/best_iteration_0000_f1848.2.json
+
+
+  *** NEW BEST: f(x) = 1819.36 at evaluation 177
+      H: 2.57e+13 (target: 5.18e+13, ratio: 0.50x)
+      CH: 1.05e+10 (target: 1.00e+09, ratio: 10.53x)
+      C2: 8.51e+10 (target: 1.30e+11, ratio: 0.65x)
+      Ion/e ratio: 4.42x (target: 4.5x)
+      Saved to: optimization_results_charge_balanced_v2/best_iteration_0000_f1819.4.json
+
+  [180 evaluations, 1.1 min elapsed]
+  [190 evaluations, 1.2 min elapsed]
+  [200 evaluations, 1.2 min elapsed]
+  [210 evaluations, 1.3 min elapsed]
+
+  *** NEW BEST: f(x) = 1815.52 at evaluation 219
+      H: 2.57e+13 (target: 5.18e+13, ratio: 0.50x)
+      CH: 1.05e+10 (target: 1.00e+09, ratio: 10.52x)
+      C2: 8.51e+10 (target: 1.30e+11, ratio: 0.65x)
+      Ion/e ratio: 4.54x (target: 4.5x)
+      Saved to: optimization_results_charge_balanced_v2/best_iteration_0000_f1815.5.json
+
+  [220 evaluations, 1.3 min elapsed]
+  [230 evaluations, 1.4 min elapsed]
+  [240 evaluations, 1.4 min elapsed]
+  [250 evaluations, 1.5 min elapsed]
+  [260 evaluations, 1.6 min elapsed]
+  [270 evaluations, 1.6 min elapsed]
+  [280 evaluations, 1.7 min elapsed]
+  [290 evaluations, 1.7 min elapsed]
+  [300 evaluations, 1.8 min elapsed]
+  [310 evaluations, 1.9 min elapsed]
+  [320 evaluations, 1.9 min elapsed]
+  [330 evaluations, 2.0 min elapsed]
+  [340 evaluations, 2.0 min elapsed]
+  [350 evaluations, 2.1 min elapsed]
+  [360 evaluations, 2.2 min elapsed]
+  [370 evaluations, 2.2 min elapsed]
+  [380 evaluations, 2.3 min elapsed]
+  [390 evaluations, 2.3 min elapsed]
+  [400 evaluations, 2.4 min elapsed]
+  [410 evaluations, 2.4 min elapsed]
+  [420 evaluations, 2.5 min elapsed]
+  [430 evaluations, 2.5 min elapsed]
+  [440 evaluations, 2.6 min elapsed]
+  [450 evaluations, 2.6 min elapsed]
+  [460 evaluations, 2.7 min elapsed]
+  [470 evaluations, 2.8 min elapsed]
+  [480 evaluations, 2.8 min elapsed]
+  [490 evaluations, 2.9 min elapsed]
+  [500 evaluations, 2.9 min elapsed]
+
+  *** NEW BEST: f(x) = 1778.11 at evaluation 505
+      H: 2.57e+13 (target: 5.18e+13, ratio: 0.50x)
+      CH: 1.04e+10 (target: 1.00e+09, ratio: 10.42x)
+      C2: 8.44e+10 (target: 1.30e+11, ratio: 0.65x)
+      Ion/e ratio: 4.58x (target: 4.5x)
+      Saved to: optimization_results_charge_balanced_v2/best_iteration_0000_f1778.1.json
+
+  [510 evaluations, 3.0 min elapsed]
+  [520 evaluations, 3.0 min elapsed]
+  [530 evaluations, 3.1 min elapsed]
+  [540 evaluations, 3.2 min elapsed]
+  [550 evaluations, 3.2 min elapsed]
+  [560 evaluations, 3.3 min elapsed]
+  [570 evaluations, 3.3 min elapsed]
+  [580 evaluations, 3.4 min elapsed]
+  [590 evaluations, 3.5 min elapsed]
+  [600 evaluations, 3.5 min elapsed]
+  [610 evaluations, 3.6 min elapsed]
+  [620 evaluations, 3.6 min elapsed]
+  [630 evaluations, 3.7 min elapsed]
+  [640 evaluations, 3.7 min elapsed]
+  [650 evaluations, 3.8 min elapsed]
+  [660 evaluations, 3.8 min elapsed]
+  [670 evaluations, 3.9 min elapsed]
+  [680 evaluations, 3.9 min elapsed]
+  [690 evaluations, 4.0 min elapsed]
+  [700 evaluations, 4.0 min elapsed]
+  [710 evaluations, 4.1 min elapsed]
+  [720 evaluations, 4.1 min elapsed]
+  [730 evaluations, 4.2 min elapsed]
+  [740 evaluations, 4.2 min elapsed]
+  [750 evaluations, 4.3 min elapsed]
+  [760 evaluations, 4.3 min elapsed]
+  [770 evaluations, 4.4 min elapsed]
+  [780 evaluations, 4.4 min elapsed]
+  [790 evaluations, 4.5 min elapsed]
+  [800 evaluations, 4.5 min elapsed]
+
+  *** NEW BEST: f(x) = 1778.09 at evaluation 806
+      H: 2.57e+13 (target: 5.18e+13, ratio: 0.50x)
+      CH: 1.04e+10 (target: 1.00e+09, ratio: 10.42x)
+      C2: 8.44e+10 (target: 1.30e+11, ratio: 0.65x)
+      Ion/e ratio: 4.58x (target: 4.5x)
+      Saved to: optimization_results_charge_balanced_v2/best_iteration_0000_f1778.1.json
+
+  [810 evaluations, 4.6 min elapsed]

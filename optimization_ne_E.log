@@ -1,0 +1,98 @@
+================================================================================
+ 2-PARAMETER OPTIMIZATION: Ne and E field
+================================================================================
+
+Strategy: Tune only physical parameters, keep all rates at literature values
+
+Parameters:
+  Ne (electron density): [1.65e9, 4.95e9] cm^-3 (3.3e9 ± 50%)
+  E field: [10, 200] V/cm
+
+All reaction rates constrained to literature values.
+
+ Targets:
+  H:  5.18e+13 cm^-3
+  CH: 1.00e+09 cm^-3  (currently 46x too high)
+  C2: 1.30e+11 cm^-3
+
+================================================================================
+ BASELINE (Ne=3.3e9, E=50)
+================================================================================
+
+Baseline Densities:
+  H    : 3.45e+13 cm^-3  (target: 5.18e+13, ratio: 0.67x)
+  CH   : 4.59e+10 cm^-3  (target: 1.00e+09, ratio: 45.91x)
+  C2   : 7.31e+11 cm^-3  (target: 1.30e+11, ratio: 5.62x)
+
+Baseline objective: f(x) = 40395.74
+
+================================================================================
+ Running Optimization (2 parameters)
+================================================================================
+
+This should complete quickly (~2-5 minutes)...
+Progress:
+
+differential_evolution step 1: f(x)= 37326.97284171917
+differential_evolution step 2: f(x)= 37326.97284171917
+differential_evolution step 3: f(x)= 37326.97284171917
+differential_evolution step 4: f(x)= 37228.63751171976
+differential_evolution step 5: f(x)= 37228.63751171976
+Polishing solution with 'L-BFGS-B'
+
+================================================================================
+ OPTIMIZATION COMPLETE (0.8 minutes)
+================================================================================
+
+✓ Optimization converged successfully
+
+Final objective value: 37224.637638
+Improvement: 7.9%
+Function evaluations: 132
+Iterations: 5
+
+Optimized Parameters:
+  Ne: 1.655e+09 cm^-3 (baseline: 3.3e9, change: -49.8%)
+  E:  200.0 V/cm (baseline: 50, change: +300.0%)
+
+================================================================================
+ FINAL RESULTS WITH OPTIMIZED Ne AND E
+================================================================================
+
+Final Densities:
+--------------------------------------------------------------------------------
+H    : 3.44e+13 cm^-3
+       Target: 5.18e+13 cm^-3
+       Ratio: 0.66x  (-33.6%)  →
+
+CH   : 4.41e+10 cm^-3
+       Target: 1.00e+09 cm^-3
+       Ratio: 44.11x  (+4310.6%)  ✗
+
+C2   : 7.24e+11 cm^-3
+       Target: 1.30e+11 cm^-3
+       Ratio: 5.57x  (+456.9%)  ✗
+
+
+================================================================================
+ COMPARISON: Baseline vs Optimized
+================================================================================
+
+                Baseline      Optimized     Change
+------------------------------------------------------------
+H    :      3.45e+13    3.44e+13      -0.2% ↓
+CH   :      4.59e+10    4.41e+10      -3.9% ↓
+C2   :      7.31e+11    7.24e+11      -1.0% ↓
+
+✓ Results saved to optimization_ne_E_results.txt
+
+================================================================================
+ NEXT STEPS
+================================================================================
+
+If targets are close:
+  → Success! Physical parameters alone can match experiment
+
+If targets still far:
+  → Need to also tune reaction rates within literature bounds
+  → Run full 31-parameter optimization with optimized Ne and E as starting point

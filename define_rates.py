@@ -30,6 +30,7 @@ def define_rates(params):
     k['e_C2H2_C2_H2_cm3_1_16'] = 5e-11
     k['e_C2H4_C2H2_H_H_cm3_1_17'] = 2.5e-11
     k['e_C2H6_C2H2_2H2_cm3_1_18'] = 1.5e-11
+    k['e_CH4_CH3_HMinus_cm3_8_1'] = 1.0e-13  # NEW IN V7: Dissociative attachment
     # New reactions from audit (Janev-Reiter / Kushner)
     k['e_C2H2_C2H_H_cm3_1_19'] = 1.0e-11
     k['e_C2H4_C2H3_H_cm3_1_20'] = 8.0e-12
@@ -138,6 +139,7 @@ def define_rates(params):
     k['CH3Plus_CH3Minus_CH4_CH2_H_cm3_6_26'] = 1.25e-7
     k['C2H5Plus_CH3Minus_C2H6_H_cm3_6_27'] = 1.25e-7
     k['C2H5Plus_e_C2H4_H_cm3_6_28'] = 3.6e-7
+    k['ArHPlus_e_Ar_H_cm3_6_29'] = 2.0e-7  # NEW IN V7: ArH+ recombination
     # H2+ and H3+ recombination
     k['H2Plus_e_H_H_cm3_6_29'] = 2.3e-8  # H2+ + e → H + H
     k['H3Plus_e_H2_H_cm3_6_30'] = 2.3e-7  # H3+ + e → H2 + H (dominant)

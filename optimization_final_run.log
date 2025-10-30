@@ -1,0 +1,134 @@
+================================================================================
+ FINAL OPTIMIZATION: TARGET DENSITIES WITHIN ±30%
+================================================================================
+
+Starting from best solution: f(x) = 684
+
+Current status:
+  H:  0.49x target → Need +2x (reduce H loss)
+  CH: 6.84x target → Need -7x (minimize C2→CH, keep CH loss high)
+  C2: 0.39x target → Need +2.5x (reduce C2 loss)
+
+Strategy: Reduce C2/H removal, minimize C2→CH, keep CH removal high
+
+Selecting tunable rates...
+  Selected 30 key rates
+
+Selected rates:
+--------------------------------------------------------------------------------
+ 1. loss_C2_11_3                                  [1.00e-04, 2.00e+03] (20000000.0x)
+ 2. loss_C2H2Star_11_25                           [1.00e+02, 1.00e+04] (100.0x)
+ 3. loss_C3H4_11_18                               [1.00e+02, 1.50e+03] (15.0x)
+ 4. loss_C3H6_11_16                               [1.00e+02, 1.00e+03] (10.0x)
+ 5. loss_CH_11_9                                  [1.00e+03, 1.00e+04] (10.0x)
+ 6. loss_C4H2_11_11                               [1.00e+02, 1.00e+03] (10.0x)
+ 7. stick_H_9_1                                   [3.89e+02, 3.89e+03] (10.0x)
+ 8. loss_C3H_11_10                                [1.00e+02, 1.00e+03] (10.0x)
+ 9. stick_ArStar_9_5                              [7.14e+01, 7.14e+02] (10.0x)
+10. loss_C2H_11_12                                [1.00e+02, 1.00e+03] (10.0x)
+    ... and 20 more
+
+ Optimization parameters:
+  Tunable rates: 30
+  E field: [10, 300] V/cm
+  Ne: [1.0e9, 5.0e9] cm^-3
+  Total parameters: 32
+
+ Targets:
+  H:  5.18e+13 cm^-3
+  CH: 1.00e+09 cm^-3  (heavily weighted)
+  C2: 1.30e+11 cm^-3
+
+================================================================================
+ Running Optimization (30 iterations, pop=8)
+================================================================================
+
+Goal: All targets within ±30%
+  H:  [3.63e13, 6.73e13] cm^-3
+  CH: [7.0e8, 1.3e9] cm^-3
+  C2: [9.1e10, 1.69e11] cm^-3
+
+Detailed logs will be saved to optimization_results_final/
+Best results will be logged with full chemistry breakdown.
+
+
+  Creating warm-start population from f=684 solution...
+  ✓ Strategy:
+    - Reduce: C2 removal, H removal, C2→CH rate
+    - Keep high: CH removal
+    - Start from f=684 with adjustments for H/C2/CH balance
+
+  *** NEW BEST: f(x) = 1408.43 at evaluation 1
+      H: 2.74e+13 (target: 5.18e+13, ratio: 0.53x)
+      CH: 9.39e+09 (target: 1.00e+09, ratio: 9.39x)
+      C2: 8.31e+10 (target: 1.30e+11, ratio: 0.64x)
+      Saved to: optimization_results_final/best_iteration_0000_f1408.4.json
+
+  [10 evaluations, 0.1 min elapsed]
+differential_evolution step 1: f(x)= 1408.4261011721
+  [20 evaluations, 0.1 min elapsed]
+differential_evolution step 2: f(x)= 1408.4261011721
+  [30 evaluations, 0.2 min elapsed]
+differential_evolution step 3: f(x)= 1408.4261011721
+  [40 evaluations, 0.2 min elapsed]
+differential_evolution step 4: f(x)= 1408.4261011721
+differential_evolution step 5: f(x)= 1408.4261011721
+  [50 evaluations, 0.3 min elapsed]
+differential_evolution step 6: f(x)= 1408.4261011721
+  [60 evaluations, 0.4 min elapsed]
+differential_evolution step 7: f(x)= 1408.4261011721
+  [70 evaluations, 0.4 min elapsed]
+differential_evolution step 8: f(x)= 1408.4261011721
+  [80 evaluations, 0.5 min elapsed]
+differential_evolution step 9: f(x)= 1408.4261011721
+differential_evolution step 10: f(x)= 1408.4261011721
+  [90 evaluations, 0.5 min elapsed]
+
+  *** NEW BEST: f(x) = 1318.85 at evaluation 92
+      H: 2.66e+13 (target: 5.18e+13, ratio: 0.51x)
+      CH: 9.12e+09 (target: 1.00e+09, ratio: 9.12x)
+      C2: 7.74e+10 (target: 1.30e+11, ratio: 0.60x)
+      Saved to: optimization_results_final/best_iteration_0000_f1318.9.json
+
+differential_evolution step 11: f(x)= 1318.8540468359188
+  [100 evaluations, 0.6 min elapsed]
+
+  *** NEW BEST: f(x) = 1278.81 at evaluation 100
+      H: 2.59e+13 (target: 5.18e+13, ratio: 0.50x)
+      CH: 8.99e+09 (target: 1.00e+09, ratio: 8.99x)
+      C2: 8.26e+10 (target: 1.30e+11, ratio: 0.64x)
+      Saved to: optimization_results_final/best_iteration_0000_f1278.8.json
+
+
+  *** NEW BEST: f(x) = 1247.25 at evaluation 103
+      H: 2.61e+13 (target: 5.18e+13, ratio: 0.50x)
+      CH: 8.89e+09 (target: 1.00e+09, ratio: 8.89x)
+      C2: 7.61e+10 (target: 1.30e+11, ratio: 0.59x)
+      Saved to: optimization_results_final/best_iteration_0000_f1247.2.json
+
+differential_evolution step 12: f(x)= 1247.2463108062095
+
+  *** NEW BEST: f(x) = 1212.85 at evaluation 105
+      H: 2.61e+13 (target: 5.18e+13, ratio: 0.50x)
+      CH: 8.78e+09 (target: 1.00e+09, ratio: 8.78x)
+      C2: 7.62e+10 (target: 1.30e+11, ratio: 0.59x)
+      Saved to: optimization_results_final/best_iteration_0000_f1212.9.json
+
+  [110 evaluations, 0.7 min elapsed]
+
+  *** NEW BEST: f(x) = 1115.81 at evaluation 111
+      H: 2.57e+13 (target: 5.18e+13, ratio: 0.50x)
+      CH: 8.47e+09 (target: 1.00e+09, ratio: 8.47x)
+      C2: 7.17e+10 (target: 1.30e+11, ratio: 0.55x)
+      Saved to: optimization_results_final/best_iteration_0000_f1115.8.json
+
+differential_evolution step 13: f(x)= 1115.8088697166802
+
+  *** NEW BEST: f(x) = 1009.35 at evaluation 114
+      H: 2.55e+13 (target: 5.18e+13, ratio: 0.49x)
+      CH: 8.10e+09 (target: 1.00e+09, ratio: 8.10x)
+      C2: 6.60e+10 (target: 1.30e+11, ratio: 0.51x)
+      Saved to: optimization_results_final/best_iteration_0000_f1009.4.json
+
+  [120 evaluations, 0.8 min elapsed]
+differential_evolution step 14: f(x)= 1009.3537924880907

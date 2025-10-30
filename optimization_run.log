@@ -1,0 +1,465 @@
+================================================================================
+ FULL 32-PARAMETER OPTIMIZATION WITH COMPREHENSIVE LOGGING
+================================================================================
+
+Warm start from previous best: f(x) = 1097 (step 4)
+Strategy: Ne↓, E↑, reduce C2H2→C2→CH pathway rates
+
+Selecting tunable rates...
+  Selected 30 key rates
+
+Selected rates:
+--------------------------------------------------------------------------------
+ 1. loss_C2_11_3                                  [1.00e-04, 2.00e+03] (20000000.0x)
+ 2. loss_C2H2Star_11_25                           [1.00e+02, 1.00e+04] (100.0x)
+ 3. loss_C3H4_11_18                               [1.00e+02, 1.50e+03] (15.0x)
+ 4. ArStar_CH4_CH3_H_cm3_3_1                      [5.00e-11, 5.00e-10] (10.0x)
+ 5. loss_C2H_11_12                                [1.00e+02, 1.00e+03] (10.0x)
+ 6. loss_C4H2_11_11                               [1.00e+02, 1.00e+03] (10.0x)
+ 7. stick_H_9_1                                   [3.89e+02, 3.89e+03] (10.0x)
+ 8. loss_C4H_11_15                                [1.00e+02, 1.00e+03] (10.0x)
+ 9. stick_ArStar_9_5                              [7.14e+01, 7.14e+02] (10.0x)
+10. loss_C3H_11_10                                [1.00e+02, 1.00e+03] (10.0x)
+    ... and 20 more
+
+ Optimization parameters:
+  Tunable rates: 30
+  E field: [10, 300] V/cm
+  Ne: [1.0e9, 5.0e9] cm^-3
+  Total parameters: 32
+
+ Targets:
+  H:  5.18e+13 cm^-3
+  CH: 1.00e+09 cm^-3  (heavily weighted)
+  C2: 1.30e+11 cm^-3
+
+================================================================================
+ Running Optimization (15 iterations, pop=6)
+================================================================================
+
+Detailed logs will be saved to optimization_results/
+Best results will be logged with full chemistry breakdown.
+
+
+  Creating warm-start population from previous best (f=1097)...
+  ✓ Population biased toward: Ne~1.5e9, E~250, key rates reduced
+
+  *** NEW BEST: f(x) = 4203.20 at evaluation 1
+      H: 2.66e+13 (target: 5.18e+13, ratio: 0.51x)
+      CH: 1.55e+10 (target: 1.00e+09, ratio: 15.50x)
+      C2: 1.41e+11 (target: 1.30e+11, ratio: 1.08x)
+      Saved to: optimization_results/best_iteration_0000_f4203.2.json
+
+  [10 evaluations, 0.1 min elapsed]
+differential_evolution step 1: f(x)= 4203.204439838327
+
+  *** NEW BEST: f(x) = 3912.04 at evaluation 13
+      H: 2.66e+13 (target: 5.18e+13, ratio: 0.51x)
+      CH: 1.50e+10 (target: 1.00e+09, ratio: 14.99x)
+      C2: 1.44e+11 (target: 1.30e+11, ratio: 1.10x)
+      Saved to: optimization_results/best_iteration_0000_f3912.0.json
+
+differential_evolution step 2: f(x)= 3912.0389199325477
+
+  *** NEW BEST: f(x) = 3102.10 at evaluation 19
+      H: 2.67e+13 (target: 5.18e+13, ratio: 0.51x)
+      CH: 1.35e+10 (target: 1.00e+09, ratio: 13.45x)
+      C2: 1.11e+11 (target: 1.30e+11, ratio: 0.85x)
+      Saved to: optimization_results/best_iteration_0000_f3102.1.json
+
+  [20 evaluations, 0.1 min elapsed]
+differential_evolution step 3: f(x)= 3102.0950775643764
+  [30 evaluations, 0.2 min elapsed]
+differential_evolution step 4: f(x)= 3102.0950775643764
+differential_evolution step 5: f(x)= 3102.0950775643764
+  [40 evaluations, 0.2 min elapsed]
+differential_evolution step 6: f(x)= 3102.0950775643764
+
+  *** NEW BEST: f(x) = 2673.25 at evaluation 44
+      H: 2.55e+13 (target: 5.18e+13, ratio: 0.49x)
+      CH: 1.26e+10 (target: 1.00e+09, ratio: 12.56x)
+      C2: 1.01e+11 (target: 1.30e+11, ratio: 0.78x)
+      Saved to: optimization_results/best_iteration_0000_f2673.3.json
+
+differential_evolution step 7: f(x)= 2673.250375143134
+
+  *** NEW BEST: f(x) = 2266.45 at evaluation 49
+      H: 2.53e+13 (target: 5.18e+13, ratio: 0.49x)
+      CH: 1.16e+10 (target: 1.00e+09, ratio: 11.64x)
+      C2: 8.30e+10 (target: 1.30e+11, ratio: 0.64x)
+      Saved to: optimization_results/best_iteration_0000_f2266.5.json
+
+  [50 evaluations, 0.3 min elapsed]
+differential_evolution step 8: f(x)= 2266.451219003854
+  [60 evaluations, 0.4 min elapsed]
+differential_evolution step 9: f(x)= 2266.451219003854
+
+  *** NEW BEST: f(x) = 2057.05 at evaluation 65
+      H: 2.55e+13 (target: 5.18e+13, ratio: 0.49x)
+      CH: 1.11e+10 (target: 1.00e+09, ratio: 11.14x)
+      C2: 7.99e+10 (target: 1.30e+11, ratio: 0.61x)
+      Saved to: optimization_results/best_iteration_0000_f2057.0.json
+
+differential_evolution step 10: f(x)= 2057.048167064737
+  [70 evaluations, 0.4 min elapsed]
+differential_evolution step 11: f(x)= 2057.048167064737
+
+  *** NEW BEST: f(x) = 2006.82 at evaluation 75
+      H: 2.55e+13 (target: 5.18e+13, ratio: 0.49x)
+      CH: 1.10e+10 (target: 1.00e+09, ratio: 11.02x)
+      C2: 7.39e+10 (target: 1.30e+11, ratio: 0.57x)
+      Saved to: optimization_results/best_iteration_0000_f2006.8.json
+
+differential_evolution step 12: f(x)= 2006.8193381688016
+  [80 evaluations, 0.5 min elapsed]
+
+  *** NEW BEST: f(x) = 1901.05 at evaluation 81
+      H: 2.60e+13 (target: 5.18e+13, ratio: 0.50x)
+      CH: 1.07e+10 (target: 1.00e+09, ratio: 10.75x)
+      C2: 7.51e+10 (target: 1.30e+11, ratio: 0.58x)
+      Saved to: optimization_results/best_iteration_0000_f1901.0.json
+
+differential_evolution step 13: f(x)= 1901.048431170365
+  [90 evaluations, 0.6 min elapsed]
+differential_evolution step 14: f(x)= 1901.048431170365
+differential_evolution step 15: f(x)= 1901.048431170365
+Polishing solution with 'L-BFGS-B'
+
+  *** NEW BEST: f(x) = 1901.05 at evaluation 98
+      H: 2.60e+13 (target: 5.18e+13, ratio: 0.50x)
+      CH: 1.07e+10 (target: 1.00e+09, ratio: 10.75x)
+      C2: 7.51e+10 (target: 1.30e+11, ratio: 0.58x)
+      Saved to: optimization_results/best_iteration_0000_f1901.0.json
+
+  [100 evaluations, 0.7 min elapsed]
+
+  *** NEW BEST: f(x) = 1901.05 at evaluation 104
+      H: 2.60e+13 (target: 5.18e+13, ratio: 0.50x)
+      CH: 1.07e+10 (target: 1.00e+09, ratio: 10.75x)
+      C2: 7.51e+10 (target: 1.30e+11, ratio: 0.58x)
+      Saved to: optimization_results/best_iteration_0000_f1901.0.json
+
+  [110 evaluations, 0.7 min elapsed]
+
+  *** NEW BEST: f(x) = 1879.69 at evaluation 118
+      H: 2.60e+13 (target: 5.18e+13, ratio: 0.50x)
+      CH: 1.07e+10 (target: 1.00e+09, ratio: 10.69x)
+      C2: 7.47e+10 (target: 1.30e+11, ratio: 0.57x)
+      Saved to: optimization_results/best_iteration_0000_f1879.7.json
+
+  [120 evaluations, 0.8 min elapsed]
+  [130 evaluations, 0.9 min elapsed]
+
+  *** NEW BEST: f(x) = 1731.47 at evaluation 130
+      H: 2.60e+13 (target: 5.18e+13, ratio: 0.50x)
+      CH: 1.03e+10 (target: 1.00e+09, ratio: 10.30x)
+      C2: 7.46e+10 (target: 1.30e+11, ratio: 0.57x)
+      Saved to: optimization_results/best_iteration_0000_f1731.5.json
+
+
+  *** NEW BEST: f(x) = 1731.47 at evaluation 131
+      H: 2.60e+13 (target: 5.18e+13, ratio: 0.50x)
+      CH: 1.03e+10 (target: 1.00e+09, ratio: 10.30x)
+      C2: 7.46e+10 (target: 1.30e+11, ratio: 0.57x)
+      Saved to: optimization_results/best_iteration_0000_f1731.5.json
+
+
+  *** NEW BEST: f(x) = 1731.47 at evaluation 137
+      H: 2.60e+13 (target: 5.18e+13, ratio: 0.50x)
+      CH: 1.03e+10 (target: 1.00e+09, ratio: 10.30x)
+      C2: 7.46e+10 (target: 1.30e+11, ratio: 0.57x)
+      Saved to: optimization_results/best_iteration_0000_f1731.5.json
+
+  [140 evaluations, 0.9 min elapsed]
+  [150 evaluations, 1.0 min elapsed]
+  [160 evaluations, 1.0 min elapsed]
+
+  *** NEW BEST: f(x) = 1730.62 at evaluation 163
+      H: 2.59e+13 (target: 5.18e+13, ratio: 0.50x)
+      CH: 1.03e+10 (target: 1.00e+09, ratio: 10.30x)
+      C2: 7.46e+10 (target: 1.30e+11, ratio: 0.57x)
+      Saved to: optimization_results/best_iteration_0000_f1730.6.json
+
+
+  *** NEW BEST: f(x) = 1730.62 at evaluation 164
+      H: 2.59e+13 (target: 5.18e+13, ratio: 0.50x)
+      CH: 1.03e+10 (target: 1.00e+09, ratio: 10.30x)
+      C2: 7.46e+10 (target: 1.30e+11, ratio: 0.57x)
+      Saved to: optimization_results/best_iteration_0000_f1730.6.json
+
+  [170 evaluations, 1.1 min elapsed]
+
+  *** NEW BEST: f(x) = 1730.62 at evaluation 170
+      H: 2.59e+13 (target: 5.18e+13, ratio: 0.50x)
+      CH: 1.03e+10 (target: 1.00e+09, ratio: 10.30x)
+      C2: 7.46e+10 (target: 1.30e+11, ratio: 0.57x)
+      Saved to: optimization_results/best_iteration_0000_f1730.6.json
+
+  [180 evaluations, 1.2 min elapsed]
+  [190 evaluations, 1.3 min elapsed]
+
+  *** NEW BEST: f(x) = 1727.20 at evaluation 196
+      H: 2.59e+13 (target: 5.18e+13, ratio: 0.50x)
+      CH: 1.03e+10 (target: 1.00e+09, ratio: 10.29x)
+      C2: 7.45e+10 (target: 1.30e+11, ratio: 0.57x)
+      Saved to: optimization_results/best_iteration_0000_f1727.2.json
+
+
+  *** NEW BEST: f(x) = 1727.20 at evaluation 197
+      H: 2.59e+13 (target: 5.18e+13, ratio: 0.50x)
+      CH: 1.03e+10 (target: 1.00e+09, ratio: 10.29x)
+      C2: 7.45e+10 (target: 1.30e+11, ratio: 0.57x)
+      Saved to: optimization_results/best_iteration_0000_f1727.2.json
+
+  [200 evaluations, 1.3 min elapsed]
+
+  *** NEW BEST: f(x) = 1727.20 at evaluation 203
+      H: 2.59e+13 (target: 5.18e+13, ratio: 0.50x)
+      CH: 1.03e+10 (target: 1.00e+09, ratio: 10.29x)
+      C2: 7.45e+10 (target: 1.30e+11, ratio: 0.57x)
+      Saved to: optimization_results/best_iteration_0000_f1727.2.json
+
+  [210 evaluations, 1.4 min elapsed]
+  [220 evaluations, 1.5 min elapsed]
+
+  *** NEW BEST: f(x) = 1713.60 at evaluation 229
+      H: 2.59e+13 (target: 5.18e+13, ratio: 0.50x)
+      CH: 1.03e+10 (target: 1.00e+09, ratio: 10.25x)
+      C2: 7.41e+10 (target: 1.30e+11, ratio: 0.57x)
+      Saved to: optimization_results/best_iteration_0000_f1713.6.json
+
+  [230 evaluations, 1.5 min elapsed]
+
+  *** NEW BEST: f(x) = 1713.60 at evaluation 230
+      H: 2.59e+13 (target: 5.18e+13, ratio: 0.50x)
+      CH: 1.03e+10 (target: 1.00e+09, ratio: 10.25x)
+      C2: 7.41e+10 (target: 1.30e+11, ratio: 0.57x)
+      Saved to: optimization_results/best_iteration_0000_f1713.6.json
+
+
+  *** NEW BEST: f(x) = 1713.60 at evaluation 236
+      H: 2.59e+13 (target: 5.18e+13, ratio: 0.50x)
+      CH: 1.03e+10 (target: 1.00e+09, ratio: 10.25x)
+      C2: 7.41e+10 (target: 1.30e+11, ratio: 0.57x)
+      Saved to: optimization_results/best_iteration_0000_f1713.6.json
+
+  [240 evaluations, 1.6 min elapsed]
+  [250 evaluations, 1.7 min elapsed]
+  [260 evaluations, 1.8 min elapsed]
+
+  *** NEW BEST: f(x) = 1660.41 at evaluation 262
+      H: 2.58e+13 (target: 5.18e+13, ratio: 0.50x)
+      CH: 1.01e+10 (target: 1.00e+09, ratio: 10.11x)
+      C2: 7.24e+10 (target: 1.30e+11, ratio: 0.56x)
+      Saved to: optimization_results/best_iteration_0000_f1660.4.json
+
+
+  *** NEW BEST: f(x) = 1660.41 at evaluation 263
+      H: 2.58e+13 (target: 5.18e+13, ratio: 0.50x)
+      CH: 1.01e+10 (target: 1.00e+09, ratio: 10.11x)
+      C2: 7.24e+10 (target: 1.30e+11, ratio: 0.56x)
+      Saved to: optimization_results/best_iteration_0000_f1660.4.json
+
+
+  *** NEW BEST: f(x) = 1660.41 at evaluation 269
+      H: 2.58e+13 (target: 5.18e+13, ratio: 0.50x)
+      CH: 1.01e+10 (target: 1.00e+09, ratio: 10.11x)
+      C2: 7.24e+10 (target: 1.30e+11, ratio: 0.56x)
+      Saved to: optimization_results/best_iteration_0000_f1660.4.json
+
+  [270 evaluations, 1.9 min elapsed]
+  [280 evaluations, 1.9 min elapsed]
+  [290 evaluations, 2.0 min elapsed]
+
+  *** NEW BEST: f(x) = 1549.74 at evaluation 295
+      H: 2.56e+13 (target: 5.18e+13, ratio: 0.49x)
+      CH: 9.80e+09 (target: 1.00e+09, ratio: 9.80x)
+      C2: 6.89e+10 (target: 1.30e+11, ratio: 0.53x)
+      Saved to: optimization_results/best_iteration_0000_f1549.7.json
+
+
+  *** NEW BEST: f(x) = 1549.74 at evaluation 296
+      H: 2.56e+13 (target: 5.18e+13, ratio: 0.49x)
+      CH: 9.80e+09 (target: 1.00e+09, ratio: 9.80x)
+      C2: 6.89e+10 (target: 1.30e+11, ratio: 0.53x)
+      Saved to: optimization_results/best_iteration_0000_f1549.7.json
+
+  [300 evaluations, 2.1 min elapsed]
+
+  *** NEW BEST: f(x) = 1549.74 at evaluation 302
+      H: 2.56e+13 (target: 5.18e+13, ratio: 0.49x)
+      CH: 9.80e+09 (target: 1.00e+09, ratio: 9.80x)
+      C2: 6.89e+10 (target: 1.30e+11, ratio: 0.53x)
+      Saved to: optimization_results/best_iteration_0000_f1549.7.json
+
+  [310 evaluations, 2.1 min elapsed]
+  [320 evaluations, 2.2 min elapsed]
+
+  *** NEW BEST: f(x) = 1549.17 at evaluation 328
+      H: 2.56e+13 (target: 5.18e+13, ratio: 0.49x)
+      CH: 9.80e+09 (target: 1.00e+09, ratio: 9.80x)
+      C2: 6.89e+10 (target: 1.30e+11, ratio: 0.53x)
+      Saved to: optimization_results/best_iteration_0000_f1549.2.json
+
+
+  *** NEW BEST: f(x) = 1549.17 at evaluation 329
+      H: 2.56e+13 (target: 5.18e+13, ratio: 0.49x)
+      CH: 9.80e+09 (target: 1.00e+09, ratio: 9.80x)
+      C2: 6.89e+10 (target: 1.30e+11, ratio: 0.53x)
+      Saved to: optimization_results/best_iteration_0000_f1549.2.json
+
+  [330 evaluations, 2.3 min elapsed]
+
+  *** NEW BEST: f(x) = 1549.17 at evaluation 335
+      H: 2.56e+13 (target: 5.18e+13, ratio: 0.49x)
+      CH: 9.80e+09 (target: 1.00e+09, ratio: 9.80x)
+      C2: 6.89e+10 (target: 1.30e+11, ratio: 0.53x)
+      Saved to: optimization_results/best_iteration_0000_f1549.2.json
+
+  [340 evaluations, 2.3 min elapsed]
+  [350 evaluations, 2.4 min elapsed]
+  [360 evaluations, 2.4 min elapsed]
+
+  *** NEW BEST: f(x) = 1546.88 at evaluation 361
+      H: 2.56e+13 (target: 5.18e+13, ratio: 0.49x)
+      CH: 9.79e+09 (target: 1.00e+09, ratio: 9.79x)
+      C2: 6.88e+10 (target: 1.30e+11, ratio: 0.53x)
+      Saved to: optimization_results/best_iteration_0000_f1546.9.json
+
+
+  *** NEW BEST: f(x) = 1546.88 at evaluation 362
+      H: 2.56e+13 (target: 5.18e+13, ratio: 0.49x)
+      CH: 9.79e+09 (target: 1.00e+09, ratio: 9.79x)
+      C2: 6.88e+10 (target: 1.30e+11, ratio: 0.53x)
+      Saved to: optimization_results/best_iteration_0000_f1546.9.json
+
+
+  *** NEW BEST: f(x) = 1546.88 at evaluation 368
+      H: 2.56e+13 (target: 5.18e+13, ratio: 0.49x)
+      CH: 9.79e+09 (target: 1.00e+09, ratio: 9.79x)
+      C2: 6.88e+10 (target: 1.30e+11, ratio: 0.53x)
+      Saved to: optimization_results/best_iteration_0000_f1546.9.json
+
+  [370 evaluations, 2.5 min elapsed]
+  [380 evaluations, 2.6 min elapsed]
+  [390 evaluations, 2.6 min elapsed]
+
+  *** NEW BEST: f(x) = 1537.73 at evaluation 394
+      H: 2.56e+13 (target: 5.18e+13, ratio: 0.49x)
+      CH: 9.77e+09 (target: 1.00e+09, ratio: 9.77x)
+      C2: 6.86e+10 (target: 1.30e+11, ratio: 0.53x)
+      Saved to: optimization_results/best_iteration_0000_f1537.7.json
+
+
+  *** NEW BEST: f(x) = 1537.73 at evaluation 395
+      H: 2.56e+13 (target: 5.18e+13, ratio: 0.49x)
+      CH: 9.77e+09 (target: 1.00e+09, ratio: 9.77x)
+      C2: 6.86e+10 (target: 1.30e+11, ratio: 0.53x)
+      Saved to: optimization_results/best_iteration_0000_f1537.7.json
+
+  [400 evaluations, 2.7 min elapsed]
+
+  *** NEW BEST: f(x) = 1537.73 at evaluation 401
+      H: 2.56e+13 (target: 5.18e+13, ratio: 0.49x)
+      CH: 9.77e+09 (target: 1.00e+09, ratio: 9.77x)
+      C2: 6.86e+10 (target: 1.30e+11, ratio: 0.53x)
+      Saved to: optimization_results/best_iteration_0000_f1537.7.json
+
+  [410 evaluations, 2.8 min elapsed]
+  [420 evaluations, 2.8 min elapsed]
+
+  *** NEW BEST: f(x) = 1501.74 at evaluation 427
+      H: 2.55e+13 (target: 5.18e+13, ratio: 0.49x)
+      CH: 9.66e+09 (target: 1.00e+09, ratio: 9.66x)
+      C2: 6.76e+10 (target: 1.30e+11, ratio: 0.52x)
+      Saved to: optimization_results/best_iteration_0000_f1501.7.json
+
+
+  *** NEW BEST: f(x) = 1501.74 at evaluation 428
+      H: 2.55e+13 (target: 5.18e+13, ratio: 0.49x)
+      CH: 9.66e+09 (target: 1.00e+09, ratio: 9.66x)
+      C2: 6.76e+10 (target: 1.30e+11, ratio: 0.52x)
+      Saved to: optimization_results/best_iteration_0000_f1501.7.json
+
+  [430 evaluations, 2.9 min elapsed]
+
+  *** NEW BEST: f(x) = 1501.74 at evaluation 434
+      H: 2.55e+13 (target: 5.18e+13, ratio: 0.49x)
+      CH: 9.66e+09 (target: 1.00e+09, ratio: 9.66x)
+      C2: 6.76e+10 (target: 1.30e+11, ratio: 0.52x)
+      Saved to: optimization_results/best_iteration_0000_f1501.7.json
+
+  [440 evaluations, 3.0 min elapsed]
+  [450 evaluations, 3.0 min elapsed]
+  [460 evaluations, 3.1 min elapsed]
+
+  *** NEW BEST: f(x) = 1366.55 at evaluation 460
+      H: 2.52e+13 (target: 5.18e+13, ratio: 0.49x)
+      CH: 9.26e+09 (target: 1.00e+09, ratio: 9.26x)
+      C2: 6.40e+10 (target: 1.30e+11, ratio: 0.49x)
+      Saved to: optimization_results/best_iteration_0000_f1366.6.json
+
+
+  *** NEW BEST: f(x) = 1366.55 at evaluation 461
+      H: 2.52e+13 (target: 5.18e+13, ratio: 0.49x)
+      CH: 9.26e+09 (target: 1.00e+09, ratio: 9.26x)
+      C2: 6.40e+10 (target: 1.30e+11, ratio: 0.49x)
+      Saved to: optimization_results/best_iteration_0000_f1366.6.json
+
+
+  *** NEW BEST: f(x) = 1366.55 at evaluation 467
+      H: 2.52e+13 (target: 5.18e+13, ratio: 0.49x)
+      CH: 9.26e+09 (target: 1.00e+09, ratio: 9.26x)
+      C2: 6.40e+10 (target: 1.30e+11, ratio: 0.49x)
+      Saved to: optimization_results/best_iteration_0000_f1366.6.json
+
+  [470 evaluations, 3.2 min elapsed]
+  [480 evaluations, 3.2 min elapsed]
+  [490 evaluations, 3.3 min elapsed]
+
+  *** NEW BEST: f(x) = 684.19 at evaluation 493
+      H: 2.52e+13 (target: 5.18e+13, ratio: 0.49x)
+      CH: 6.84e+09 (target: 1.00e+09, ratio: 6.84x)
+      C2: 5.11e+10 (target: 1.30e+11, ratio: 0.39x)
+      Saved to: optimization_results/best_iteration_0000_f684.2.json
+
+  [500 evaluations, 3.3 min elapsed]
+
+  *** NEW BEST: f(x) = 684.19 at evaluation 501
+      H: 2.52e+13 (target: 5.18e+13, ratio: 0.49x)
+      CH: 6.84e+09 (target: 1.00e+09, ratio: 6.84x)
+      C2: 5.11e+10 (target: 1.30e+11, ratio: 0.39x)
+      Saved to: optimization_results/best_iteration_0000_f684.2.json
+
+
+  *** NEW BEST: f(x) = 684.19 at evaluation 507
+      H: 2.52e+13 (target: 5.18e+13, ratio: 0.49x)
+      CH: 6.84e+09 (target: 1.00e+09, ratio: 6.84x)
+      C2: 5.11e+10 (target: 1.30e+11, ratio: 0.39x)
+      Saved to: optimization_results/best_iteration_0000_f684.2.json
+
+  [510 evaluations, 3.4 min elapsed]
+  [520 evaluations, 3.5 min elapsed]
+
+  *** NEW BEST: f(x) = 684.19 at evaluation 526
+      H: 2.52e+13 (target: 5.18e+13, ratio: 0.49x)
+      CH: 6.84e+09 (target: 1.00e+09, ratio: 6.84x)
+      C2: 5.11e+10 (target: 1.30e+11, ratio: 0.39x)
+      Saved to: optimization_results/best_iteration_0000_f684.2.json
+
+  [530 evaluations, 3.5 min elapsed]
+  [540 evaluations, 3.6 min elapsed]
+  [550 evaluations, 3.7 min elapsed]
+
+================================================================================
+ OPTIMIZATION COMPLETE (3.7 minutes)
+================================================================================
+
+Final objective: 684.193721
+Iterations: 15
+Evaluations: 558
+
+✓ Final parameters saved to optimization_results/FINAL_RESULT.json
+✓ Best result logs saved to optimization_results/best_iteration_*.json
+
+Use these logs to analyze optimal parameter combinations.

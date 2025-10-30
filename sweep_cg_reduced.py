@@ -17,11 +17,11 @@ from build_reactions import build_reactions
 from odefun import PlasmaODE
 
 
-# TALIF Targets (CG) - Updated 2025-10-29
+# TALIF Targets (CG) - Updated 2025-10-30 (Measured Spatial Averages)
 TARGETS = {
-    'H': 8.58e15,    # cm⁻³ (from 8.58e21 m⁻³)
-    'CH': 4.6e8,     # cm⁻³ (from 4.6e14 m⁻³)
-    'C2': 1.44e11,   # cm⁻³ (from 1.44e17 m⁻³)
+    'H': 9.58e15,    # cm⁻³ (measured from combined_density_matrix.csv)
+    'CH': 4.29e8,    # cm⁻³ (measured from combined_density_matrix.csv)
+    'C2': 1.50e11,   # cm⁻³ (measured from combined_density_matrix.csv)
 }
 
 
@@ -162,7 +162,7 @@ def main():
         'Te': [3.0, 5.0, 7.0],                   # eV (3 values)
         'E_field': [400, 600, 800],              # V/cm (3 values, key points)
         'Tgas': [570, 700],                      # K (2 values)
-        'L_diff': [0.1],                         # cm (fixed)
+        'L_diff': [0.057, 0.1],                  # cm (2 values: measured H & default)
         'gamma_H': [0.001, 0.01, 0.05],          # (3 values, typical range)
     }
 

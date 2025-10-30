@@ -2,12 +2,15 @@
 
 ## Experimental Data Summary
 
-### Cathode Glow (CG) Region - Updated 2025-10-29
+### Cathode Glow (CG) Region - Updated 2025-10-30 (Measured Spatial Averages)
 | Species | Density (m⁻³) | Density (cm⁻³) | Notes |
 |---------|---------------|----------------|-------|
-| H       | 8.58e21       | **8.58e15**    | High - production region |
-| CH      | 4.6e14        | **4.6e8**      | Low - transient |
-| C₂      | 1.44e17       | **1.44e11**    | Moderate |
+| H       | 9.58e21       | **9.58e15**    | High - production region (measured avg 0-1mm) |
+| CH      | 4.29e14       | **4.29e8**     | Low - transient (measured avg 0-1mm) |
+| C₂      | 1.50e17       | **1.50e11**    | Moderate (measured avg 0-1mm) |
+
+**Previous estimates (2025-10-29):** H: 8.58e15, CH: 4.6e8, C₂: 1.44e11 cm⁻³
+**Agreement:** All within ±12% - excellent validation!
 
 **Physics:**
 - ❌ ne: Low, hard to measure
@@ -109,10 +112,10 @@ params = {
 ## Diffusion Length Considerations
 
 ### Cathode Glow (CG)
-- **Diffusion length**: L_diff ~ √(D/k_loss)
-- For H at 400 K: D_H ~ 300 cm²/s at 0.4 Torr
-- With k_loss ~ 500 s⁻¹: L_diff ~ 0.77 cm
-- **Interpretation**: Some H escapes, but production dominates
+- **Diffusion length (measured 2025-10-30)**: L_diff_H = **0.057 cm** (fitted from exponential decay)
+- **Previous estimate**: L_diff ~ 0.77 cm (from D/k_loss)
+- **Interpretation**: MUCH shorter than estimated! Rapid wall loss dominates
+- For CH, C₂: Use default L_diff = 0.1 cm (insufficient data for fitting)
 
 ### Sheath Edge (SE)
 - Closer to bulk plasma
@@ -161,10 +164,15 @@ params = {
     'L_discharge': 0.45,   # cm
 }
 
-# Targets (CG) - Updated 2025-10-29
-target_H  = 8.58e15  # cm⁻³
-target_CH = 4.6e8    # cm⁻³
-target_C2 = 1.44e11  # cm⁻³
+# Targets (CG) - Updated 2025-10-30 (Measured Spatial Averages)
+target_H  = 9.58e15  # cm⁻³
+target_CH = 4.29e8   # cm⁻³
+target_C2 = 1.50e11  # cm⁻³
+
+# Diffusion lengths (measured)
+L_diff_H  = 0.057    # cm (fitted from profile)
+L_diff_CH = 0.1      # cm (default - insufficient data)
+L_diff_C2 = 0.1      # cm (default - insufficient data)
 ```
 
 ---

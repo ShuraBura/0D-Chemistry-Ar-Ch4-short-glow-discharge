@@ -17,11 +17,11 @@ from build_reactions import build_reactions
 from odefun import PlasmaODE
 
 
-# TALIF Targets (CG)
+# TALIF Targets (CG) - Updated 2025-10-29
 TARGETS = {
-    'H': 8.57e15,    # cm⁻³
-    'CH': 2.75e8,    # cm⁻³
-    'C2': 1.12e11,   # cm⁻³
+    'H': 8.58e15,    # cm⁻³ (from 8.58e21 m⁻³)
+    'CH': 4.6e8,     # cm⁻³ (from 4.6e14 m⁻³)
+    'C2': 1.44e11,   # cm⁻³ (from 1.44e17 m⁻³)
 }
 
 

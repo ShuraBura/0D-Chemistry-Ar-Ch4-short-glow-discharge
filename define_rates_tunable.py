@@ -28,6 +28,7 @@ def define_rates_tunable(params):
     Tgas = params.get('Tgas', params.get('Tg', 400))  # K
     L_diff = params.get('L_diff', 0.1)  # cm (CRITICAL - from experiment!)
     scale_e = params.get('scale_e_impact', 1.0)  # Rate scaling
+    Te = params.get('Te', 1.0)  # Electron temperature (eV)
 
     # Diffusion coefficients at reference conditions (400 K, 0.4 Torr)
     # Scale with temperature: D ∝ T^1.75 / P
@@ -48,43 +49,92 @@ def define_rates_tunable(params):
     }
 
     # ===================================================================
-    # Group 1: Electron-Impact Reactions (Neutral Products)
-    # Updated from Janev-Reiter 2002, with scaling factor
+    # Temperature Scaling Functions for Rate Coefficients
     # ===================================================================
-    k['e_CH4_CH3_H_cm3_1_1'] = 4.2e-11 * scale_e
-    k['e_CH4_CH2_H2_cm3_1_2'] = 1.1e-11 * scale_e
-    k['e_CH4_CH_H2_H_vib_cm3_1_3'] = 0.7e-11 * scale_e
-    k['e_H2_H_H_cm3_1_4'] = 6e-12 * scale_e
-    k['e_CH3_CH2_H_cm3_1_5'] = 3e-11 * scale_e
-    k['e_C2H4_C2H2_H2_cm3_1_6'] = 1.0e-11 * scale_e
-    k['e_Ar_ArStar_cm3_1_7'] = 6e-11 * scale_e
-    k['e_C2H6_C2H4_H2_cm3_1_8'] = 7.0e-12 * scale_e
-    k['e_C2H6_C2H4_H2_e_cm3_1_9'] = 1.2e-11 * scale_e
-    k['e_CH4_CH3Minus_H_cm3_1_10'] = 6e-18 * scale_e
-    k['e_CH4_CH_H_H2_cm3_1_11'] = 2e-11 * scale_e
-    k['e_CH_CH_C_H_e_cm3_1_12'] = 6e-11 * scale_e
-    k['e_H2_HMinus_H_cm3_1_13'] = 6e-16 * scale_e
-    k['e_CH3_CH3Minus_cm3_1_14'] = 5e-13 * scale_e
-    k['e_C2H4_C2H2_H2_cm3_1_15'] = 5e-11 * scale_e
-    k['e_C2H2_C2_H2_cm3_1_16'] = 5e-11 * scale_e
-    k['e_C2H4_C2H2_H_H_cm3_1_17'] = 2.5e-11 * scale_e
-    k['e_C2H6_C2H2_2H2_cm3_1_18'] = 1.5e-11 * scale_e
-    # New reactions from audit
-    k['e_C2H2_C2H_H_cm3_1_19'] = 1.0e-11 * scale_e
-    k['e_C2H4_C2H3_H_cm3_1_20'] = 8.0e-12 * scale_e
-    k['e_C2H6_C2H5_H_cm3_1_21'] = 1.2e-11 * scale_e
+    def scale_electron_impact(k_ref, Te, Te_ref=1.0, E_threshold=None):
+        """
+        Scale electron-impact rates with Te.
+        For threshold processes: k ~ sqrt(Te) * exp(-E_threshold/Te)
+        For high-energy processes: k ~ Te^alpha (alpha ~ 0.5-1.0)
+
+        Args:
+            k_ref: Reference rate at Te_ref (cm³/s)
+            Te: Electron temperature (eV)
+            Te_ref: Reference electron temperature (eV), default 1.0
+            E_threshold: Threshold energy (eV), if applicable
+        """
+        if E_threshold is not None and E_threshold > 0:
+            # Threshold process - exponential + power law
+            return k_ref * np.sqrt(Te/Te_ref) * np.exp(-E_threshold * (1/Te - 1/Te_ref))
+        else:
+            # High-energy process - power law scaling
+            return k_ref * (Te/Te_ref)**0.7
+
+    def scale_ionization(k_ref, Te, Te_ref=1.0, E_ion=12.0):
+        """
+        Scale ionization rates with Te using threshold behavior.
+        k ~ sqrt(Te) * exp(-E_ion/Te)
+
+        Args:
+            k_ref: Reference rate at Te_ref (cm³/s)
+            Te: Electron temperature (eV)
+            Te_ref: Reference electron temperature (eV), default 1.0
+            E_ion: Ionization threshold (eV)
+        """
+        return k_ref * np.sqrt(Te/Te_ref) * np.exp(-E_ion * (1/Te - 1/Te_ref))
+
+    def scale_recombination(k_ref, Te, Te_ref=1.0, alpha=0.7):
+        """
+        Scale dissociative recombination rates with Te.
+        k ~ Te^(-alpha) where alpha typically 0.5 to 1.5
+
+        Args:
+            k_ref: Reference rate at Te_ref (cm³/s)
+            Te: Electron temperature (eV)
+            Te_ref: Reference electron temperature (eV), default 1.0
+            alpha: Temperature exponent (dimensionless)
+        """
+        return k_ref * (Te/Te_ref)**(-alpha)
 
     # ===================================================================
-    # Group 2: Electron-Impact Ionization
+    # Group 1: Electron-Impact Reactions (Neutral Products)
+    # Updated from Janev-Reiter 2002, with Te-dependence and scaling factor
     # ===================================================================
-    k['e_CH4_CH3Plus_H_cm3_2_1'] = 1e-11 * scale_e
-    k['e_CH4_CH4Plus_cm3_2_2'] = 1e-11 * scale_e
-    k['e_Ar_ArPlus_cm3_2_3'] = 8e-12 * scale_e
-    k['e_ArStar_ArPlus_cm3_2_4'] = 1e-10 * scale_e
-    k['e_C2H6_C2H5Plus_H_2e_cm3_2_5'] = 8e-12 * scale_e
-    k['e_C2H4_C2H4Plus_2e_cm3_2_6'] = 1.2e-11 * scale_e
-    k['e_C2H4_C2H3Plus_H_2e_cm3_2_7'] = 8e-12 * scale_e
-    k['e_C2H2_C2HPlus_2e_cm3_2_8'] = 8e-12 * scale_e
+    k['e_CH4_CH3_H_cm3_1_1'] = scale_electron_impact(4.2e-11, Te, E_threshold=8.5) * scale_e
+    k['e_CH4_CH2_H2_cm3_1_2'] = scale_electron_impact(1.1e-11, Te, E_threshold=9.5) * scale_e
+    k['e_CH4_CH_H2_H_vib_cm3_1_3'] = scale_electron_impact(0.7e-11, Te, E_threshold=10.5) * scale_e
+    k['e_H2_H_H_cm3_1_4'] = scale_electron_impact(6e-12, Te, E_threshold=8.8) * scale_e
+    k['e_CH3_CH2_H_cm3_1_5'] = scale_electron_impact(3e-11, Te, E_threshold=7.5) * scale_e
+    k['e_C2H4_C2H2_H2_cm3_1_6'] = scale_electron_impact(1.0e-11, Te, E_threshold=7.0) * scale_e
+    k['e_Ar_ArStar_cm3_1_7'] = scale_electron_impact(6e-11, Te, E_threshold=11.5) * scale_e
+    k['e_C2H6_C2H4_H2_cm3_1_8'] = scale_electron_impact(7.0e-12, Te, E_threshold=7.5) * scale_e
+    k['e_C2H6_C2H4_H2_e_cm3_1_9'] = scale_electron_impact(1.2e-11, Te, E_threshold=7.5) * scale_e
+    k['e_CH4_CH3Minus_H_cm3_1_10'] = scale_electron_impact(6e-18, Te, E_threshold=8.0) * scale_e  # Attachment
+    k['e_CH4_CH_H_H2_cm3_1_11'] = scale_electron_impact(2e-11, Te, E_threshold=11.0) * scale_e
+    k['e_CH_CH_C_H_e_cm3_1_12'] = scale_electron_impact(6e-11, Te, E_threshold=8.0) * scale_e
+    k['e_H2_HMinus_H_cm3_1_13'] = scale_electron_impact(6e-16, Te, E_threshold=3.75) * scale_e  # Attachment
+    k['e_CH3_CH3Minus_cm3_1_14'] = scale_electron_impact(5e-13, Te, E_threshold=1.0) * scale_e  # Attachment
+    k['e_C2H4_C2H2_H2_cm3_1_15'] = scale_electron_impact(5e-11, Te, E_threshold=7.0) * scale_e
+    k['e_C2H2_C2_H2_cm3_1_16'] = scale_electron_impact(5e-11, Te, E_threshold=9.0) * scale_e
+    k['e_C2H4_C2H2_H_H_cm3_1_17'] = scale_electron_impact(2.5e-11, Te, E_threshold=8.0) * scale_e
+    k['e_C2H6_C2H2_2H2_cm3_1_18'] = scale_electron_impact(1.5e-11, Te, E_threshold=9.0) * scale_e
+    # New reactions from audit
+    k['e_C2H2_C2H_H_cm3_1_19'] = scale_electron_impact(1.0e-11, Te, E_threshold=8.0) * scale_e
+    k['e_C2H4_C2H3_H_cm3_1_20'] = scale_electron_impact(8.0e-12, Te, E_threshold=7.5) * scale_e
+    k['e_C2H6_C2H5_H_cm3_1_21'] = scale_electron_impact(1.2e-11, Te, E_threshold=7.5) * scale_e
+
+    # ===================================================================
+    # Group 2: Electron-Impact Ionization (Te-dependent)
+    # ===================================================================
+    k['e_CH4_CH3Plus_H_cm3_2_1'] = scale_ionization(1e-11, Te, E_ion=12.6) * scale_e
+    k['e_CH4_CH4Plus_cm3_2_2'] = scale_ionization(1e-11, Te, E_ion=12.6) * scale_e
+    k['e_Ar_ArPlus_cm3_2_3'] = scale_ionization(8e-12, Te, E_ion=15.76) * scale_e
+    k['e_ArStar_ArPlus_cm3_2_4'] = scale_ionization(1e-10, Te, E_ion=4.2) * scale_e  # Ar* already excited
+    k['e_C2H6_C2H5Plus_H_2e_cm3_2_5'] = scale_ionization(8e-12, Te, E_ion=11.5) * scale_e
+    k['e_C2H4_C2H4Plus_2e_cm3_2_6'] = scale_ionization(1.2e-11, Te, E_ion=10.5) * scale_e
+    k['e_C2H4_C2H3Plus_H_2e_cm3_2_7'] = scale_ionization(8e-12, Te, E_ion=10.5) * scale_e
+    k['e_C2H2_C2HPlus_2e_cm3_2_8'] = scale_ionization(8e-12, Te, E_ion=11.4) * scale_e
+    k['e_H2_H2Plus_2e_cm3_2_9'] = scale_ionization(3e-12, Te, E_ion=15.43) * scale_e  # H2 ionization
 
     # ===================================================================
     # Group 3: Ar* Reactions
@@ -150,38 +200,47 @@ def define_rates_tunable(params):
     k['CH2_CH3Plus_CH3_CH2Plus_cm3_5_10'] = 1e-9
     k['CH3Plus_CH4_C2H5Plus_H2_cm3_5_11'] = 1e-9
     k['CH5Plus_C2H4_C2H5Plus_CH4_cm3_5_12'] = 8e-10
+    # H3+ chemistry (CRITICAL!)
+    k['H2Plus_H2_H3Plus_H_cm3_5_13'] = 2.0e-9  # Very fast H3+ formation
+    k['H3Plus_CH4_CH5Plus_H2_cm3_5_14'] = 1.5e-9  # Proton transfer
+    k['H3Plus_H2_H2Plus_H2_cm3_5_15'] = 6.4e-10  # Reverse formation (minor)
 
     # ===================================================================
-    # Group 6: Dissociative Recombination
+    # Group 6: Dissociative Recombination (Te-dependent)
+    # Rates scale as Te^(-alpha) where alpha ~ 0.5-1.0 for most molecular ions
     # ===================================================================
-    k['ArPlus_e_Ar_cm3_6_1'] = 1.5e-7
-    k['CH3Plus_e_CH3_cm3_6_2'] = 4.5e-7
-    k['CH5Plus_e_CH4_H_cm3_6_3'] = 7.5e-7
-    k['e_CH4Plus_CH3_H_cm3_6_4'] = 6e-7
-    k['CH3Minus_ArPlus_CH3_Ar_cm3_6_5'] = 1.5e-7
-    k['CH3Minus_CH4Plus_CH4_CH3_cm3_6_6'] = 1.5e-7
-    k['CH3Minus_CH3Plus_CH4_CH2_cm3_6_7'] = 1.5e-7
-    k['CH5Plus_e_CH3_H2_cm3_6_8'] = 1.5e-7
-    k['e_CH4Plus_CH2_H2_cm3_6_9'] = 6e-7
-    k['CH5Plus_e_CH2_H2_H_cm3_6_10'] = 1.5e-7
-    k['e_CH4Plus_CH_H2_H_cm3_6_11'] = 6e-7
-    k['CH5Plus_e_CH3_2H_cm3_6_12'] = 1.5e-7
-    k['e_CH4Plus_C_2H2_cm3_6_13'] = 5e-7
-    k['C2H5Plus_e_C2H4_H_cm3_6_14'] = 3e-7
-    k['C2H4Plus_e_C2H2_H2_cm3_6_15'] = 3e-7
-    k['C2H3Plus_e_C2H2_H_cm3_6_16'] = 3e-7
-    k['HMinus_ArPlus_H_Ar_cm3_6_17'] = 1.8e-7
-    k['C2HPlus_e_C2_H_cm3_6_18'] = 3.6e-7
-    k['HMinus_CH5Plus_CH4_H2_H_cm3_6_19'] = 1.25e-7
-    k['CH4Plus_HMinus_CH4_H_cm3_6_20'] = 1.25e-7
-    k['CH3Plus_HMinus_CH4_H2_cm3_6_21'] = 1.25e-7
-    k['C2H5Plus_HMinus_C2H6_H_cm3_6_22'] = 1.25e-7
-    k['ArHPlus_HMinus_Ar_H2_H_cm3_6_23'] = 1.25e-7
-    k['CH5Plus_CH3Minus_CH4_CH4_H_cm3_6_24'] = 1.25e-7
-    k['CH4Plus_CH3Minus_CH4_CH3_H_cm3_6_25'] = 1.25e-7
-    k['CH3Plus_CH3Minus_CH4_CH2_H_cm3_6_26'] = 1.25e-7
-    k['C2H5Plus_CH3Minus_C2H6_H_cm3_6_27'] = 1.25e-7
-    k['C2H5Plus_e_C2H4_H_cm3_6_28'] = 3.6e-7
+    k['ArPlus_e_Ar_cm3_6_1'] = scale_recombination(1.5e-7, Te, alpha=0.7)
+    k['CH3Plus_e_CH3_cm3_6_2'] = scale_recombination(4.5e-7, Te, alpha=0.7)
+    k['CH5Plus_e_CH4_H_cm3_6_3'] = scale_recombination(7.5e-7, Te, alpha=0.7)
+    k['e_CH4Plus_CH3_H_cm3_6_4'] = scale_recombination(6e-7, Te, alpha=0.7)
+    k['CH3Minus_ArPlus_CH3_Ar_cm3_6_5'] = 1.5e-7  # Ion-ion recombination - no Te dependence
+    k['CH3Minus_CH4Plus_CH4_CH3_cm3_6_6'] = 1.5e-7  # Ion-ion recombination
+    k['CH3Minus_CH3Plus_CH4_CH2_cm3_6_7'] = 1.5e-7  # Ion-ion recombination
+    k['CH5Plus_e_CH3_H2_cm3_6_8'] = scale_recombination(1.5e-7, Te, alpha=0.7)
+    k['e_CH4Plus_CH2_H2_cm3_6_9'] = scale_recombination(6e-7, Te, alpha=0.7)
+    k['CH5Plus_e_CH2_H2_H_cm3_6_10'] = scale_recombination(1.5e-7, Te, alpha=0.7)
+    k['e_CH4Plus_CH_H2_H_cm3_6_11'] = scale_recombination(6e-7, Te, alpha=0.7)
+    k['CH5Plus_e_CH3_2H_cm3_6_12'] = scale_recombination(1.5e-7, Te, alpha=0.7)
+    k['e_CH4Plus_C_2H2_cm3_6_13'] = scale_recombination(5e-7, Te, alpha=0.7)
+    k['C2H5Plus_e_C2H4_H_cm3_6_14'] = scale_recombination(3e-7, Te, alpha=0.75)
+    k['C2H4Plus_e_C2H2_H2_cm3_6_15'] = scale_recombination(3e-7, Te, alpha=0.75)
+    k['C2H3Plus_e_C2H2_H_cm3_6_16'] = scale_recombination(3e-7, Te, alpha=0.75)
+    k['HMinus_ArPlus_H_Ar_cm3_6_17'] = 1.8e-7  # Ion-ion recombination
+    k['C2HPlus_e_C2_H_cm3_6_18'] = scale_recombination(3.6e-7, Te, alpha=0.75)
+    k['HMinus_CH5Plus_CH4_H2_H_cm3_6_19'] = 1.25e-7  # Ion-ion recombination
+    k['CH4Plus_HMinus_CH4_H_cm3_6_20'] = 1.25e-7  # Ion-ion recombination
+    k['CH3Plus_HMinus_CH4_H2_cm3_6_21'] = 1.25e-7  # Ion-ion recombination
+    k['C2H5Plus_HMinus_C2H6_H_cm3_6_22'] = 1.25e-7  # Ion-ion recombination
+    k['ArHPlus_HMinus_Ar_H2_H_cm3_6_23'] = 1.25e-7  # Ion-ion recombination
+    k['CH5Plus_CH3Minus_CH4_CH4_H_cm3_6_24'] = 1.25e-7  # Ion-ion recombination
+    k['CH4Plus_CH3Minus_CH4_CH3_H_cm3_6_25'] = 1.25e-7  # Ion-ion recombination
+    k['CH3Plus_CH3Minus_CH4_CH2_H_cm3_6_26'] = 1.25e-7  # Ion-ion recombination
+    k['C2H5Plus_CH3Minus_C2H6_H_cm3_6_27'] = 1.25e-7  # Ion-ion recombination
+    k['C2H5Plus_e_C2H4_H_cm3_6_28'] = scale_recombination(3.6e-7, Te, alpha=0.75)
+    # H2+ and H3+ recombination (Te-dependent)
+    k['H2Plus_e_H_H_cm3_6_29'] = scale_recombination(2.3e-8, Te, alpha=0.5)  # H2+ + e → H + H
+    k['H3Plus_e_H2_H_cm3_6_30'] = scale_recombination(2.3e-7, Te, alpha=0.5)  # H3+ + e → H2 + H
+    k['H3Plus_e_H_H_H_cm3_6_31'] = scale_recombination(4.8e-8, Te, alpha=0.5)  # H3+ + e → H + H + H
 
     # ===================================================================
     # Group 7: Neutral-Neutral Reactions (Baulch 2005, updated)
@@ -291,6 +350,7 @@ def define_rates_tunable(params):
     k['stick_H3Plus_9_26'] = 5e3
     k['stick_CHPlus_9_27'] = 5e3
     k['stick_C2HPlus_9_28'] = 5e3
+    k['stick_H2Plus_9_29'] = 5e3  # H2+ wall loss
 
     # ===================================================================
     # Group 10: Drift Losses (HIGH E-FIELD!)
@@ -308,6 +368,7 @@ def define_rates_tunable(params):
     k['drift_CHPlus_10_11'] = mobilities['CHPlus'] * E_field / L_discharge
     k['drift_CH3Minus_10_12'] = mobilities['CH3Minus'] * E_field / L_discharge
     k['drift_C2HPlus_10_13'] = mobilities['C2HPlus'] * E_field / L_discharge
+    k['drift_H2Plus_10_14'] = mobilities['H2Plus'] * E_field / L_discharge  # H2+ drift
 
     # ===================================================================
     # Group 11: Loss Reactions (BASED ON L_diff!)

@@ -14,11 +14,11 @@ from build_reactions import build_reactions
 from odefun import PlasmaODE
 
 
-# TALIF Experimental Targets (Cathode Glow)
+# TALIF Experimental Targets (Cathode Glow) - Updated 2025-10-29
 TARGETS = {
-    'H': 8.57e15,    # cm⁻³
-    'CH': 2.75e8,    # cm⁻³
-    'C2': 1.12e11,   # cm⁻³
+    'H': 8.58e15,    # cm⁻³ (from 8.58e21 m⁻³)
+    'CH': 4.6e8,     # cm⁻³ (from 4.6e14 m⁻³)
+    'C2': 1.44e11,   # cm⁻³ (from 1.44e17 m⁻³)
 }
 
 # Derived ratios (more robust than absolute values)
@@ -160,9 +160,9 @@ def main():
                     'CH3Minus', 'H', 'C2', 'CH', 'H2', 'ArStar', 'C2H4', 'C2H6', 'CH2',
                     'C2H2', 'C2H5', 'CH3', 'C', 'H3Plus', 'C2H3', 'C3H2', 'CHPlus', 'C3H',
                     'C4H2', 'C2H', 'C3H3', 'C3H4', 'C3', 'C3H5', 'C4H', 'C3H6', 'CH2Plus',
-                    'C2H5Plus', 'C2H4Plus', 'C2H3Plus', 'HMinus', 'C2HPlus', 'C2H2Star'],
+                    'C2H5Plus', 'C2H4Plus', 'C2H3Plus', 'HMinus', 'C2HPlus', 'H2Plus', 'C2H2Star'],
         'ion_species': ['ArPlus', 'CH4Plus', 'CH3Plus', 'CH5Plus', 'ArHPlus', 'CH3Minus', 'H3Plus', 'CHPlus',
-                        'CH2Plus', 'C2H5Plus', 'C2H4Plus', 'C2H3Plus', 'HMinus', 'C2HPlus'],
+                        'CH2Plus', 'C2H5Plus', 'C2H4Plus', 'C2H3Plus', 'HMinus', 'C2HPlus', 'H2Plus'],
         'mobilities': {
             'ArPlus': 3057.28,
             'CH4Plus': 6432,
@@ -176,6 +176,7 @@ def main():
             'C2HPlus': 5000,
             'H3Plus': 5000,
             'CHPlus': 5000,
+            'H2Plus': 5000,
             'CH3Minus': 3000,
             'HMinus': 3000
         }

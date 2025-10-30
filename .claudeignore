@@ -1,6 +1,6 @@
-# Large binary files
-*.pdf
-*.PDF
+# Large binary files (temporarily disabled to extract cross-section data)
+# *.pdf
+# *.PDF
 
 # Images
 *.png

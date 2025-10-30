@@ -2,12 +2,12 @@
 
 ## Experimental Data Summary
 
-### Cathode Glow (CG) Region
+### Cathode Glow (CG) Region - Updated 2025-10-29
 | Species | Density (m⁻³) | Density (cm⁻³) | Notes |
 |---------|---------------|----------------|-------|
-| H       | 8.57e21       | **8.57e15**    | High - production region |
-| CH      | 2.75e14       | **2.75e8**     | Low - transient |
-| C₂      | 1.12e17       | **1.12e11**    | Moderate |
+| H       | 8.58e21       | **8.58e15**    | High - production region |
+| CH      | 4.6e14        | **4.6e8**      | Low - transient |
+| C₂      | 1.44e17       | **1.44e11**    | Moderate |
 
 **Physics:**
 - ❌ ne: Low, hard to measure
@@ -21,12 +21,12 @@
 
 ---
 
-### Sheath Edge (SE) Region
+### Cathode Sheath Boundary (CSB) Region - Updated 2025-10-29
 | Species | Density (m⁻³) | Density (cm⁻³) | Notes |
 |---------|---------------|----------------|-------|
 | H       | 6.35e20       | **6.35e14**    | Lower - diffused from CG |
-| CH      | 6.22e14       | **6.22e8**     | 2.3× higher than CG |
-| C₂      | 4.68e17       | **4.68e11**    | 4.2× higher than CG |
+| CH      | 9.27e14       | **9.27e8**     | 2.0× higher than CG |
+| C₂      | 5.56e17       | **5.56e11**    | 3.9× higher than CG |
 
 **Physics:**
 - ✓ ne: Easier to measure
@@ -62,13 +62,14 @@ params = {
 ```
 
 **Targets**:
-- H:  8.57e15 cm⁻³
-- CH: 2.75e8 cm⁻³
-- C₂: 1.12e11 cm⁻³
+- H:  8.58e15 cm⁻³
+- CH: 4.6e8 cm⁻³
+- C₂: 1.44e11 cm⁻³
 
 **Key ratios**:
-- H/CH = 3.1e7 (H dominates!)
-- C₂/CH = 408 (C₂ >> CH)
+- H/CH = 1.87e7 (H dominates!)
+- C₂/CH = 313 (C₂ >> CH)
+- H/C₂ = 5.96e4
 
 ---
 
@@ -93,12 +94,13 @@ params = {
 
 **Targets**:
 - H:  6.35e14 cm⁻³
-- CH: 6.22e8 cm⁻³
-- C₂: 4.68e11 cm⁻³
+- CH: 9.27e8 cm⁻³
+- C₂: 5.56e11 cm⁻³
 
 **Key ratios**:
-- H/CH = 1.0e6 (still H-dominated, but less so)
-- C₂/CH = 752 (C₂ >> CH)
+- H/CH = 6.85e5 (still H-dominated, but less so)
+- C₂/CH = 600 (C₂ >> CH)
+- H/C₂ = 1.14e3
 
 **Problem**: 0-D model will predict H production, but here H is mainly transported in
 
@@ -159,10 +161,10 @@ params = {
     'L_discharge': 0.45,   # cm
 }
 
-# Targets (CG)
-target_H  = 8.57e15  # cm⁻³
-target_CH = 2.75e8   # cm⁻³
-target_C2 = 1.12e11  # cm⁻³
+# Targets (CG) - Updated 2025-10-29
+target_H  = 8.58e15  # cm⁻³
+target_CH = 4.6e8    # cm⁻³
+target_C2 = 1.44e11  # cm⁻³
 ```
 
 ---

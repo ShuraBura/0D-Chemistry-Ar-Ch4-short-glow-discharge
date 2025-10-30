@@ -1,0 +1,35 @@
+# Large binary files (temporarily disabled to extract cross-section data)
+# *.pdf
+# *.PDF
+
+# Images
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.svg
+*.ico
+
+# Data files
+*.csv
+*.dat
+*.h5
+*.hdf5
+
+# Compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.so
+*.o
+
+# Large output files
+*.log
+*.out
+
+# MATLAB figures
+*.fig
+
+# Jupyter checkpoint
+.ipynb_checkpoints/

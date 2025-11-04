@@ -110,6 +110,7 @@ def define_rates_tunable(params):
     k['e_C2H6_C2H4_H2_cm3_1_8'] = scale_electron_impact(7.0e-12, Te, E_threshold=7.5) * scale_e
     k['e_C2H6_C2H4_H2_e_cm3_1_9'] = scale_electron_impact(1.2e-11, Te, E_threshold=7.5) * scale_e
     k['e_CH4_CH3Minus_H_cm3_1_10'] = scale_electron_impact(6e-18, Te, E_threshold=8.0) * scale_e  # Attachment
+    k['e_CH4_CH3_HMinus_cm3_8_1'] = scale_electron_impact(1.0e-13, Te, E_threshold=3.0) * scale_e  # Dissociative attachment (NEW IN V7)
     k['e_CH4_CH_H_H2_cm3_1_11'] = scale_electron_impact(2e-11, Te, E_threshold=11.0) * scale_e
     k['e_CH_CH_C_H_e_cm3_1_12'] = scale_electron_impact(6e-11, Te, E_threshold=8.0) * scale_e
     k['e_H2_HMinus_H_cm3_1_13'] = scale_electron_impact(6e-16, Te, E_threshold=3.75) * scale_e  # Attachment
@@ -227,6 +228,7 @@ def define_rates_tunable(params):
     k['C2H3Plus_e_C2H2_H_cm3_6_16'] = scale_recombination(3e-7, Te, alpha=0.75)
     k['HMinus_ArPlus_H_Ar_cm3_6_17'] = 1.8e-7  # Ion-ion recombination
     k['C2HPlus_e_C2_H_cm3_6_18'] = scale_recombination(3.6e-7, Te, alpha=0.75)
+    k['ArHPlus_e_Ar_H_cm3_6_29'] = scale_recombination(2e-7, Te, alpha=0.7)  # ArH+ recombination (NEW)
     k['HMinus_CH5Plus_CH4_H2_H_cm3_6_19'] = 1.25e-7  # Ion-ion recombination
     k['CH4Plus_HMinus_CH4_H_cm3_6_20'] = 1.25e-7  # Ion-ion recombination
     k['CH3Plus_HMinus_CH4_H2_cm3_6_21'] = 1.25e-7  # Ion-ion recombination

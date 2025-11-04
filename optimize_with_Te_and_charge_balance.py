@@ -35,10 +35,11 @@ TARGETS = {
     'H': 5.18e13,
     'CH': 1.0e9,
     'C2': 1.3e11,
+    'C2H2': 3.5e12,  # Push higher to boost C2 via C2H2 + H → C2 pathway
 }
 
 # Create results directory
-os.makedirs('optimization_results_balanced', exist_ok=True)
+os.makedirs('optimization_results_C2H2_boost', exist_ok=True)
 
 # Global counter for iterations
 iteration_counter = 0
@@ -257,7 +258,8 @@ def run_simulation_with_logging(rate_values, E_field, ne, Te, params_base, log_f
         results = {
             'H': get_density('H'),
             'CH': get_density('CH'),
-            'C2': get_density('C2')
+            'C2': get_density('C2'),
+            'C2H2': get_density('C2H2')
         }
 
         # Calculate ion densities for charge balance
@@ -326,15 +328,16 @@ def objective_function(x, param_names, params_base):
     if results is None:
         return 1e10
 
-    # Species target errors (same weights as before)
+    # Species target errors - rebalanced to push C2H2 and C2 higher
     weights = {
         'H': 1.0,
-        'CH': 10.0,  # Reduced: CH is 8.34x target, can tolerate being high
-        'C2': 10.0   # Increased: C2 is only 0.45x target, need to push higher
+        'CH': 5.0,   # Further reduced: can tolerate CH being high, coupled to C2
+        'C2': 15.0,  # Strongly increased: primary target to match
+        'C2H2': 5.0  # Moderate: push higher to feed C2H2 + H → C2 pathway
     }
 
     species_error = 0.0
-    for species in ['H', 'CH', 'C2']:
+    for species in ['H', 'CH', 'C2', 'C2H2']:
         rel_error = (results[species] - TARGETS[species]) / TARGETS[species]
         species_error += weights[species] * rel_error ** 2
 
@@ -356,7 +359,7 @@ def objective_function(x, param_names, params_base):
         best_result['densities'] = results
 
         # Save detailed log for best result
-        log_file = f'optimization_results_balanced/best_f{total_error:.1f}_Te{Te:.2f}.json'
+        log_file = f'optimization_results_C2H2_boost/best_f{total_error:.1f}_Te{Te:.2f}.json'
         run_simulation_with_logging(rate_values, E_field, ne, Te, params_updated, log_file)
 
         print(f"\n  *** NEW BEST: f(x) = {total_error:.2f} at evaluation {objective_function.counter}")
@@ -367,6 +370,7 @@ def objective_function(x, param_names, params_base):
         print(f"      H: {results['H']:.2e} (target: {TARGETS['H']:.2e}, ratio: {results['H']/TARGETS['H']:.2f}x)")
         print(f"      CH: {results['CH']:.2e} (target: {TARGETS['CH']:.2e}, ratio: {results['CH']/TARGETS['CH']:.2f}x)")
         print(f"      C2: {results['C2']:.2e} (target: {TARGETS['C2']:.2e}, ratio: {results['C2']/TARGETS['C2']:.2f}x)")
+        print(f"      C2H2: {results['C2H2']:.2e} (target: {TARGETS['C2H2']:.2e}, ratio: {results['C2H2']/TARGETS['C2H2']:.2f}x)")
         print(f"      Species error: {species_error:.2f}, Charge penalty: {charge_penalty:.2f}")
         print(f"      Saved to: {log_file}\n")
 

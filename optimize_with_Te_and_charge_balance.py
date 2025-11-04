@@ -4,9 +4,9 @@ OPTIMIZATION WITH Te-DEPENDENT RATES AND CHARGE BALANCE
 
 Key improvements:
 1. Uses define_rates_tunable.py (Te-dependent rates)
-2. Te as free optimization parameter (1-8 eV)
+2. Te as free optimization parameter (0.7-8 eV)
 3. Charge balance penalty in objective function
-4. Ne constrained near observed value (1.95e9 ± factor of 2)
+4. Ne allowed to vary [1e8, 5e9] cm⁻³ (relaxed lower bound)
 
 Expected result:
 - Te ~ 5-7 eV (from E/N)
@@ -38,7 +38,7 @@ TARGETS = {
 }
 
 # Create results directory
-os.makedirs('optimization_results_Te_charge_balanced', exist_ok=True)
+os.makedirs('optimization_results_Te_low', exist_ok=True)
 
 # Global counter for iterations
 iteration_counter = 0
@@ -356,7 +356,7 @@ def objective_function(x, param_names, params_base):
         best_result['densities'] = results
 
         # Save detailed log for best result
-        log_file = f'optimization_results_Te_charge_balanced/best_f{total_error:.1f}_Te{Te:.2f}.json'
+        log_file = f'optimization_results_Te_low/best_f{total_error:.1f}_Te{Te:.2f}.json'
         run_simulation_with_logging(rate_values, E_field, ne, Te, params_updated, log_file)
 
         print(f"\n  *** NEW BEST: f(x) = {total_error:.2f} at evaluation {objective_function.counter}")
@@ -381,9 +381,9 @@ def main():
     print("=" * 80)
     print("\nKey improvements:")
     print("  1. Te-dependent rate coefficients")
-    print("  2. Te as free parameter (1-8 eV)")
+    print("  2. Te as free parameter (0.7-8 eV)")
     print("  3. Charge balance penalty in objective")
-    print("  4. Ne constrained near 1.95e9 (from sheath width)")
+    print("  4. Ne allowed to vary [1e8, 5e9] cm⁻³ (relaxed lower bound)")
 
     print("\nSelecting tunable rates...")
     tunable_rates = select_tunable_rates()
@@ -429,17 +429,17 @@ def main():
     bounds.append((100.0, 400.0))  # E field (V/cm)
     param_names.append('E_field')
 
-    bounds.append((1.0, 8.0))  # Te (eV) ← NEW!
+    bounds.append((0.7, 8.0))  # Te (eV) ← NEW! Lowered to 0.7 eV
     param_names.append('Te')
 
-    bounds.append((5e8, 5e9))  # Ne (cm⁻³), allow ±2.5× from 1.95e9
+    bounds.append((1e8, 5e9))  # Ne (cm⁻³), relaxed lower bound to 1e8
     param_names.append('ne')
 
     print(f"\n Optimization parameters:")
     print(f"  Tunable rates: {len(param_names) - 3}")
     print(f"  E field: [100, 400] V/cm")
-    print(f"  Te: [1, 8] eV  ← NEW!")
-    print(f"  Ne: [5e8, 5e9] cm⁻³")
+    print(f"  Te: [0.7, 8] eV  ← NEW! Lowered minimum")
+    print(f"  Ne: [1e8, 5e9] cm⁻³  ← Relaxed lower bound")
     print(f"  Total parameters: {len(param_names)}")
 
     print(f"\n Targets:")
@@ -514,7 +514,7 @@ def main():
         'rates': {name: float(result.x[i]) for i, name in enumerate(param_names[:-3])}
     }
 
-    with open('optimization_results_Te_charge_balanced/FINAL_RESULT.json', 'w') as f:
+    with open('optimization_results_Te_low/FINAL_RESULT.json', 'w') as f:
         json.dump({
             'objective': float(result.fun),
             'parameters': final_params,
@@ -524,8 +524,8 @@ def main():
             'evaluations': int(result.nfev)
         }, f, indent=2)
 
-    print(f"\n✓ Final parameters saved to optimization_results_Te_charge_balanced/FINAL_RESULT.json")
-    print(f"✓ Best result logs saved to optimization_results_Te_charge_balanced/best_*.json")
+    print(f"\n✓ Final parameters saved to optimization_results_Te_low/FINAL_RESULT.json")
+    print(f"✓ Best result logs saved to optimization_results_Te_low/best_*.json")
     print("\nRe-run with these parameters to validate results!")
 
 

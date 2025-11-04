@@ -38,7 +38,7 @@ TARGETS = {
 }
 
 # Create results directory
-os.makedirs('optimization_results_Te_low', exist_ok=True)
+os.makedirs('optimization_results_balanced', exist_ok=True)
 
 # Global counter for iterations
 iteration_counter = 0
@@ -329,8 +329,8 @@ def objective_function(x, param_names, params_base):
     # Species target errors (same weights as before)
     weights = {
         'H': 1.0,
-        'CH': 20.0,
-        'C2': 3.0
+        'CH': 10.0,  # Reduced: CH is 8.34x target, can tolerate being high
+        'C2': 10.0   # Increased: C2 is only 0.45x target, need to push higher
     }
 
     species_error = 0.0
@@ -356,7 +356,7 @@ def objective_function(x, param_names, params_base):
         best_result['densities'] = results
 
         # Save detailed log for best result
-        log_file = f'optimization_results_Te_low/best_f{total_error:.1f}_Te{Te:.2f}.json'
+        log_file = f'optimization_results_balanced/best_f{total_error:.1f}_Te{Te:.2f}.json'
         run_simulation_with_logging(rate_values, E_field, ne, Te, params_updated, log_file)
 
         print(f"\n  *** NEW BEST: f(x) = {total_error:.2f} at evaluation {objective_function.counter}")
@@ -514,7 +514,7 @@ def main():
         'rates': {name: float(result.x[i]) for i, name in enumerate(param_names[:-3])}
     }
 
-    with open('optimization_results_Te_low/FINAL_RESULT.json', 'w') as f:
+    with open('optimization_results_balanced/FINAL_RESULT.json', 'w') as f:
         json.dump({
             'objective': float(result.fun),
             'parameters': final_params,
@@ -524,8 +524,8 @@ def main():
             'evaluations': int(result.nfev)
         }, f, indent=2)
 
-    print(f"\n✓ Final parameters saved to optimization_results_Te_low/FINAL_RESULT.json")
-    print(f"✓ Best result logs saved to optimization_results_Te_low/best_*.json")
+    print(f"\n✓ Final parameters saved to optimization_results_balanced/FINAL_RESULT.json")
+    print(f"✓ Best result logs saved to optimization_results_balanced/best_*.json")
     print("\nRe-run with these parameters to validate results!")
 
 

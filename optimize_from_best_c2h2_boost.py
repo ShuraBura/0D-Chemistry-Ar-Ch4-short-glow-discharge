@@ -72,6 +72,8 @@ class PlasmaODE:
         self.tags = params['tags']
         self.H_drift_gain = params.get('H_drift_gain', 3.2e17)
         self.e_idx = self.species.index('e')
+        self.Ar_idx = self.species.index('Ar')
+        self.CH4_idx = self.species.index('CH4')
         self.H_idx = self.species.index('H')
         self._build_stoich()
     
@@ -94,7 +96,9 @@ class PlasmaODE:
         self.react_matrix = sparse.csr_matrix((vals_react, (rows_react, cols_react)), shape=(self.ns, self.nr))
     
     def __call__(self, t, y):
-        y = np.maximum(y, 1e-10)
+        # Prevent negative densities (higher floor = more stable)
+        y = np.maximum(y, 1e-6)
+
         rates = np.zeros(len(self.R))
         for rxn_idx, reaction in enumerate(self.R):
             rate_constant = self.k[self.tags[rxn_idx]]  # FIX: use tags, not reaction.rate!
@@ -110,8 +114,15 @@ class PlasmaODE:
                 for sp_idx in react_species:
                     rate *= y[sp_idx] ** reaction.reactants[sp_idx]
                 rates[rxn_idx] = rate
+
         dydt = self.prod_matrix.dot(rates) - self.react_matrix.dot(rates)
         dydt[self.H_idx] += self.H_drift_gain
+
+        # Fix constant species (prevent drift)
+        dydt[self.e_idx] = 0
+        dydt[self.Ar_idx] = 0
+        dydt[self.CH4_idx] = 0
+
         return dydt
 
 

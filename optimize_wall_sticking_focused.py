@@ -111,10 +111,10 @@ class PlasmaODE:
     
     def __call__(self, t, y):
         y = np.maximum(y, 1e-10)
-        
+
         rates = np.zeros(self.nr)
         for rxn_idx, reaction in enumerate(self.R):
-            rate_constant = self.k.get(reaction.rate_key, 0.0)
+            rate_constant = self.k.get(reaction.rate, 0.0)
             
             if 'drift' in self.tags[rxn_idx]:
                 rates[rxn_idx] = rate_constant * y[self.e_idx]

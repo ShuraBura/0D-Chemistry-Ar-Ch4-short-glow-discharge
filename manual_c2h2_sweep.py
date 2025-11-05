@@ -84,7 +84,7 @@ class PlasmaODE:
         y = np.maximum(y, 1e-10)
         rates = np.zeros(len(self.R))
         for rxn_idx, reaction in enumerate(self.R):
-            rate_constant = self.k.get(reaction.rate_key, 0.0)
+            rate_constant = self.k.get(reaction.rate, 0.0)
             if 'drift' in self.tags[rxn_idx]:
                 rates[rxn_idx] = rate_constant * y[self.e_idx]
             elif 'loss' in self.tags[rxn_idx] or 'stick' in self.tags[rxn_idx]:
@@ -178,7 +178,14 @@ baseline_params = {
     'E_field': start_data['E_field'],
     'H_drift_gain': start_data.get('H_drift_gain', 3.2e17),
     'rate_values': baseline_rates,
+    'species': ['e', 'Ar', 'CH4', 'ArPlus', 'CH4Plus', 'CH3Plus', 'CH5Plus', 'ArHPlus',
+                'CH3Minus', 'H', 'C2', 'CH', 'H2', 'ArStar', 'C2H4', 'C2H6', 'CH2',
+                'C2H2', 'C2H5', 'CH3', 'C', 'H3Plus', 'C2H3', 'C3H2', 'CHPlus', 'C3H',
+                'C4H2', 'C2H', 'C3H3', 'C3H4', 'C3', 'C3H5', 'C4H', 'C3H6', 'CH2Plus',
+                'C2H5Plus', 'C2H4Plus', 'C2H3Plus', 'HMinus', 'C2HPlus', 'H2Plus', 'C2H2Star'],
     'L_discharge': 0.45,  # cm (from documentation)
+    'P': 0.4,
+    'Tgas': 300,
     'mobilities': {
         'ArPlus': 3057.28,
         'CH4Plus': 6432,
@@ -250,7 +257,14 @@ for sc2h2 in stick_C2H2_factors:
                 'E_field': start_data['E_field'],
                 'H_drift_gain': start_data.get('H_drift_gain', 3.2e17),
                 'rate_values': test_rates,
+                'species': ['e', 'Ar', 'CH4', 'ArPlus', 'CH4Plus', 'CH3Plus', 'CH5Plus', 'ArHPlus',
+                            'CH3Minus', 'H', 'C2', 'CH', 'H2', 'ArStar', 'C2H4', 'C2H6', 'CH2',
+                            'C2H2', 'C2H5', 'CH3', 'C', 'H3Plus', 'C2H3', 'C3H2', 'CHPlus', 'C3H',
+                            'C4H2', 'C2H', 'C3H3', 'C3H4', 'C3', 'C3H5', 'C4H', 'C3H6', 'CH2Plus',
+                            'C2H5Plus', 'C2H4Plus', 'C2H3Plus', 'HMinus', 'C2HPlus', 'H2Plus', 'C2H2Star'],
                 'L_discharge': 0.45,  # cm (from documentation)
+                'P': 0.4,
+                'Tgas': 300,
                 'mobilities': {
                     'ArPlus': 3057.28,
                     'CH4Plus': 6432,

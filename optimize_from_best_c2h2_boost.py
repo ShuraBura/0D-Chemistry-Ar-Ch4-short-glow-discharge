@@ -277,7 +277,8 @@ def objective_function(x):
         best_result['objective'] = total_error
         best_result['params'] = params_dict
         best_result['densities'] = results
-        
+        best_result['x'] = x.tolist()  # Save optimization parameters
+
         print(f"\n  *** NEW BEST: f(x) = {total_error:.2f}")
         print(f"      H:    {results['H']:.2e} ({results['H']/TARGETS['H']:.2f}×)")
         print(f"      CH:   {results['CH']:.2e} ({results['CH']/TARGETS['CH']:.2f}×)")
@@ -285,6 +286,12 @@ def objective_function(x):
         print(f"      C2H2: {results['C2H2']:.2e}")
         print(f"      stick_C2H2 factor: {stick_C2H2_factor:.2f}×")
         print(f"      stick_CH factor: {stick_CH_factor:.2f}×")
+
+        # Save checkpoint immediately
+        checkpoint_file = f"checkpoint_f{total_error:.0f}.json"
+        with open(checkpoint_file, 'w') as f:
+            json.dump(best_result, f, indent=2)
+        print(f"      Saved: {checkpoint_file}")
     
     return total_error
 
@@ -354,3 +361,88 @@ if best_result['densities']:
         print(f"  H:  {'✓' if h_ok else '✗'}")
         print(f"  CH: {'✓' if ch_ok else '✗'}")
         print(f"  C2: {'✓' if c2_ok else '✗'}")
+
+    # Save final result
+    final_file = f"final_result_f{best_result['objective']:.0f}.json"
+    with open(final_file, 'w') as f:
+        json.dump(best_result, f, indent=2)
+    print()
+    print(f"Saved final result to: {final_file}")
+
+    # Run complete simulation to get all species
+    print()
+    print("="*80)
+    print("COMPLETE SPECIES BREAKDOWN")
+    print("="*80)
+    print()
+
+    params_final = best_result['params']
+    species = params_final['species']
+
+    # Run final simulation
+    rate_db = get_complete_rate_database(params_final['rate_values'])
+    k = define_rates_tunable(params_final)
+    R, tags = build_reactions(params_final)
+
+    params_ode = {
+        'species': species,
+        'R': R,
+        'k': k,
+        'tags': tags,
+        'H_drift_gain': params_final['H_drift_gain']
+    }
+
+    ode = PlasmaODE(params_ode)
+
+    # Initial conditions
+    y0 = np.zeros(len(species))
+    for sp in species:
+        if sp in start_data['densities']:
+            y0[species.index(sp)] = start_data['densities'][sp]
+
+    # Solve
+    sol = solve_ivp(
+        ode,
+        (0, 1e-3),
+        y0,
+        method='BDF',
+        dense_output=True,
+        rtol=1e-6,
+        atol=1e-10
+    )
+
+    if sol.success:
+        y_final = sol.y[:, -1]
+
+        print("All species densities (cm^-3):")
+        print("-" * 80)
+
+        total_ions = 0.0
+        ion_species = ['ArPlus', 'CH4Plus', 'CH3Plus', 'CH5Plus', 'ArHPlus',
+                       'CH2Plus', 'C2H5Plus', 'C2H4Plus', 'C2H3Plus', 'C2HPlus',
+                       'H3Plus', 'CHPlus', 'H2Plus']
+
+        for i, sp in enumerate(species):
+            density = y_final[i]
+            marker = ""
+            if sp in ['H', 'CH', 'C2', 'C2H2']:
+                marker = " ← TARGET"
+            elif sp == 'e':
+                marker = " ← Ne"
+            elif sp in ion_species:
+                total_ions += density
+                marker = " (ion)"
+
+            print(f"  {sp:12s}: {density:.3e}{marker}")
+
+        print("-" * 80)
+        print()
+        print(f"Total ion density (Ni): {total_ions:.3e} cm^-3")
+        print(f"Electron density (Ne):  {y_final[species.index('e')]:.3e} cm^-3")
+        print(f"Electric field (E):     {params_final['E_field']:.2f} V/cm")
+        print(f"Electron temp (Te):     {params_final['Te']:.3f} eV")
+        print(f"H drift gain:           {params_final['H_drift_gain']:.3e} cm^-3/s")
+        print()
+    else:
+        print("Warning: Final simulation failed to converge")
+        print()

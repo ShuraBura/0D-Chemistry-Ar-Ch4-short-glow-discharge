@@ -1,0 +1,68 @@
+================================================================================
+COMPLETE SPECIES BREAKDOWN FROM BEST CHECKPOINT
+================================================================================
+
+Best objective: f(x) = 3407.17
+
+Running final simulation...
+SUCCESS!
+
+All species densities (cm^-3):
+--------------------------------------------------------------------------------
+  e           : 3.123e+08 ← Ne
+  Ar          : 8.211e+15
+  CH4         : 1.449e+15
+  ArPlus      : 1.008e+09 (ion)
+  CH4Plus     : 1.248e+09 (ion)
+  CH3Plus     : 1.899e+08 (ion)
+  CH5Plus     : 2.823e+09 (ion)
+  ArHPlus     : 4.478e+08 (ion)
+  CH3Minus    : -5.245e+11
+  H           : 2.714e+13 ← TARGET
+  C2          : 2.035e+10 ← TARGET
+  CH          : 2.632e+09 ← TARGET
+  H2          : 2.162e+13
+  ArStar      : 5.716e+07
+  C2H4        : 1.113e+11
+  C2H6        : 6.290e+11
+  CH2         : 6.831e+11
+  C2H2        : 6.583e+11 ← TARGET
+  C2H5        : 1.951e+11
+  CH3         : 1.800e+13
+  C           : 2.536e+10
+  H3Plus      : -8.742e+11 (ion)
+  C2H3        : 7.223e+09
+  C3H2        : 9.785e+07
+  CHPlus      : -8.742e+11 (ion)
+  C3H         : 3.178e+08
+  C4H2        : 1.772e+05
+  C2H         : 8.765e+07
+  C3H3        : 1.824e+06
+  C3H4        : 1.541e+07
+  C3          : 8.367e+08
+  C3H5        : 5.205e+07
+  C4H         : 1.668e+05
+  C3H6        : 2.844e+08
+  CH2Plus     : -8.653e+11 (ion)
+  C2H5Plus    : -5.902e+11 (ion)
+  C2H4Plus    : -8.654e+11 (ion)
+  C2H3Plus    : -8.654e+11 (ion)
+  HMinus      : 6.395e+07
+  C2HPlus     : -8.741e+11 (ion)
+  H2Plus      : -8.705e+11 (ion)
+  C2H2Star    : 2.647e+05
+--------------------------------------------------------------------------------
+
+SUMMARY:
+  Total ion density (Ni): -6.674e+12 cm^-3
+  Electron density (Ne):  3.123e+08 cm^-3
+  Electric field (E):     251.92 V/cm
+  Electron temp (Te):     1.470 eV
+  H drift gain:           3.404e+17 cm^-3/s
+
+TARGET SPECIES:
+  H:    2.714e+13 cm^-3 (0.52× target)
+  CH:   2.632e+09 cm^-3 (2.63× target)
+  C2:   2.035e+10 cm^-3 (0.16× target)
+  C2H2: 6.583e+11 cm^-3
+

@@ -125,7 +125,7 @@ class PlasmaODE_H_Tunable:
 
         rates = np.zeros(self.nr)
         for rxn_idx, reaction in enumerate(self.R):
-            rate_constant = self.k.get(reaction.rate, 0.0)
+            rate_constant = self.k[self.tags[rxn_idx]]
 
             if 'drift' in self.tags[rxn_idx]:
                 ne = y[self.e_idx]
@@ -166,7 +166,7 @@ def analyze_chemistry(y, species, params):
         loss_fluxes = []
 
         for rxn_idx, reaction in enumerate(params['R']):
-            rate_constant = params['k'].get(reaction.rate, 0.0)
+            rate_constant = params['k'][params['tags'][rxn_idx]]
 
             if 'drift' in params['tags'][rxn_idx]:
                 rate = rate_constant * y[species.index('e')]

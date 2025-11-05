@@ -114,7 +114,7 @@ class PlasmaODE:
 
         rates = np.zeros(self.nr)
         for rxn_idx, reaction in enumerate(self.R):
-            rate_constant = self.k.get(reaction.rate, 0.0)
+            rate_constant = self.k[self.tags[rxn_idx]]
             
             if 'drift' in self.tags[rxn_idx]:
                 rates[rxn_idx] = rate_constant * y[self.e_idx]

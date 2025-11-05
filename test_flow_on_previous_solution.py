@@ -88,7 +88,7 @@ class PlasmaODE_NoFlow:
         y = np.maximum(y, 1e-10)
         rates = np.zeros(self.nr)
         for rxn_idx, reaction in enumerate(self.R):
-            rate_constant = self.k.get(reaction.rate, 0.0)
+            rate_constant = self.k[self.tags[rxn_idx]]
             if 'drift' in reaction.tags:
                 rates[rxn_idx] = rate_constant * y[self.e_idx]
             elif 'loss' in reaction.tags or 'stick' in reaction.tags:
@@ -170,7 +170,7 @@ class PlasmaODE_WithFlow:
         y = np.maximum(y, 1e-10)
         rates = np.zeros(self.nr)
         for rxn_idx, reaction in enumerate(self.R):
-            rate_constant = self.k.get(reaction.rate, 0.0)
+            rate_constant = self.k[self.tags[rxn_idx]]
             if 'drift' in reaction.tags:
                 rates[rxn_idx] = rate_constant * y[self.e_idx]
             elif 'loss' in reaction.tags or 'stick' in reaction.tags:

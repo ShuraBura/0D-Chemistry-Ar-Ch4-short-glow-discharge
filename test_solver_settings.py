@@ -129,7 +129,14 @@ baseline_params = {
     'E_field': start_data['E_field'],
     'H_drift_gain': start_data.get('H_drift_gain', 3.2e17),
     'rate_values': start_data['rate_values'],
+    'species': ['e', 'Ar', 'CH4', 'ArPlus', 'CH4Plus', 'CH3Plus', 'CH5Plus', 'ArHPlus',
+                'CH3Minus', 'H', 'C2', 'CH', 'H2', 'ArStar', 'C2H4', 'C2H6', 'CH2',
+                'C2H2', 'C2H5', 'CH3', 'C', 'H3Plus', 'C2H3', 'C3H2', 'CHPlus', 'C3H',
+                'C4H2', 'C2H', 'C3H3', 'C3H4', 'C3', 'C3H5', 'C4H', 'C3H6', 'CH2Plus',
+                'C2H5Plus', 'C2H4Plus', 'C2H3Plus', 'HMinus', 'C2HPlus', 'H2Plus', 'C2H2Star'],
     'L_discharge': 0.45,  # cm (from documentation)
+    'P': 0.4,
+    'Tgas': 300,
     'mobilities': {
         'ArPlus': 3057.28,
         'CH4Plus': 6432,
@@ -160,7 +167,14 @@ modified_params = {
     'E_field': start_data['E_field'],
     'H_drift_gain': start_data.get('H_drift_gain', 3.2e17),
     'rate_values': modified_rates,
+    'species': ['e', 'Ar', 'CH4', 'ArPlus', 'CH4Plus', 'CH3Plus', 'CH5Plus', 'ArHPlus',
+                'CH3Minus', 'H', 'C2', 'CH', 'H2', 'ArStar', 'C2H4', 'C2H6', 'CH2',
+                'C2H2', 'C2H5', 'CH3', 'C', 'H3Plus', 'C2H3', 'C3H2', 'CHPlus', 'C3H',
+                'C4H2', 'C2H', 'C3H3', 'C3H4', 'C3', 'C3H5', 'C4H', 'C3H6', 'CH2Plus',
+                'C2H5Plus', 'C2H4Plus', 'C2H3Plus', 'HMinus', 'C2HPlus', 'H2Plus', 'C2H2Star'],
     'L_discharge': 0.45,  # cm (from documentation)
+    'P': 0.4,
+    'Tgas': 300,
     'mobilities': {
         'ArPlus': 3057.28,
         'CH4Plus': 6432,

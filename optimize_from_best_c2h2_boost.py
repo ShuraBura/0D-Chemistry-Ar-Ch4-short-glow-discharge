@@ -214,7 +214,32 @@ def objective_function(x):
         'ne': ne,
         'E_field': start_data['E_field'],  # Keep baseline
         'H_drift_gain': H_drift_gain,
-        'rate_values': rate_values
+        'rate_values': rate_values,
+        'species': ['e', 'Ar', 'CH4', 'ArPlus', 'CH4Plus', 'CH3Plus', 'CH5Plus', 'ArHPlus',
+                    'CH3Minus', 'H', 'C2', 'CH', 'H2', 'ArStar', 'C2H4', 'C2H6', 'CH2',
+                    'C2H2', 'C2H5', 'CH3', 'C', 'H3Plus', 'C2H3', 'C3H2', 'CHPlus', 'C3H',
+                    'C4H2', 'C2H', 'C3H3', 'C3H4', 'C3', 'C3H5', 'C4H', 'C3H6', 'CH2Plus',
+                    'C2H5Plus', 'C2H4Plus', 'C2H3Plus', 'HMinus', 'C2HPlus', 'H2Plus', 'C2H2Star'],
+        'L_discharge': 0.45,
+        'P': 0.4,
+        'Tgas': 300,
+        'mobilities': {
+            'ArPlus': 3057.28,
+            'CH4Plus': 6432,
+            'CH3Plus': 4949.6,
+            'CH5Plus': 4761.6,
+            'ArHPlus': 2969.6,
+            'CH2Plus': 4949.6,
+            'C2H5Plus': 4949.6,
+            'C2H4Plus': 4949.6,
+            'C2H3Plus': 4949.6,
+            'C2HPlus': 5000,
+            'H3Plus': 5000,
+            'CHPlus': 5000,
+            'H2Plus': 5000,
+            'CH3Minus': 3000,
+            'HMinus': 3000
+        }
     }
     
     results = run_simulation(params_dict)

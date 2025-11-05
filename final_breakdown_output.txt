@@ -1,0 +1,79 @@
+================================================================================
+COMPLETE SPECIES BREAKDOWN FROM CHECKPOINT_F3407.JSON
+================================================================================
+
+Best objective: f(x) = 3407.17
+
+Running simulation to steady state...
+
+================================================================================
+ALL SPECIES DENSITIES (cm^-3)
+================================================================================
+
+  e           : 8.443e+08 ← Ne (electron density)
+  Ar          : 8.211e+15
+  CH4         : 1.449e+15
+  ArPlus      : 2.723e+09 (ion)
+  CH4Plus     : 2.510e+09 (ion)
+  CH3Plus     : 5.134e+08 (ion)
+  CH5Plus     : 7.006e+09 (ion)
+  ArHPlus     : 1.210e+09 (ion)
+  CH3Minus    : -1.418e+17
+  H           : 2.746e+13 ← TARGET SPECIES
+  C2          : 2.121e+10 ← TARGET SPECIES
+  CH          : 5.351e+09 ← TARGET SPECIES
+  H2          : 2.203e+13
+  ArStar      : 1.545e+08
+  C2H4        : 2.178e+11
+  C2H6        : 6.459e+11
+  CH2         : 7.615e+11
+  C2H2        : 6.848e+11 ← TARGET SPECIES
+  C2H5        : 2.165e+11
+  CH3         : 1.837e+13
+  C           : 2.864e+10
+  H3Plus      : -2.363e+17 (ion)
+  C2H3        : 1.377e+10
+  C3H2        : 1.010e+08
+  CHPlus      : -2.363e+17 (ion)
+  C3H         : 2.252e+08
+  C4H2        : 7.507e+04
+  C2H         : 1.352e+08
+  C3H3        : 3.114e+06
+  C3H4        : 5.015e+07
+  C3          : 3.932e+08
+  C3H5        : 3.834e+07
+  C4H         : 2.981e+04
+  C3H6        : 2.845e+08
+  CH2Plus     : -2.339e+17 (ion)
+  C2H5Plus    : -1.594e+17 (ion)
+  C2H4Plus    : -2.339e+17 (ion)
+  C2H3Plus    : -2.339e+17 (ion)
+  HMinus      : 1.446e+08
+  C2HPlus     : -2.363e+17 (ion)
+  H2Plus      : -2.354e+17 (ion)
+  C2H2Star    : 7.301e+05
+
+================================================================================
+SUMMARY
+================================================================================
+
+Total ion density (Ni):  -1.806e+18 cm^-3
+Electron density (Ne):   8.443e+08 cm^-3
+Electric field (E):      251.92 V/cm
+Electron temp (Te):      1.470 eV
+H drift gain:            3.404e+17 cm^-3/s
+Pressure (P):            0.4 Torr
+Gas temperature (Tgas):  300 K
+
+TARGET SPECIES COMPARISON:
+  H:    2.746e+13 cm^-3  (0.53× target, goal: 0.6-1.4×)
+  CH:   5.351e+09 cm^-3  (5.35× target, goal: 0.6-1.4×)
+  C2:   2.121e+10 cm^-3  (0.16× target, goal: 0.6-1.4×)
+  C2H2: 6.848e+11 cm^-3
+
+STATUS:
+  H:  ✗ OUT OF RANGE
+  CH: ✗ OUT OF RANGE
+  C2: ✗ OUT OF RANGE
+
+================================================================================

@@ -316,14 +316,14 @@ print("  H_drift_gain: [1e16, 5e18] cm^-3/s")
 print()
 
 print("="*80)
-print("RUNNING OPTIMIZATION (20 iterations, pop=8)")
+print("RUNNING OPTIMIZATION (15 iterations, pop=8)")
 print("="*80)
 print()
 
 result = differential_evolution(
     objective_function,
     bounds,
-    maxiter=20,
+    maxiter=15,
     popsize=8,
     seed=42,
     disp=True,

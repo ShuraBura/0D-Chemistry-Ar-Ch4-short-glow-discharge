@@ -67,6 +67,7 @@ class PlasmaODE:
         self.species = params['species']
         self.ns = len(self.species)
         self.R = params['R']
+        self.nr = len(self.R)  # FIX: was missing!
         self.k = params['k']
         self.tags = params['tags']
         self.H_drift_gain = params.get('H_drift_gain', 3.2e17)

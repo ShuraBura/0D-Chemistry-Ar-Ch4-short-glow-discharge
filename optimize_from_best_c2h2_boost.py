@@ -97,7 +97,7 @@ class PlasmaODE:
         y = np.maximum(y, 1e-10)
         rates = np.zeros(len(self.R))
         for rxn_idx, reaction in enumerate(self.R):
-            rate_constant = self.k.get(reaction.rate, 0.0)
+            rate_constant = self.k[self.tags[rxn_idx]]  # FIX: use tags, not reaction.rate!
             if 'drift' in self.tags[rxn_idx]:
                 rates[rxn_idx] = rate_constant * y[self.e_idx]
             elif 'loss' in self.tags[rxn_idx] or 'stick' in self.tags[rxn_idx]:

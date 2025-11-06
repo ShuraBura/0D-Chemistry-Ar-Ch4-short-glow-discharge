@@ -10,6 +10,7 @@ from scipy.integrate import solve_ivp
 from odefun import PlasmaODE
 from define_rates_tunable import define_rates_tunable
 from build_reactions import build_reactions
+from rate_database_complete import get_complete_rate_database
 
 # Load best known parameters
 with open('checkpoint_f3407.json', 'r') as f:
@@ -53,6 +54,13 @@ for loss_c2 in loss_c2_values:
     try:
         # Get rate dictionary with modified loss_C2
         k_dict = define_rates_tunable(params)
+
+        # CRITICAL: Apply rate_values overrides to k_dict
+        db = get_complete_rate_database()
+        for name, val in params.get('rate_values', {}).items():
+            if name in k_dict and name in db:
+                k_dict[name] = np.clip(val, db[name].min, db[name].max)
+
         params['k'] = k_dict
 
         # Build reactions (needs k in params)

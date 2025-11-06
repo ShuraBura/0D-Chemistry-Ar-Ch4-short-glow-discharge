@@ -1,0 +1,21 @@
+================================================================================
+HIGH-ACCURACY SIMULATION WITH WORKING ODE CLASS
+================================================================================
+
+Using parameters from checkpoint_f3407.json
+Objective: f(x) = 3407.17
+
+Plasma parameters:
+  Te: 1.470 eV
+  Ne: 8.443e+08 cm^-3
+  E:  251.92 V/cm
+  H drift gain: 3.404e+17 cm^-3/s
+
+Running HIGH-ACCURACY simulation with WORKING odefun.py class:
+  Method: BDF (implicit, stiff)
+  Tolerances: rtol=1e-9, atol=1e-12
+  Integration time: 0 to 1000 ms
+  Max step: 10 ms
+
+This may take 2-5 minutes...
+

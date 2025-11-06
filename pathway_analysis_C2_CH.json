@@ -1,0 +1,400 @@
+{
+  "C2_production": [
+    {
+      "reaction": "H + C2H2 \u2192 H + C2 + H2",
+      "tag": "C2H2_H_C2_H2_H_cm3_7_50",
+      "net_c2": 1.0,
+      "rate": 188060295912531.7,
+      "net_rate": 188060295912531.7,
+      "rate_constant": 1e-11
+    },
+    {
+      "reaction": "2CH2 \u2192 C2 + 2H2",
+      "tag": "CH2_CH2_C2_H2_H2_cm3_7_58",
+      "net_c2": 1.0,
+      "rate": 10194735976842.959,
+      "net_rate": 10194735976842.959,
+      "rate_constant": 1e-11
+    },
+    {
+      "reaction": "C2H2 + C \u2192 C2 + CH2",
+      "tag": "C2H2_C_C2_CH2_cm3_7_19",
+      "net_c2": 1.0,
+      "rate": 2694998377490.6743,
+      "net_rate": 2694998377490.6743,
+      "rate_constant": 1e-10
+    },
+    {
+      "reaction": "H + C2H \u2192 C2 + H2",
+      "tag": "C2H_H_C2_H2_cm3_7_47",
+      "net_c2": 1.0,
+      "rate": 1471700031308.764,
+      "net_rate": 1471700031308.764,
+      "rate_constant": 1e-10
+    },
+    {
+      "reaction": "CH + CH2 \u2192 H + C2 + H2",
+      "tag": "CH2_CH_C2_H2_H_cm3_7_26",
+      "net_c2": 1.0,
+      "rate": 648328185925.5317,
+      "net_rate": 648328185925.5317,
+      "rate_constant": 1.2e-10
+    },
+    {
+      "reaction": "e + C2H2 \u2192 C2 + H2",
+      "tag": "e_C2H2_C2_H2_cm3_1_16",
+      "net_c2": 1.0,
+      "rate": 623031985408.3276,
+      "net_rate": 623031985408.3276,
+      "rate_constant": 1.0776615987957322e-09
+    },
+    {
+      "reaction": "C + C2H3 \u2192 C2 + CH3",
+      "tag": "C_C2H3_C2_CH3_cm3_7_54",
+      "net_c2": 1.0,
+      "rate": 105562109782.07986,
+      "net_rate": 105562109782.07986,
+      "rate_constant": 1e-10
+    },
+    {
+      "reaction": "CH + C \u2192 H + C2",
+      "tag": "C_CH_C2_H_cm3_7_4",
+      "net_c2": 1.0,
+      "rate": 25271414695.816833,
+      "net_rate": 25271414695.816833,
+      "rate_constant": 1.2e-10
+    },
+    {
+      "reaction": "CH + C \u2192 H + C2",
+      "tag": "CH_C_C2_H_cm3_7_9",
+      "net_c2": 1.0,
+      "rate": 25271414695.816833,
+      "net_rate": 25271414695.816833,
+      "rate_constant": 1.2e-10
+    },
+    {
+      "reaction": "CH + C \u2192 C2 + H2",
+      "tag": "CH_C_C2_H2_cm3_7_24",
+      "net_c2": 1.0,
+      "rate": 21059512246.514027,
+      "net_rate": 21059512246.514027,
+      "rate_constant": 1e-10
+    },
+    {
+      "reaction": "CH + C \u2192 H + C2",
+      "tag": "CH_C_C2_H_cm3_7_43",
+      "net_c2": 1.0,
+      "rate": 21059512246.514027,
+      "net_rate": 21059512246.514027,
+      "rate_constant": 1e-10
+    },
+    {
+      "reaction": "2CH \u2192 C2 + H2",
+      "tag": "CH_CH_C2_H2_cm3_5_4",
+      "net_c2": 1.0,
+      "rate": 6184506949.76687,
+      "net_rate": 6184506949.76687,
+      "rate_constant": 2.16e-10
+    },
+    {
+      "reaction": "2CH \u2192 C2 + H2",
+      "tag": "CH_CH_C2_H2_cm3_7_44",
+      "net_c2": 1.0,
+      "rate": 2863197661.929106,
+      "net_rate": 2863197661.929106,
+      "rate_constant": 1e-10
+    },
+    {
+      "reaction": "e + C2HPlus \u2192 H + C2",
+      "tag": "C2HPlus_e_C2_H_cm3_6_18",
+      "net_c2": 1.0,
+      "rate": 1168902.531516711,
+      "net_rate": 1168902.531516711,
+      "rate_constant": 2.696482471602361e-07
+    },
+    {
+      "reaction": "2C \u2192 C2",
+      "tag": "C_C_M_C2_M_cm6_7_64",
+      "net_c2": 1.0,
+      "rate": 1.548978130145091e-11,
+      "net_rate": 1.548978130145091e-11,
+      "rate_constant": 1e-32
+    }
+  ],
+  "C2_consumption": [
+    {
+      "reaction": "C2 \u2192 ",
+      "tag": "stick_C2_9_9",
+      "net_c2": 1.0,
+      "rate": 116045808816135.3,
+      "net_rate": 116045808816135.3,
+      "rate_constant": 5471.293677818349
+    },
+    {
+      "reaction": "H + C2 \u2192 CH + C",
+      "tag": "C2_H_CH_C_cm3_7_6",
+      "net_c2": 1.0,
+      "rate": 55920612076451.984,
+      "net_rate": 55920612076451.984,
+      "rate_constant": 9.6e-11
+    },
+    {
+      "reaction": "C2 \u2192 ",
+      "tag": "loss_C2_11_3",
+      "net_c2": 1.0,
+      "rate": 25429730068365.195,
+      "net_rate": 25429730068365.195,
+      "rate_constant": 1198.9534371906434
+    },
+    {
+      "reaction": "C2 + CH \u2192 H + C3",
+      "tag": "CH_C2_C3_H_cm3_7_33",
+      "net_c2": 1.0,
+      "rate": 11349196058.153193,
+      "net_rate": 11349196058.153193,
+      "rate_constant": 1e-10
+    },
+    {
+      "reaction": "C2 + CH \u2192 H + C3",
+      "tag": "C2_CH_C3_H_cm3_7_52",
+      "net_c2": 1.0,
+      "rate": 11349196058.153193,
+      "net_rate": 11349196058.153193,
+      "rate_constant": 1e-10
+    }
+  ],
+  "CH_production": [
+    {
+      "reaction": "e + CH4 \u2192 e + H + CH + H2",
+      "tag": "e_CH4_CH_H_H2_cm3_1_11",
+      "net_ch": 1.0,
+      "rate": 999644604212430.0,
+      "net_rate": 999644604212430.0,
+      "rate_constant": 8.171187386015377e-10
+    },
+    {
+      "reaction": "H + CH2 \u2192 CH + H2",
+      "tag": "CH2_H_CH_H2_cm3_7_1",
+      "net_ch": 1.0,
+      "rate": 277299599001709.7,
+      "net_rate": 277299599001709.7,
+      "rate_constant": 1e-11
+    },
+    {
+      "reaction": "e + CH4 \u2192 e + H + CH + H2",
+      "tag": "e_CH4_CH_H2_H_vib_cm3_1_3",
+      "net_ch": 1.0,
+      "rate": 88115745138194.97,
+      "net_rate": 88115745138194.97,
+      "rate_constant": 7.202662447718854e-11
+    },
+    {
+      "reaction": "H + C \u2192 CH",
+      "tag": "C_H_CH_cm3_7_12",
+      "net_ch": 1.0,
+      "rate": 86471676703080.69,
+      "net_rate": 86471676703080.69,
+      "rate_constant": 8e-11
+    },
+    {
+      "reaction": "H + C2 \u2192 CH + C",
+      "tag": "C2_H_CH_C_cm3_7_6",
+      "net_ch": 1.0,
+      "rate": 55920612076451.984,
+      "net_rate": 55920612076451.984,
+      "rate_constant": 9.6e-11
+    },
+    {
+      "reaction": "ArStar + CH2 \u2192 Ar + H + CH",
+      "tag": "ArStar_CH2_CH_H_cm3_3_4",
+      "net_ch": 1.0,
+      "rate": 4593579385.582601,
+      "net_rate": 4593579385.582601,
+      "rate_constant": 8e-11
+    },
+    {
+      "reaction": "e + CH4Plus \u2192 H + CH + H2",
+      "tag": "e_CH4Plus_CH_H2_H_cm3_6_11",
+      "net_ch": 1.0,
+      "rate": 4488538044.462336,
+      "net_rate": 4488538044.462336,
+      "rate_constant": 5.341014136189659e-07
+    },
+    {
+      "reaction": "ArStar + CH2 \u2192 e + ArPlus + H + CH",
+      "tag": "ArStar_CH2_ArPlus_CH_H_e_cm3_4_7",
+      "net_ch": 1.0,
+      "rate": 1148394846.3956501,
+      "net_rate": 1148394846.3956501,
+      "rate_constant": 2e-11
+    }
+  ],
+  "CH_consumption": [
+    {
+      "reaction": "CH4 + CH \u2192 H + C2H4",
+      "tag": "CH_CH4_C2H4_H_cm3_7_20",
+      "net_ch": 1.0,
+      "rate": 1163014983433748.8,
+      "net_rate": 1163014983433748.8,
+      "rate_constant": 1.5e-10
+    },
+    {
+      "reaction": "CH4 + CH \u2192 CH2 + CH3",
+      "tag": "CH_CH4_CH2_CH3_cm3_7_39",
+      "net_ch": 1.0,
+      "rate": 77534332228916.6,
+      "net_rate": 77534332228916.6,
+      "rate_constant": 1e-11
+    },
+    {
+      "reaction": "CH4 + CH \u2192 H + C2H4",
+      "tag": "CH_CH4_C2H4_H_cm3_7_59",
+      "net_ch": 1.0,
+      "rate": 46520599337349.95,
+      "net_rate": 46520599337349.95,
+      "rate_constant": 6e-12
+    },
+    {
+      "reaction": "CH \u2192 ",
+      "tag": "stick_CH_9_3",
+      "net_ch": 1.0,
+      "rate": 30435701912317.23,
+      "net_rate": 30435701912317.23,
+      "rate_constant": 5687.974707867541
+    },
+    {
+      "reaction": "CH + CH3 \u2192 C2H4",
+      "tag": "CH_CH3_C2H4_cm3_7_5",
+      "net_ch": 1.0,
+      "rate": 20011591126060.992,
+      "net_rate": 20011591126060.992,
+      "rate_constant": 1.5e-10
+    },
+    {
+      "reaction": "H + CH \u2192 H2 + C",
+      "tag": "CH_H_C_H2_cm3_7_3",
+      "net_ch": 1.0,
+      "rate": 17634703477071.242,
+      "net_rate": 17634703477071.242,
+      "rate_constant": 1.2e-10
+    },
+    {
+      "reaction": "CH \u2192 ",
+      "tag": "loss_CH_11_9",
+      "net_ch": 1.0,
+      "rate": 16251999790604.168,
+      "net_rate": 16251999790604.168,
+      "rate_constant": 3037.2542097941405
+    },
+    {
+      "reaction": "CH + CH3 \u2192 H2 + C2H2",
+      "tag": "CH3_CH_C2H2_H2_cm3_7_16",
+      "net_ch": 1.0,
+      "rate": 16009272900848.793,
+      "net_rate": 16009272900848.793,
+      "rate_constant": 1.2e-10
+    },
+    {
+      "reaction": "H + CH \u2192 CH2",
+      "tag": "CH_H_CH2_cm3_7_21",
+      "net_ch": 1.0,
+      "rate": 14695586230892.703,
+      "net_rate": 14695586230892.703,
+      "rate_constant": 1e-10
+    },
+    {
+      "reaction": "CH + CH3 \u2192 H2 + C2H2",
+      "tag": "CH_CH3_C2H2_H2_cm3_7_23",
+      "net_ch": 1.0,
+      "rate": 13341060750707.328,
+      "net_rate": 13341060750707.328,
+      "rate_constant": 1e-10
+    },
+    {
+      "reaction": "CH + CH3 \u2192 H + C2H3",
+      "tag": "CH_CH3_C2H3_H_cm3_7_10",
+      "net_ch": 1.0,
+      "rate": 10672848600565.861,
+      "net_rate": 10672848600565.861,
+      "rate_constant": 8e-11
+    },
+    {
+      "reaction": "CH + H2 \u2192 H + CH2",
+      "tag": "CH_H2_CH2_H_cm3_7_30",
+      "net_ch": 1.0,
+      "rate": 2293879931964.0977,
+      "net_rate": 2293879931964.0977,
+      "rate_constant": 1e-11
+    },
+    {
+      "reaction": "CH + H2 \u2192 H + CH2",
+      "tag": "CH_H2_CH2_H_cm3_7_51",
+      "net_ch": 1.0,
+      "rate": 2293879931964.0977,
+      "net_rate": 2293879931964.0977,
+      "rate_constant": 1e-11
+    },
+    {
+      "reaction": "CH + C2H6 \u2192 H + C3H6",
+      "tag": "CH_C2H6_C3H6_H_cm3_7_37",
+      "net_ch": 1.0,
+      "rate": 1289380688399.7788,
+      "net_rate": 1289380688399.7788,
+      "rate_constant": 1.2e-10
+    },
+    {
+      "reaction": "CH + CH2 \u2192 H + C2H2",
+      "tag": "CH_CH2_C2H2_H_cm3_7_7",
+      "net_ch": 1.0,
+      "rate": 648328185925.5317,
+      "net_rate": 648328185925.5317,
+      "rate_constant": 1.2e-10
+    },
+    {
+      "reaction": "CH + CH2 \u2192 H + C2 + H2",
+      "tag": "CH2_CH_C2_H2_H_cm3_7_26",
+      "net_ch": 1.0,
+      "rate": 648328185925.5317,
+      "net_rate": 648328185925.5317,
+      "rate_constant": 1.2e-10
+    },
+    {
+      "reaction": "CH + CH2 \u2192 H + C2H2",
+      "tag": "CH_CH2_C2H2_H_cm3_7_48",
+      "net_ch": 1.0,
+      "rate": 540273488271.2764,
+      "net_rate": 540273488271.2764,
+      "rate_constant": 1e-10
+    },
+    {
+      "reaction": "CH + C2H5 \u2192 H + C3H5",
+      "tag": "CH_C2H5_C3H5_H_cm3_7_34",
+      "net_ch": 1.0,
+      "rate": 430046235717.32825,
+      "net_rate": 430046235717.32825,
+      "rate_constant": 1e-10
+    },
+    {
+      "reaction": "CH + C2H5 \u2192 C3H6",
+      "tag": "CH_C2H5_C3H6_cm3_7_41",
+      "net_ch": 1.0,
+      "rate": 430046235717.32825,
+      "net_rate": 430046235717.32825,
+      "rate_constant": 1e-10
+    },
+    {
+      "reaction": "CH + C2H5 \u2192 C3H6",
+      "tag": "CH_C2H5_C3H6_cm3_7_55",
+      "net_ch": 1.0,
+      "rate": 430046235717.32825,
+      "net_rate": 430046235717.32825,
+      "rate_constant": 1e-10
+    }
+  ],
+  "totals": {
+    "C2_production": 203900363306688.9,
+    "C2_consumption": 197418849353068.78,
+    "CH_production": 1507462467644144.0,
+    "CH_consumption": 1437182562771436.0
+  }
+}

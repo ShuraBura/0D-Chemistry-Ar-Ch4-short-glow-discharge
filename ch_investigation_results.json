@@ -1,0 +1,21 @@
+{
+  "low_ch": {
+    "CH": 4366056882.970676,
+    "H": 38936691059762.086,
+    "C2": 112407661830.70044,
+    "CH_production_total": 1100456512452183.8,
+    "CH_consumption_total": 1099283420837895.9
+  },
+  "high_ch": {
+    "CH": 5707361302.52215,
+    "H": 38931995276375.57,
+    "C2": 209376854021.8435,
+    "CH_production_total": 1443421905690978.2,
+    "CH_consumption_total": 1439696009702543.0
+  },
+  "changes": {
+    "CH_increase_pct": 30.721185167858977,
+    "production_increase_pct": 31.16573797855522,
+    "consumption_increase_pct": 30.96677184535157
+  }
+}

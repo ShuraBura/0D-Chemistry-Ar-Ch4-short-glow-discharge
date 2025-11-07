@@ -348,7 +348,7 @@ def main():
     print(f"Ne constraint: {NE_MIN:.2e} to {NE_MAX:.2e} cm⁻³ (2.3e9 ± 30%)")
     print("Charge balance: Ni/Ne in [2, 7] range enforced via penalty term")
     print("\nOptimizing ~43 parameters:")
-    print("  - Te: 0.3-7 eV")
+    print("  - Te: 2.0-7.0 eV (increased min to ensure sufficient ionization)")
     print(f"  - Ne: {NE_MIN:.2e}-{NE_MAX:.2e} cm⁻³")
     print("  - E-field: 10-500 V/cm")
     print("  - ~40 reaction rates")
@@ -385,7 +385,7 @@ def main():
             bounds.append((db[name].min, db[name].max))
             param_names.append(name)
 
-    bounds.append((0.3, 7.0))           # Te (eV)
+    bounds.append((2.0, 7.0))           # Te (eV) - increased min from 0.3 to ensure sufficient ionization
     param_names.append('Te')
 
     bounds.append((NE_MIN, NE_MAX))     # Ne constrained!

@@ -3,10 +3,11 @@
 COMPREHENSIVE OPTIMIZATION WITH CHARGE BALANCE CONSTRAINT
 
 Same as full optimization but with:
-1. Charge balance penalty in objective function (Ni ≈ Ne)
+1. Charge balance penalty in objective function (Ni/Ne in [2, 7] range)
 2. Ne constrained to 2.3e9 ± 30% = [1.61e9, 2.99e9] cm⁻³
 
-This ensures physically realistic plasma with quasi-neutrality.
+This ensures physically realistic plasma with proper ionization balance.
+User clarified: "The balance does not need to be perfect it should be Ni/Ne ~2-7"
 """
 
 import numpy as np
@@ -234,6 +235,7 @@ def run_simulation(rate_values, Te, ne, E_field, params_base, log_file=None):
             'C2': get_density('C2'),
             'C2H2': get_density('C2H2'),
             'n_i_total': n_i_total,
+            'Ni_Ne_ratio': n_i_total / ne,
             'charge_imbalance': abs(n_i_total - ne) / ne,
         }
 
@@ -298,9 +300,15 @@ def objective_function(x, param_names, params_base):
         rel_error = (results[species] - TARGETS[species]) / TARGETS[species]
         species_error += weights[species] * rel_error ** 2
 
-    # CHARGE BALANCE PENALTY (NEW!)
-    # Heavy penalty for charge imbalance
-    charge_penalty = 50.0 * results['charge_imbalance']**2
+    # CHARGE BALANCE PENALTY - Target Ni/Ne in [2, 7] range
+    # Only penalize if outside this range (user clarified: "Ni/Ne ~2-7")
+    Ni_Ne_ratio = results['Ni_Ne_ratio']
+    if Ni_Ne_ratio < 2.0:
+        charge_penalty = 50.0 * (2.0 - Ni_Ne_ratio)**2
+    elif Ni_Ne_ratio > 7.0:
+        charge_penalty = 50.0 * (Ni_Ne_ratio - 7.0)**2
+    else:
+        charge_penalty = 0.0  # In acceptable range [2, 7]
 
     # Total error
     total_error = species_error + charge_penalty
@@ -320,11 +328,9 @@ def objective_function(x, param_names, params_base):
         log_file = f'optimization_results_charge_balanced/best_f{total_error:.1f}.json'
         run_simulation(rate_values, Te, ne, E_field, params_base, log_file)
 
-        Ni_Ne_ratio = results['n_i_total'] / ne
-
         print(f"\n  *** NEW BEST: f(x) = {total_error:.2f} at evaluation {objective_function.counter}")
         print(f"      P: {PRESSURE_MTORR:.0f} mTorr, Te: {Te:.2f} eV, Ne: {ne:.2e}, E: {E_field:.1f} V/cm")
-        print(f"      Ni/Ne: {Ni_Ne_ratio:.3f}, Charge imbalance: {results['charge_imbalance']*100:.2f}%")
+        print(f"      Ni/Ne: {Ni_Ne_ratio:.3f} (target: 2-7)")
         print(f"      H: {results['H']:.2e} (target: {TARGETS['H']:.2e}, ratio: {results['H']/TARGETS['H']:.2f}x)")
         print(f"      CH: {results['CH']:.2e} (target: {TARGETS['CH']:.2e}, ratio: {results['CH']/TARGETS['CH']:.2f}x)")
         print(f"      C2: {results['C2']:.2e} (target: {TARGETS['C2']:.2e}, ratio: {results['C2']/TARGETS['C2']:.2f}x)")
@@ -340,7 +346,7 @@ def main():
     print("=" * 80)
     print(f"\nPressure: {PRESSURE_MTORR} mTorr (fixed)")
     print(f"Ne constraint: {NE_MIN:.2e} to {NE_MAX:.2e} cm⁻³ (2.3e9 ± 30%)")
-    print("Charge balance: Ni ≈ Ne enforced via penalty term")
+    print("Charge balance: Ni/Ne in [2, 7] range enforced via penalty term")
     print("\nOptimizing ~43 parameters:")
     print("  - Te: 0.3-7 eV")
     print(f"  - Ne: {NE_MIN:.2e}-{NE_MAX:.2e} cm⁻³")

@@ -122,6 +122,7 @@ def define_rates(params):
     k['e_C2H4_C2H3Plus_H_2e_cm3_2_7'] = scale_ionization(8e-12, Te, E_ion=10.5)
     k['e_C2H2_C2HPlus_2e_cm3_2_8'] = scale_ionization(8e-12, Te, E_ion=11.4)
     k['e_H2_H2Plus_2e_cm3_2_9'] = scale_ionization(3e-12, Te, E_ion=15.43)  # H2 ionization
+    k['e_CH_CHPlus_2e_cm3_2_10'] = scale_ionization(5e-12, Te, E_ion=10.64)  # CH ionization (NEW!)
 
     # ===================================================================
     # Group 3: Ar* Reactions (Temperature-independent - thermal)
@@ -230,6 +231,7 @@ def define_rates(params):
     k['H2Plus_e_H_H_cm3_6_29'] = scale_recombination(2.3e-8, Te, alpha=0.5)  # H2+ + e → H + H
     k['H3Plus_e_H2_H_cm3_6_30'] = scale_recombination(2.3e-7, Te, alpha=0.5)  # H3+ + e → H2 + H (dominant)
     k['H3Plus_e_H_H_H_cm3_6_31'] = scale_recombination(4.8e-8, Te, alpha=0.5)  # H3+ + e → H + H + H
+    k['CHPlus_e_CH_cm3_6_32'] = scale_recombination(3.5e-7, Te, alpha=0.7)  # CHPlus + e → CH (NEW!)
 
     # ===================================================================
     # Group 7: Neutral-Neutral Reactions (Temperature-independent at thermal energies)

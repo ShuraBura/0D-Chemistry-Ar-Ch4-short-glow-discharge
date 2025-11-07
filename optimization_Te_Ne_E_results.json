@@ -1,0 +1,24 @@
+{
+  "optimized_parameters": {
+    "Te": 0.3,
+    "Ne": 102355957.71409023,
+    "E_field": 500.0,
+    "E_over_N_Td": 5175.983436853002
+  },
+  "objective_value": 63584.83442086404,
+  "baseline_objective": 71075.22765046683,
+  "improvement_percent": 10.538683416448528,
+  "function_evaluations": 576,
+  "iterations": 13,
+  "success": true,
+  "final_densities": {
+    "H": 34288597219091.7,
+    "CH": 57338051432.51554,
+    "C2": 899820124611.874
+  },
+  "ratios_vs_target": {
+    "H": 0.6619420312565966,
+    "CH": 57.33805143251554,
+    "C2": 6.921693266245184
+  }
+}

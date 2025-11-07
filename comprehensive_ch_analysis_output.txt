@@ -1,0 +1,159 @@
+================================================================================
+COMPREHENSIVE CH ANALYSIS
+================================================================================
+
+QUESTION 1: How high can Ne go without CH exploding?
+================================================================================
+
+CH vs Ne relationship:
+   Ne (cm⁻³) |  CH ratio |    f(x) | Status
+------------------------------------------------------------
+     1.0e+08 |      4.18 |     8.9 | 
+     1.5e+08 |      4.20 |     9.0 | 
+     2.0e+08 |      4.21 |     9.1 | 
+     2.5e+08 |      4.23 |     9.1 | 
+     3.0e+08 |      4.25 |     9.2 | 
+     4.0e+08 |      4.28 |     9.3 | 
+     5.0e+08 |      4.31 |     9.5 | 
+     6.0e+08 |      4.34 |     9.6 | 
+     7.0e+08 |      4.37 |     9.8 | 
+     8.0e+08 |      4.41 |     9.9 | 
+     9.0e+08 |      4.44 |    10.0 | 
+     1.0e+09 |      4.47 |    10.2 | 
+     1.5e+09 |      4.63 |    10.9 | ← Exceeds 4.5×
+     2.0e+09 |      4.79 |    11.7 | 
+     2.5e+09 |      4.95 |    12.5 | 
+     3.0e+09 |      5.12 |    13.4 | ← Exceeds 5.0×
+     4.0e+09 |      5.45 |    15.1 | 
+     5.0e+09 |      5.78 |    17.0 | ← Exceeds 5.5×
+
+Ne CEILING RECOMMENDATIONS:
+  For CH < 4.5×: Ne ≤ 1.5e+09 cm⁻³
+  For CH < 5.0×: Ne ≤ 3.0e+09 cm⁻³
+  For CH < 5.5×: Ne ≤ 5.0e+09 cm⁻³
+  For CH < 6.0×: Ne ≤ 6.0e+09 cm⁻³
+
+  Target Ne ~ 3e9: CH = ~5.1× (vs 4.2× at 1e8)
+  CH increase: +22% if going from 1e8 to 3e9
+
+
+================================================================================
+QUESTION 2 & 3: Detailed CH pathway analysis
+================================================================================
+
+Running simulation at best conditions...
+Complete!
+
+================================================================================
+CH PRODUCTION PATHWAYS (Complete)
+================================================================================
+
+Rank |   Rate (cm⁻³/s) | % of Total | Reaction
+----------------------------------------------------------------------------------------------------
+   1 |        4.72e+14 |      44.0% | <build_reactions.Reaction object at 0x7eac63d73e10>
+     | ✓ Tunable: C2_H_CH_C_cm3_7_6
+     | Status: AT MIN
+
+   2 |        3.79e+14 |      35.4% | <build_reactions.Reaction object at 0x7eac63d73cd0>
+     | ✓ Tunable: CH2_H_CH_H2_cm3_7_1
+     | Status: AT MIN
+
+   3 |        2.16e+14 |      20.1% | <build_reactions.Reaction object at 0x7eac63d73f90>
+     | ✓ Tunable: C_H_CH_cm3_7_12
+     | Status: AT MIN
+
+     ... (showing top 3 reactions accounting for 99.5% of production)
+
+Total CH production: 1.07e+15 cm⁻³/s
+
+================================================================================
+CH CONSUMPTION PATHWAYS (Complete)
+================================================================================
+
+Rank |   Rate (cm⁻³/s) | % of Total | Reaction
+----------------------------------------------------------------------------------------------------
+   1 |        8.09e+14 |      75.7% | <build_reactions.Reaction object at 0x7eac63d901d0>
+     | ✓ Tunable: CH_CH4_C2H4_H_cm3_7_20
+     | Status: At 3550% of range
+
+   2 |        6.47e+13 |       6.1% | <build_reactions.Reaction object at 0x7eac63d90690>
+     | ✓ Tunable: CH_CH4_CH2_CH3_cm3_7_39
+     | Status: AT MAX ✓
+
+   3 |        4.18e+13 |       3.9% | <build_reactions.Reaction object at 0x7eac63d91ad0>
+     | ✓ Tunable: loss_CH_11_9
+     | Status: AT MAX ✓
+
+   4 |        3.24e+13 |       3.0% | <build_reactions.Reaction object at 0x7eac63d90b90>
+     | ✓ Tunable: CH_CH4_C2H4_H_cm3_7_59
+     | Status: AT MAX ✓
+
+   5 |        2.61e+13 |       2.4% | <build_reactions.Reaction object at 0x7eac63d90e90>
+     | ✓ Tunable: stick_CH_9_3
+     | Status: AT MAX ✓
+
+   6 |        1.95e+13 |       1.8% | <build_reactions.Reaction object at 0x7eac63d73d50>
+     | ✓ Tunable: CH_H_C_H2_cm3_7_3
+     | Status: AT MAX ✓
+
+   7 |        1.95e+13 |       1.8% | <build_reactions.Reaction object at 0x7eac63d90210>
+     | ✓ Tunable: CH_H_CH2_cm3_7_21
+     | Status: AT MAX ✓
+
+   8 |        1.39e+13 |       1.3% | <build_reactions.Reaction object at 0x7eac63d73dd0>
+     | ✓ Tunable: CH_CH3_C2H4_cm3_7_5
+     | Status: At 175% of range
+
+     ... (showing top 8 reactions accounting for 96.0% of consumption)
+
+Total CH consumption: 1.07e+15 cm⁻³/s
+
+================================================================================
+CH BALANCE CHECK
+================================================================================
+
+Production:  1.07e+15 cm⁻³/s
+Consumption: 1.07e+15 cm⁻³/s
+Net rate:    2.89e+12 cm⁻³/s
+Steady-state CH: 4.18e+09 cm⁻³ (4.18× target)
+
+================================================================================
+OPTIMIZATION OPPORTUNITIES
+================================================================================
+
+CH PRODUCTION reactions NOT at minimum:
+--------------------------------------------------------------------------------
+  <build_reactions.Reaction object at 0x7eac63d73710>
+    Contributes: 0.0% of CH production
+    Current: 5.34e-07, Min: 1.00e-07
+    Potential rate reduction: 81.3%
+
+  <build_reactions.Reaction object at 0x7eac63d72e10>
+    Contributes: 0.0% of CH production
+    Current: 2.00e-11, Min: 1.60e-11
+    Potential rate reduction: 20.0%
+
+CH CONSUMPTION reactions NOT at maximum:
+--------------------------------------------------------------------------------
+  <build_reactions.Reaction object at 0x7eac63d901d0>
+    Contributes: 75.7% of CH consumption
+    Current: 1.50e-10, Max: 1.20e-11
+    Potential rate increase: -92.0%
+
+  <build_reactions.Reaction object at 0x7eac63d73dd0>
+    Contributes: 1.3% of CH consumption
+    Current: 1.50e-10, Max: 1.20e-10
+    Potential rate increase: -20.0%
+
+  <build_reactions.Reaction object at 0x7eac63d90390>
+    Contributes: 0.1% of CH consumption
+    Current: 8.00e-11, Max: 1.20e-10
+    Potential rate increase: 50.0%
+
+  <build_reactions.Reaction object at 0x7eac63d90410>
+    Contributes: 0.1% of CH consumption
+    Current: 8.00e-11, Max: 1.20e-10
+    Potential rate increase: 50.0%
+
+================================================================================
+Detailed results saved to: comprehensive_ch_analysis.json

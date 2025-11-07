@@ -1,0 +1,345 @@
+{
+  "ne_ceiling_analysis": {
+    "thresholds": {
+      "4.5": 1500000000.0,
+      "5.0": 3000000000.0,
+      "5.5": 5000000000.0,
+      "6.0": 6000000000.0
+    },
+    "recommendation_3e9": {
+      "ne": 3000000000.0,
+      "ch_ratio": 5.12,
+      "increase_vs_1e8": 22
+    }
+  },
+  "ch_production": {
+    "C2_H_CH_C_cm3_7_6": {
+      "rate": 472110067789891.06,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d73e10>",
+      "percent": 44.01702393707075
+    },
+    "CH2_H_CH_H2_cm3_7_1": {
+      "rate": 379492465672865.56,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d73cd0>",
+      "percent": 35.381852845583815
+    },
+    "C_H_CH_cm3_7_12": {
+      "rate": 215795373674239.84,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d73f90>",
+      "percent": 20.11960933812463
+    },
+    "e_CH4_CH_H2_H_vib_cm3_1_3": {
+      "rate": 2580000000000.0,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d71f50>",
+      "percent": 0.24054543528223019
+    },
+    "e_CH4_CH_H_H2_cm3_1_11": {
+      "rate": 2580000000000.0,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d72010>",
+      "percent": 0.24054543528223019
+    },
+    "e_CH4Plus_CH_H2_H_cm3_6_11": {
+      "rate": 2399911421.5010996,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d73710>",
+      "percent": 0.00022375493702472005
+    },
+    "ArStar_CH2_CH_H_cm3_3_4": {
+      "rate": 1709696449.6078043,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d72750>",
+      "percent": 0.0001594029754540282
+    },
+    "ArStar_CH2_ArPlus_CH_H_e_cm3_4_7": {
+      "rate": 427424112.4019511,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d72e10>",
+      "percent": 3.985074386350705e-05
+    }
+  },
+  "ch_consumption": {
+    "CH_CH4_C2H4_H_cm3_7_20": {
+      "rate": 809277313926384.1,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d901d0>",
+      "percent": 75.65665849747873
+    },
+    "CH_CH4_CH2_CH3_cm3_7_39": {
+      "rate": 64742185114110.73,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d90690>",
+      "percent": 6.052532679798298
+    },
+    "loss_CH_11_9": {
+      "rate": 41823116998779.54,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d91ad0>",
+      "percent": 3.909904831911045
+    },
+    "CH_CH4_C2H4_H_cm3_7_59": {
+      "rate": 32371092557055.363,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d90b90>",
+      "percent": 3.026266339899149
+    },
+    "stick_CH_9_3": {
+      "rate": 26139448124237.21,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d90e90>",
+      "percent": 2.4436905199444032
+    },
+    "CH_H_C_H2_cm3_7_3": {
+      "rate": 19450528621755.2,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d73d50>",
+      "percent": 1.8183655666707956
+    },
+    "CH_H_CH2_cm3_7_21": {
+      "rate": 19450528621755.2,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d90210>",
+      "percent": 1.8183655666707956
+    },
+    "CH_CH3_C2H4_cm3_7_5": {
+      "rate": 13881081587115.27,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d73dd0>",
+      "percent": 1.2976963905200376
+    },
+    "CH_CH3_C2H3_H_cm3_7_10": {
+      "rate": 11104865269692.215,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d73f10>",
+      "percent": 1.0381571124160298
+    },
+    "CH3_CH_C2H2_H2_cm3_7_16": {
+      "rate": 11104865269692.215,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d900d0>",
+      "percent": 1.0381571124160298
+    },
+    "CH_CH3_C2H2_H2_cm3_7_23": {
+      "rate": 11104865269692.215,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d90290>",
+      "percent": 1.0381571124160298
+    },
+    "CH_H2_CH2_H_cm3_7_30": {
+      "rate": 1392190095053.6997,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d90450>",
+      "percent": 0.13015124577510573
+    },
+    "CH_H2_CH2_H_cm3_7_51": {
+      "rate": 1392190095053.6997,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d90990>",
+      "percent": 0.13015124577510573
+    },
+    "CH_C2H2_C3H2_H_cm3_7_22": {
+      "rate": 1083223603633.8131,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d90250>",
+      "percent": 0.10126699074130541
+    },
+    "C2H2_CH_C3_H2_H_cm3_7_56": {
+      "rate": 1083223603633.8131,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d90ad0>",
+      "percent": 0.10126699074130541
+    },
+    "CH_C2H2_C3H_H2_cm3_7_27": {
+      "rate": 722149069089.2086,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d90390>",
+      "percent": 0.06751132716087026
+    },
+    "CH_C2H2_C2H_CH2_cm3_7_29": {
+      "rate": 722149069089.2086,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d90410>",
+      "percent": 0.06751132716087026
+    },
+    "CH_CH2_C2H2_H_cm3_7_7": {
+      "rate": 491436076216.79877,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d73e50>",
+      "percent": 0.0459427327961122
+    },
+    "CH2_CH_C2_H2_H_cm3_7_26": {
+      "rate": 491436076216.79877,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d90350>",
+      "percent": 0.0459427327961122
+    },
+    "CH_C2H6_C3H6_H_cm3_7_37": {
+      "rate": 457089483070.5979,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d90610>",
+      "percent": 0.04273178344229114
+    },
+    "CH_CH2_C2H2_H_cm3_7_48": {
+      "rate": 409530063513.99896,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d908d0>",
+      "percent": 0.03828561066342683
+    },
+    "CH_C2H5_C3H5_H_cm3_7_34": {
+      "rate": 132284829964.60056,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d90550>",
+      "percent": 0.012366871074726832
+    },
+    "CH_C2H5_C3H6_cm3_7_41": {
+      "rate": 132284829964.60056,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d90710>",
+      "percent": 0.012366871074726832
+    },
+    "CH_C2H5_C3H6_cm3_7_55": {
+      "rate": 132284829964.60056,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d90a90>",
+      "percent": 0.012366871074726832
+    },
+    "CH_C2_C3_H_cm3_7_33": {
+      "rate": 63684817070.34087,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d90510>",
+      "percent": 0.005953682839802759
+    },
+    "C2_CH_C3_H_cm3_7_52": {
+      "rate": 63684817070.34087,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d909d0>",
+      "percent": 0.005953682839802759
+    },
+    "CH_C2H4_C2H2_CH3_cm3_7_18": {
+      "rate": 57564648900.73439,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d90150>",
+      "percent": 0.005381528566864401
+    },
+    "CH_C2H4_C3H4_H_cm3_7_32": {
+      "rate": 57564648900.73439,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d904d0>",
+      "percent": 0.005381528566864401
+    },
+    "CH_C2H4_C2H2_CH3_cm3_7_46": {
+      "rate": 57564648900.73439,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d90850>",
+      "percent": 0.005381528566864401
+    },
+    "CH_Ar_Ar_C_H_cm3_7_11": {
+      "rate": 53951820928.425606,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d73f50>",
+      "percent": 0.0050437772331652485
+    },
+    "CH_C2H6_C3H6_H_cm3_7_45": {
+      "rate": 38090790255.883156,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d90810>",
+      "percent": 0.0035609819535242617
+    },
+    "CH_C2H6_C2H2_CH3_H_cm3_7_57": {
+      "rate": 38090790255.883156,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d90b10>",
+      "percent": 0.0035609819535242617
+    },
+    "C_CH_C2_H_cm3_7_4": {
+      "rate": 34931402233.56385,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d73d90>",
+      "percent": 0.0032656212204945204
+    },
+    "CH_C_C2_H_cm3_7_9": {
+      "rate": 34931402233.56385,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d73ed0>",
+      "percent": 0.0032656212204945204
+    },
+    "CH_C_C2_H2_cm3_7_24": {
+      "rate": 29109501861.303207,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d902d0>",
+      "percent": 0.0027213510170787675
+    },
+    "CH_C_C2_H_cm3_7_43": {
+      "rate": 29109501861.303207,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d90790>",
+      "percent": 0.0027213510170787675
+    },
+    "CH_CH_C2_H2_cm3_5_4": {
+      "rate": 7556427858.932362,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d73190>",
+      "percent": 0.0007064254392729513
+    },
+    "CH_C2H4_C3H4_H_cm3_7_60": {
+      "rate": 5756464890.073439,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d90bd0>",
+      "percent": 0.0005381528566864401
+    },
+    "CH_C2H3_C3H3_H_cm3_7_31": {
+      "rate": 4261670534.7258315,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d90490>",
+      "percent": 0.0003984094780937465
+    },
+    "CH_CH_C2_H2_cm3_7_44": {
+      "rate": 3498346230.9872046,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d907d0>",
+      "percent": 0.00032704881447821824
+    },
+    "e_CH_CH_C_H_e_cm3_1_12": {
+      "rate": 104283975.62655905,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d72190>",
+      "percent": 9.749163846517594e-06
+    },
+    "CH_C3H2_C4H_H2_cm3_7_35": {
+      "rate": 78349555.90891425,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d90590>",
+      "percent": 7.324640753946863e-06
+    },
+    "CH_C3H_C4H2_H_cm3_7_28": {
+      "rate": 73131890.75414845,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d903d0>",
+      "percent": 6.8368585018371505e-06
+    },
+    "CH_ArStar_C_H_Ar_cm3_3_14": {
+      "rate": 912800.833120829,
+      "reaction": "<build_reactions.Reaction object at 0x7eac63d729d0>",
+      "percent": 8.53347297882103e-08
+    }
+  },
+  "opportunities": {
+    "production_not_at_min": [
+      {
+        "tag": "e_CH4Plus_CH_H2_H_cm3_6_11",
+        "reaction": "<build_reactions.Reaction object at 0x7eac63d73710>",
+        "rate": 2399911421.5010996,
+        "percent": 0.00022375493702472005,
+        "current": 5.341014136189659e-07,
+        "min": 1e-07,
+        "max": 1.2e-06,
+        "potential": 81.27696399033665
+      },
+      {
+        "tag": "ArStar_CH2_ArPlus_CH_H_e_cm3_4_7",
+        "reaction": "<build_reactions.Reaction object at 0x7eac63d72e10>",
+        "rate": 427424112.4019511,
+        "percent": 3.985074386350705e-05,
+        "current": 2e-11,
+        "min": 1.6e-11,
+        "max": 2.4e-11,
+        "potential": 19.999999999999996
+      }
+    ],
+    "consumption_not_at_max": [
+      {
+        "tag": "CH_CH4_C2H4_H_cm3_7_20",
+        "reaction": "<build_reactions.Reaction object at 0x7eac63d901d0>",
+        "rate": 809277313926384.1,
+        "percent": 75.65665849747873,
+        "current": 1.5e-10,
+        "min": 8e-12,
+        "max": 1.2e-11,
+        "potential": -92.0
+      },
+      {
+        "tag": "CH_CH3_C2H4_cm3_7_5",
+        "reaction": "<build_reactions.Reaction object at 0x7eac63d73dd0>",
+        "rate": 13881081587115.27,
+        "percent": 1.2976963905200376,
+        "current": 1.5e-10,
+        "min": 8e-11,
+        "max": 1.2e-10,
+        "potential": -20.0
+      },
+      {
+        "tag": "CH_C2H2_C3H_H2_cm3_7_27",
+        "reaction": "<build_reactions.Reaction object at 0x7eac63d90390>",
+        "rate": 722149069089.2086,
+        "percent": 0.06751132716087026,
+        "current": 8e-11,
+        "min": 8e-11,
+        "max": 1.2e-10,
+        "potential": 50.000000000000014
+      },
+      {
+        "tag": "CH_C2H2_C2H_CH2_cm3_7_29",
+        "reaction": "<build_reactions.Reaction object at 0x7eac63d90410>",
+        "rate": 722149069089.2086,
+        "percent": 0.06751132716087026,
+        "current": 8e-11,
+        "min": 8e-11,
+        "max": 1.2e-10,
+        "potential": 50.000000000000014
+      }
+    ]
+  }
+}

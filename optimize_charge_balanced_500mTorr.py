@@ -35,10 +35,10 @@ TARGETS = {
 # High pressure setting
 PRESSURE_MTORR = 500.0
 
-# Ne constraint (2.3e9 ± 30%)
-NE_TARGET = 2.3e9
-NE_MIN = NE_TARGET * 0.7  # 1.61e9
-NE_MAX = NE_TARGET * 1.3  # 2.99e9
+# Ne constraint - force higher Ne for H production (full CH4 dissociation)
+NE_TARGET = 2.5e9
+NE_MIN = 2.0e9  # Force higher Ne to boost H production
+NE_MAX = 3.0e9  # Allow up to 3e9
 
 # Create results directory
 os.makedirs('optimization_results_charge_balanced', exist_ok=True)

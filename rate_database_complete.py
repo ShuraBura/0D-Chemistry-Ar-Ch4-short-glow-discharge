@@ -67,6 +67,7 @@ def get_complete_rate_database():
     db['e_C2H4_C2H4Plus_2e_cm3_2_6'] = RateConstant(1.20e-11, 1.20e-11, 3.60e-11, "Janev & Reiter (2002)", notes="Scaled: 2.4e-11 * 0.5 ≈ 1.2e-11")
     db['e_C2H4_C2H3Plus_H_2e_cm3_2_7'] = RateConstant(8.00e-12, 8.00e-12, 2.40e-11, "Janev & Reiter (2002)", notes="Scaled: 1.6e-11 * 0.5 ≈ 8e-12")
     db['e_C2H2_C2HPlus_2e_cm3_2_8'] = RateConstant(8.00e-12, 8.00e-12, 2.40e-11, "Janev & Reiter (2002)", notes="Scaled: 1.6e-11 * 0.5 ≈ 8e-12")
+    db['e_CH_CHPlus_2e_cm3_2_10'] = RateConstant(5.00e-12, 1.00e-12, 2.50e-11, "Estimated from ionization cross-section", notes="CH ionization (IP=10.64 eV) - KEY CH REMOVAL PATHWAY", flag="2.10 Tunable to optimize CH removal without affecting H")
 
     # ========== Ar* REACTIONS ==========
     db['ArStar_CH4_CH3_H_cm3_3_1'] = RateConstant(5.00e-10, 5.00e-11, 5.00e-10, "Velazco et al. (1978)")

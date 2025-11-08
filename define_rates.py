@@ -235,6 +235,7 @@ def define_rates(params):
 
     # ===================================================================
     # Group 7: Neutral-Neutral Reactions (Temperature-independent at thermal energies)
+    # EXCEPT: H + CH4 has activation barrier
     # ===================================================================
     k['CH2_H_CH_H2_cm3_7_1'] = 1.0e-11
     k['CH2_H_C_H2_H_cm3_7_2'] = 1.2e-11
@@ -260,7 +261,11 @@ def define_rates(params):
     k['CH_C2H2_C3H2_H_cm3_7_22'] = 1e-10
     k['CH_CH3_C2H2_H2_cm3_7_23'] = 1e-10
     k['CH_C_C2_H2_cm3_7_24'] = 1e-10
-    k['H_CH4_CH3_H2_cm3_7_25'] = 6e-12
+    # H + CH4 → CH3 + H2 with activation barrier Ea = 0.5 eV
+    k_H_CH4_ref = 6e-12  # cm³/s reference rate
+    Ea_H_CH4 = 0.5  # eV activation barrier
+    kB_eV = 8.617333e-5  # eV/K
+    k['H_CH4_CH3_H2_cm3_7_25'] = k_H_CH4_ref * np.exp(-Ea_H_CH4 / (kB_eV * Tgas))
     k['CH2_CH_C2_H2_H_cm3_7_26'] = 1.2e-10
     k['CH_C2H2_C3H_H2_cm3_7_27'] = 1e-10
     k['CH_C3H_C4H2_H_cm3_7_28'] = 1e-10

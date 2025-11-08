@@ -235,7 +235,7 @@ def define_rates(params):
 
     # ===================================================================
     # Group 7: Neutral-Neutral Reactions (Temperature-independent at thermal energies)
-    # EXCEPT: H + CH4 has activation barrier
+    # EXCEPT: H + CH4, H + C2H4, and CH3 + H have activation barriers
     # ===================================================================
     k['CH2_H_CH_H2_cm3_7_1'] = 1.0e-11
     k['CH2_H_C_H2_H_cm3_7_2'] = 1.2e-11
@@ -276,7 +276,10 @@ def define_rates(params):
     k['CH_C2_C3_H_cm3_7_33'] = 1e-10
     k['CH_C2H5_C3H5_H_cm3_7_34'] = 1e-10
     k['CH_C3H2_C4H_H2_cm3_7_35'] = 1e-10
-    k['CH3_H_CH2_H2_cm3_7_36'] = 6e-12
+    # CH3 + H → CH2 + H2 with activation barrier Ea = 0.65 eV
+    k_CH3_H_ref = 6e-12  # cm³/s reference rate
+    Ea_CH3_H = 0.65  # eV activation barrier
+    k['CH3_H_CH2_H2_cm3_7_36'] = k_CH3_H_ref * np.exp(-Ea_CH3_H / (kB_eV * Tgas))
     k['CH_C2H6_C3H6_H_cm3_7_37'] = 1.2e-10
     k['CH3_CH3_CH2_CH4_cm3_7_38'] = 1.2e-11
     k['CH_CH4_CH2_CH3_cm3_7_39'] = 1e-11
@@ -306,7 +309,10 @@ def define_rates(params):
     k['CH2_C2H5_C2H2_CH3_H_cm3_7_63'] = 1.2e-11
     # New reactions from audit (Baulch 2005, Kushner)
     k['C_C_M_C2_M_cm6_7_64'] = 1.0e-32
-    k['H_C2H4_C2H3_H2_cm3_7_65'] = 1.0e-11
+    # H + C2H4 → C2H3 + H2 with activation barrier Ea = 0.6 eV
+    k_H_C2H4_ref = 1.0e-11  # cm³/s reference rate
+    Ea_H_C2H4 = 0.6  # eV activation barrier (H abstraction from ethylene)
+    k['H_C2H4_C2H3_H2_cm3_7_65'] = k_H_C2H4_ref * np.exp(-Ea_H_C2H4 / (kB_eV * Tgas))
 
     # ===================================================================
     # Group 8: Termolecular Recombination (Temperature-independent)

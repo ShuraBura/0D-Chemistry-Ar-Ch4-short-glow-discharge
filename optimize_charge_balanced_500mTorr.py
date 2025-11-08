@@ -25,11 +25,11 @@ from build_reactions import build_reactions
 from odefun_optimized import PlasmaODE_Optimized
 
 
-# Experimental targets
+# Experimental targets (updated 2025-11-08)
 TARGETS = {
-    'H': 5.18e13,
-    'CH': 1.0e9,
-    'C2': 1.3e11,
+    'H': 2.4e14,      # Updated from 5.18e13
+    'CH': 1.0e9,      # Unchanged
+    'C2': 5.6e11,     # Updated from 1.3e11
 }
 
 # High pressure setting
@@ -348,7 +348,7 @@ def main():
     print(f"Ne constraint: {NE_MIN:.2e} to {NE_MAX:.2e} cm⁻³ (2.3e9 ± 30%)")
     print("Charge balance: Ni/Ne in [2, 7] range enforced via penalty term")
     print("\nOptimizing ~43 parameters:")
-    print("  - Te: 2.0-7.0 eV (increased min to ensure sufficient ionization)")
+    print("  - Te: 1.0-1.5 eV (literature range for this discharge type)")
     print(f"  - Ne: {NE_MIN:.2e}-{NE_MAX:.2e} cm⁻³")
     print("  - E-field: 10-500 V/cm")
     print("  - ~40 reaction rates")
@@ -385,7 +385,7 @@ def main():
             bounds.append((db[name].min, db[name].max))
             param_names.append(name)
 
-    bounds.append((2.0, 7.0))           # Te (eV) - increased min from 0.3 to ensure sufficient ionization
+    bounds.append((1.0, 1.5))           # Te (eV) - literature range for this discharge type
     param_names.append('Te')
 
     bounds.append((NE_MIN, NE_MAX))     # Ne constrained!

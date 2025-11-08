@@ -245,7 +245,7 @@ def get_complete_rate_database():
     db['CH3_CH3_M_C2H6_M_cm6_8_2'] = RateConstant(3.60e-29, 2.40e-29, 3.60e-29, "Baulch et al. (2005)", flag="8.2 Third-body efficiencies need validation")
 
     # ========== WALL STICKING REACTIONS ==========
-    db['stick_H_9_1'] = RateConstant(3.89e+02, 3.89e+02, 3.89e+03, "Perrin (1991)")
+    db['stick_H_9_1'] = RateConstant(3.89e+02, 1.00e+02, 3.89e+03, "Perrin (1991), extended min for passivated surfaces")
     db['stick_CH3_9_2'] = RateConstant(3.51e+03, 1.20e+03, 5.82e+03, "Matsuda et al. (1990)")
     db['stick_CH_9_3'] = RateConstant(6.25e+03, 1.25e+03, 6.25e+03, "Jauberteau et al. (1998)")
     db['stick_ArPlus_9_4'] = RateConstant(7.14e+03, 3.57e+03, 7.14e+03, "Boeuf (1987)")

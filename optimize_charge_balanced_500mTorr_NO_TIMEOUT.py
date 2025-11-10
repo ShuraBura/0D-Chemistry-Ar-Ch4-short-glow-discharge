@@ -75,7 +75,7 @@ def pressure_to_density(pressure_mTorr, T_K=400):
 
 
 def select_tunable_rates():
-    """Select ~50 most important tunable rates (expanded for C2 production)."""
+    """Select ~53 most important tunable rates (expanded for C2 production chain)."""
     db = get_complete_rate_database()
 
     # Critical reactions from chemistry analysis
@@ -107,6 +107,11 @@ def select_tunable_rates():
         'e_C2H2_C2_H2_cm3_1_16',       # e + C2H2 → C2 + H2 (electron-impact!)
         'C2HPlus_e_C2_H_cm3_6_18',     # C2H+ + e → C2 + H (ion recombination, k~3.6e-7!)
         'C2H_H_C2_H2_cm3_7_47',        # C2H + H → C2 + H2
+
+        # FORCE-INCLUDE: C2H4 → C2H2 conversion (THE BOTTLENECK!)
+        'e_C2H4_C2H2_H2_cm3_1_6',      # e + C2H4 → C2H2 + H2 (bottleneck!)
+        'e_C2H4_C2H2_H2_cm3_1_15',     # e + C2H4 → C2H2 + H2 (bottleneck!)
+        'e_C2H4_C2H2_H_H_cm3_1_17',    # e + C2H4 → C2H2 + 2H (bottleneck!)
     ]
 
     h_rates = set(get_tunable_rates_for_target('H').keys())
@@ -136,9 +141,9 @@ def select_tunable_rates():
     ]
     selected_with_range.sort(key=lambda x: x[1], reverse=True)
 
-    # Take top (50 - N_critical) from sorted list, then add ALL critical reactions
+    # Take top (53 - N_critical) from sorted list, then add ALL critical reactions
     n_critical = len(critical_in_db)
-    n_other = 50 - n_critical
+    n_other = 53 - n_critical
     selected_names = [name for name, _ in selected_with_range[:n_other]]
     selected_names.extend(critical_in_db)
 
@@ -377,11 +382,11 @@ def main():
     print(f"\nPressure: {PRESSURE_MTORR} mTorr (fixed)")
     print(f"Ne constraint: {NE_MIN:.2e} to {NE_MAX:.2e} cm⁻³ (2.3e9 ± 30%)")
     print("Charge balance: Ni/Ne in [2, 7] range enforced via penalty term")
-    print("\nOptimizing ~53 parameters:")
+    print("\nOptimizing ~56 parameters:")
     print("  - Te: 1.0-1.5 eV (literature range for this discharge type)")
     print(f"  - Ne: {NE_MIN:.2e}-{NE_MAX:.2e} cm⁻³")
     print("  - E-field: 10-500 V/cm")
-    print("  - ~50 reaction rates (expanded to include C2-producing reactions!)")
+    print("  - ~53 reaction rates (includes full C2 production chain: C2H4→C2H2→C2!)")
 
     print("\nSelecting tunable rates...")
     tunable_rates = select_tunable_rates()

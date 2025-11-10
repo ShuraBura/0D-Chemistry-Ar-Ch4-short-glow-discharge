@@ -219,17 +219,18 @@ def run_simulation(rate_values, Te, ne, E_field, params_base, log_file=None):
         ode_func = PlasmaODE_Optimized(params)
 
         # Integration WITHOUT timeout to avoid signal interference
-        # CRITICAL: Must integrate to TRUE steady state, not just t=100s!
-        # Testing showed t=100s stops at H=1e13 (transient), but TRUE SS is H=2e14 (20× higher)
-        # Solution: integrate to t=500s to ensure all species reach steady state
+        # CRITICAL: System has VERY slow equilibration timescales!
+        # Testing showed: at t=500s H=1e13, but continuing → H=3.85e14 (TRUE SS)
+        # Root cause: slow precursor equilibration (CH, C2H4, etc) gates H growth
+        # Solution: integrate to t=5000s for full equilibration
         sol = solve_ivp(
             ode_func,
-            (0, 500),       # INCREASED from 100s - H takes ~150s to reach steady state
+            (0, 5000),      # MUST be long for slow chemistry equilibration
             y0,
             method='BDF',
-            rtol=1e-7,      # Very tight
-            atol=1e-9,      # Very tight
-            max_step=0.5    # Force fine resolution
+            rtol=1e-5,      # Looser - tight tolerances cause stiffness issues
+            atol=1e-7,      # Looser - H has huge source term (7.74e16)
+            max_step=10.0   # Larger steps to overcome stiffness
         )
 
         if not sol.success:

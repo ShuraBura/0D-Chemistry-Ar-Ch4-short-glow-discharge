@@ -196,7 +196,7 @@ def get_complete_rate_database():
     db['CH2_C_C2H2_cm3_7_17'] = RateConstant(1.00e-10, 8.00e-11, 1.20e-10, "Baulch et al. (2005)")
     db['CH_C2H4_C2H2_CH3_cm3_7_18'] = RateConstant(1.00e-10, 8.00e-11, 1.20e-10, "Baulch et al. (2005)")
     db['C2H2_C_C2_CH2_cm3_7_19'] = RateConstant(1.00e-10, 8.00e-11, 1.20e-10, "Baulch et al. (2005)")
-    db['CH_CH4_C2H4_H_cm3_7_20'] = RateConstant(1.20e-11, 8.00e-12, 1.20e-11, "Baulch et al. (2005)")
+    db['CH_CH4_C2H4_H_cm3_7_20'] = RateConstant(5.92e-11, 4.14e-11, 7.69e-11, "Thiesemann et al. (1997), k=6.7e-11×(T/293)^-0.4, evaluated at T=400K")
     db['CH_H_CH2_cm3_7_21'] = RateConstant(1.00e-10, 8.00e-11, 1.20e-10, "Baulch et al. (2005)")
     db['CH_C2H2_C3H2_H_cm3_7_22'] = RateConstant(1.00e-10, 8.00e-11, 1.20e-10, "Baulch et al. (2005)")
     db['CH_CH3_C2H2_H2_cm3_7_23'] = RateConstant(1.00e-10, 8.00e-11, 1.20e-10, "Baulch et al. (2005)")

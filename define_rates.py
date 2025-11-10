@@ -256,7 +256,12 @@ def define_rates(params):
     k['CH2_C_C2H2_cm3_7_17'] = 1e-10
     k['CH_C2H4_C2H2_CH3_cm3_7_18'] = 1e-10
     k['C2H2_C_C2_CH2_cm3_7_19'] = 1e-10
-    k['CH_CH4_C2H4_H_cm3_7_20'] = 1.5e-10  # Updated from 1.2e-11 (Baulch 2005)
+    # CH + CH4 → C2H4 + H with temperature dependence (Thiesemann et al. 1997)
+    # k = 6.7e-11 × (T/293)^(-0.4) cm³/s (barrierless addition, 290-700 K)
+    k_CH_CH4_ref = 6.7e-11  # cm³/s at T=293K
+    T_ref_CH_CH4 = 293.0    # K
+    n_CH_CH4 = -0.4         # negative temperature exponent
+    k['CH_CH4_C2H4_H_cm3_7_20'] = k_CH_CH4_ref * (Tgas / T_ref_CH_CH4)**n_CH_CH4
     k['CH_H_CH2_cm3_7_21'] = 1e-10
     k['CH_C2H2_C3H2_H_cm3_7_22'] = 1e-10
     k['CH_CH3_C2H2_H2_cm3_7_23'] = 1e-10

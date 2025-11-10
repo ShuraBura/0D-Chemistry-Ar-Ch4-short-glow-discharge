@@ -195,7 +195,7 @@ def run_simulation(rate_values, Te, ne, E_field, params_base, log_file=None):
         ode_func = PlasmaODE_Optimized(params)
 
         try:
-            with time_limit(30):
+            with time_limit(120):  # Increased from 30s to allow full convergence
                 sol = solve_ivp(
                     ode_func,
                     (0, 100),

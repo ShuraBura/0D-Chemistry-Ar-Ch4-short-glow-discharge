@@ -25,9 +25,9 @@ from build_reactions import build_reactions
 from odefun_optimized import PlasmaODE_Optimized
 
 
-# Experimental targets (updated 2025-11-08)
+# Experimental targets (updated 2025-11-10 based on spatial profile)
 TARGETS = {
-    'H': 2.4e14,      # Updated from 5.18e13
+    'H': 3.82e14,     # NG plateau from nH(y) = 4.66e15*exp(-y/0.46) + 3.81e14 at y=4mm
     'CH': 1.0e9,      # Unchanged
     'C2': 5.6e11,     # Updated from 1.3e11
 }

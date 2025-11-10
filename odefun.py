@@ -15,7 +15,7 @@ class PlasmaODE:
         self.nr = len(self.R)
         self.k = params['k']
         self.tags = params['tags']
-        self.H_drift_gain = 1.06e17  # Based on experimental nH profile: 3.82e14 cm⁻³ at y=4mm
+        self.H_drift_gain = 7.74e16  # Based on experimental nH profile: 2.52e14 cm⁻³ at y=4mm
 
         # Cache species indices
         self.e_idx = self.species.index('e')

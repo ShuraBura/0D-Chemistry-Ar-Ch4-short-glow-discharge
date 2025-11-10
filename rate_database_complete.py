@@ -67,6 +67,7 @@ def get_complete_rate_database():
     db['e_C2H4_C2H4Plus_2e_cm3_2_6'] = RateConstant(1.20e-11, 1.20e-11, 3.60e-11, "Janev & Reiter (2002)", notes="Scaled: 2.4e-11 * 0.5 ≈ 1.2e-11")
     db['e_C2H4_C2H3Plus_H_2e_cm3_2_7'] = RateConstant(8.00e-12, 8.00e-12, 2.40e-11, "Janev & Reiter (2002)", notes="Scaled: 1.6e-11 * 0.5 ≈ 8e-12")
     db['e_C2H2_C2HPlus_2e_cm3_2_8'] = RateConstant(8.00e-12, 8.00e-12, 2.40e-11, "Janev & Reiter (2002)", notes="Scaled: 1.6e-11 * 0.5 ≈ 8e-12")
+    db['e_CH_CHPlus_2e_cm3_2_10'] = RateConstant(5.00e-12, 1.00e-12, 2.50e-11, "Estimated from ionization cross-section", notes="CH ionization (IP=10.64 eV) - KEY CH REMOVAL PATHWAY", flag="2.10 Tunable to optimize CH removal without affecting H")
 
     # ========== Ar* REACTIONS ==========
     db['ArStar_CH4_CH3_H_cm3_3_1'] = RateConstant(5.00e-10, 5.00e-11, 5.00e-10, "Velazco et al. (1978)")
@@ -195,7 +196,7 @@ def get_complete_rate_database():
     db['CH2_C_C2H2_cm3_7_17'] = RateConstant(1.00e-10, 8.00e-11, 1.20e-10, "Baulch et al. (2005)")
     db['CH_C2H4_C2H2_CH3_cm3_7_18'] = RateConstant(1.00e-10, 8.00e-11, 1.20e-10, "Baulch et al. (2005)")
     db['C2H2_C_C2_CH2_cm3_7_19'] = RateConstant(1.00e-10, 8.00e-11, 1.20e-10, "Baulch et al. (2005)")
-    db['CH_CH4_C2H4_H_cm3_7_20'] = RateConstant(1.20e-11, 8.00e-12, 1.20e-11, "Baulch et al. (2005)")
+    db['CH_CH4_C2H4_H_cm3_7_20'] = RateConstant(5.92e-11, 4.14e-11, 7.69e-11, "Thiesemann et al. (1997), k=6.7e-11×(T/293)^-0.4, evaluated at T=400K")
     db['CH_H_CH2_cm3_7_21'] = RateConstant(1.00e-10, 8.00e-11, 1.20e-10, "Baulch et al. (2005)")
     db['CH_C2H2_C3H2_H_cm3_7_22'] = RateConstant(1.00e-10, 8.00e-11, 1.20e-10, "Baulch et al. (2005)")
     db['CH_CH3_C2H2_H2_cm3_7_23'] = RateConstant(1.00e-10, 8.00e-11, 1.20e-10, "Baulch et al. (2005)")
@@ -245,7 +246,7 @@ def get_complete_rate_database():
     db['CH3_CH3_M_C2H6_M_cm6_8_2'] = RateConstant(3.60e-29, 2.40e-29, 3.60e-29, "Baulch et al. (2005)", flag="8.2 Third-body efficiencies need validation")
 
     # ========== WALL STICKING REACTIONS ==========
-    db['stick_H_9_1'] = RateConstant(3.89e+02, 3.89e+02, 3.89e+03, "Perrin (1991)")
+    db['stick_H_9_1'] = RateConstant(3.00e+02, 1.00e+02, 5.00e+02, "Perrin (1991), reduced max to enable higher H (target ~423 s⁻¹)")
     db['stick_CH3_9_2'] = RateConstant(3.51e+03, 1.20e+03, 5.82e+03, "Matsuda et al. (1990)")
     db['stick_CH_9_3'] = RateConstant(6.25e+03, 1.25e+03, 6.25e+03, "Jauberteau et al. (1998)")
     db['stick_ArPlus_9_4'] = RateConstant(7.14e+03, 3.57e+03, 7.14e+03, "Boeuf (1987)")

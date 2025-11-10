@@ -87,6 +87,7 @@ def build_reactions(params):
     push(sto('e', 1, 'C2H4', 1), sto('e', 2, 'C2H3Plus', 1, 'H', 1), k['e_C2H4_C2H3Plus_H_2e_cm3_2_7'], 'e_C2H4_C2H3Plus_H_2e_cm3_2_7')
     push(sto('e', 1, 'C2H2', 1), sto('e', 2, 'C2HPlus', 1, 'H', 1), k['e_C2H2_C2HPlus_2e_cm3_2_8'], 'e_C2H2_C2HPlus_2e_cm3_2_8')
     push(sto('e', 1, 'H2', 1), sto('e', 2, 'H2Plus', 1), k['e_H2_H2Plus_2e_cm3_2_9'], 'e_H2_H2Plus_2e_cm3_2_9')
+    push(sto('e', 1, 'CH', 1), sto('e', 2, 'CHPlus', 1), k['e_CH_CHPlus_2e_cm3_2_10'], 'e_CH_CHPlus_2e_cm3_2_10')  # CH ionization (NEW!)
 
     # Group 3: ArStar Reactions
     push(sto('ArStar', 1, 'CH4', 1), sto('Ar', 1, 'CH3', 1, 'H', 1), k['ArStar_CH4_CH3_H_cm3_3_1'], 'ArStar_CH4_CH3_H_cm3_3_1')
@@ -184,6 +185,7 @@ def build_reactions(params):
     push(sto('H2Plus', 1, 'e', 1), sto('H', 2), k['H2Plus_e_H_H_cm3_6_29'], 'H2Plus_e_H_H_cm3_6_29')
     push(sto('H3Plus', 1, 'e', 1), sto('H2', 1, 'H', 1), k['H3Plus_e_H2_H_cm3_6_30'], 'H3Plus_e_H2_H_cm3_6_30')
     push(sto('H3Plus', 1, 'e', 1), sto('H', 3), k['H3Plus_e_H_H_H_cm3_6_31'], 'H3Plus_e_H_H_H_cm3_6_31')
+    push(sto('CHPlus', 1, 'e', 1), sto('CH', 1), k['CHPlus_e_CH_cm3_6_32'], 'CHPlus_e_CH_cm3_6_32')  # CHPlus recombination (NEW!)
 
     # NEW IN V7: ArH+ dissociative recombination
     push(sto('ArHPlus', 1, 'e', 1), sto('Ar', 1, 'H', 1), k['ArHPlus_e_Ar_H_cm3_6_29'], 'ArHPlus_e_Ar_H_cm3_6_29')

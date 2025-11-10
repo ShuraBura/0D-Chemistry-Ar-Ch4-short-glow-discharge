@@ -122,6 +122,7 @@ def define_rates(params):
     k['e_C2H4_C2H3Plus_H_2e_cm3_2_7'] = scale_ionization(8e-12, Te, E_ion=10.5)
     k['e_C2H2_C2HPlus_2e_cm3_2_8'] = scale_ionization(8e-12, Te, E_ion=11.4)
     k['e_H2_H2Plus_2e_cm3_2_9'] = scale_ionization(3e-12, Te, E_ion=15.43)  # H2 ionization
+    k['e_CH_CHPlus_2e_cm3_2_10'] = scale_ionization(5e-12, Te, E_ion=10.64)  # CH ionization (NEW!)
 
     # ===================================================================
     # Group 3: Ar* Reactions (Temperature-independent - thermal)
@@ -230,9 +231,11 @@ def define_rates(params):
     k['H2Plus_e_H_H_cm3_6_29'] = scale_recombination(2.3e-8, Te, alpha=0.5)  # H2+ + e → H + H
     k['H3Plus_e_H2_H_cm3_6_30'] = scale_recombination(2.3e-7, Te, alpha=0.5)  # H3+ + e → H2 + H (dominant)
     k['H3Plus_e_H_H_H_cm3_6_31'] = scale_recombination(4.8e-8, Te, alpha=0.5)  # H3+ + e → H + H + H
+    k['CHPlus_e_CH_cm3_6_32'] = scale_recombination(3.5e-7, Te, alpha=0.7)  # CHPlus + e → CH (NEW!)
 
     # ===================================================================
     # Group 7: Neutral-Neutral Reactions (Temperature-independent at thermal energies)
+    # EXCEPT: H + CH4, H + C2H4, and CH3 + H have activation barriers
     # ===================================================================
     k['CH2_H_CH_H2_cm3_7_1'] = 1.0e-11
     k['CH2_H_C_H2_H_cm3_7_2'] = 1.2e-11
@@ -253,12 +256,21 @@ def define_rates(params):
     k['CH2_C_C2H2_cm3_7_17'] = 1e-10
     k['CH_C2H4_C2H2_CH3_cm3_7_18'] = 1e-10
     k['C2H2_C_C2_CH2_cm3_7_19'] = 1e-10
-    k['CH_CH4_C2H4_H_cm3_7_20'] = 1.5e-10  # Updated from 1.2e-11 (Baulch 2005)
+    # CH + CH4 → C2H4 + H with temperature dependence (Thiesemann et al. 1997)
+    # k = 6.7e-11 × (T/293)^(-0.4) cm³/s (barrierless addition, 290-700 K)
+    k_CH_CH4_ref = 6.7e-11  # cm³/s at T=293K
+    T_ref_CH_CH4 = 293.0    # K
+    n_CH_CH4 = -0.4         # negative temperature exponent
+    k['CH_CH4_C2H4_H_cm3_7_20'] = k_CH_CH4_ref * (Tgas / T_ref_CH_CH4)**n_CH_CH4
     k['CH_H_CH2_cm3_7_21'] = 1e-10
     k['CH_C2H2_C3H2_H_cm3_7_22'] = 1e-10
     k['CH_CH3_C2H2_H2_cm3_7_23'] = 1e-10
     k['CH_C_C2_H2_cm3_7_24'] = 1e-10
-    k['H_CH4_CH3_H2_cm3_7_25'] = 6e-12
+    # H + CH4 → CH3 + H2 with activation barrier Ea = 0.5 eV
+    k_H_CH4_ref = 6e-12  # cm³/s reference rate
+    Ea_H_CH4 = 0.5  # eV activation barrier
+    kB_eV = 8.617333e-5  # eV/K
+    k['H_CH4_CH3_H2_cm3_7_25'] = k_H_CH4_ref * np.exp(-Ea_H_CH4 / (kB_eV * Tgas))
     k['CH2_CH_C2_H2_H_cm3_7_26'] = 1.2e-10
     k['CH_C2H2_C3H_H2_cm3_7_27'] = 1e-10
     k['CH_C3H_C4H2_H_cm3_7_28'] = 1e-10
@@ -269,7 +281,10 @@ def define_rates(params):
     k['CH_C2_C3_H_cm3_7_33'] = 1e-10
     k['CH_C2H5_C3H5_H_cm3_7_34'] = 1e-10
     k['CH_C3H2_C4H_H2_cm3_7_35'] = 1e-10
-    k['CH3_H_CH2_H2_cm3_7_36'] = 6e-12
+    # CH3 + H → CH2 + H2 with activation barrier Ea = 0.65 eV
+    k_CH3_H_ref = 6e-12  # cm³/s reference rate
+    Ea_CH3_H = 0.65  # eV activation barrier
+    k['CH3_H_CH2_H2_cm3_7_36'] = k_CH3_H_ref * np.exp(-Ea_CH3_H / (kB_eV * Tgas))
     k['CH_C2H6_C3H6_H_cm3_7_37'] = 1.2e-10
     k['CH3_CH3_CH2_CH4_cm3_7_38'] = 1.2e-11
     k['CH_CH4_CH2_CH3_cm3_7_39'] = 1e-11
@@ -299,7 +314,10 @@ def define_rates(params):
     k['CH2_C2H5_C2H2_CH3_H_cm3_7_63'] = 1.2e-11
     # New reactions from audit (Baulch 2005, Kushner)
     k['C_C_M_C2_M_cm6_7_64'] = 1.0e-32
-    k['H_C2H4_C2H3_H2_cm3_7_65'] = 1.0e-11
+    # H + C2H4 → C2H3 + H2 with activation barrier Ea = 0.6 eV
+    k_H_C2H4_ref = 1.0e-11  # cm³/s reference rate
+    Ea_H_C2H4 = 0.6  # eV activation barrier (H abstraction from ethylene)
+    k['H_C2H4_C2H3_H2_cm3_7_65'] = k_H_C2H4_ref * np.exp(-Ea_H_C2H4 / (kB_eV * Tgas))
 
     # ===================================================================
     # Group 8: Termolecular Recombination (Temperature-independent)

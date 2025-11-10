@@ -75,11 +75,12 @@ def pressure_to_density(pressure_mTorr, T_K=400):
 
 
 def select_tunable_rates():
-    """Select ~40 most important tunable rates."""
+    """Select ~50 most important tunable rates (expanded for C2 production)."""
     db = get_complete_rate_database()
 
     # Critical reactions from chemistry analysis
     critical_reactions = [
+        # Original critical reactions
         'CH3_CH3_C2H2_H2_H2_cm3_7_49',
         'C_CH3_C2_H2_H_cm3_7_8',
         'CH3_C2H5_C2H2_CH3_H2_cm3_7_61',
@@ -98,6 +99,14 @@ def select_tunable_rates():
         'e_CH4_CH3_H_cm3_1_1',
         'CH3_H_CH4_cm3_7_35',
         'e_CH4_CH2_H2_cm3_1_2',
+
+        # FORCE-INCLUDE: Critical C2-producing reactions (these were missing!)
+        'CH_CH_C2_H2_cm3_5_4',         # CH + CH → C2 + H2 (main pathway, with high CH)
+        'C_CH_C2_H_cm3_7_4',           # C + CH → C2 + H
+        'CH_C_C2_H_cm3_7_9',           # CH + C → C2 + H (alternative)
+        'e_C2H2_C2_H2_cm3_1_16',       # e + C2H2 → C2 + H2 (electron-impact!)
+        'C2HPlus_e_C2_H_cm3_6_18',     # C2H+ + e → C2 + H (ion recombination, k~3.6e-7!)
+        'C2H_H_C2_H2_cm3_7_47',        # C2H + H → C2 + H2
     ]
 
     h_rates = set(get_tunable_rates_for_target('H').keys())
@@ -113,16 +122,25 @@ def select_tunable_rates():
 
     flagged_rates = {name for name, rate in db.items() if rate.flag}
 
-    selected = set(critical_reactions) | target_rates | large_range_rates | flagged_rates
+    # ALWAYS include critical reactions (don't let them be cut by top-N selection)
+    critical_in_db = {name for name in critical_reactions if name in db}
+
+    # Combine other rate sources
+    selected = target_rates | large_range_rates | flagged_rates
     selected = {name for name in selected if name in db}
 
+    # Sort non-critical reactions by range
     selected_with_range = [
         (name, db[name].max / db[name].min if db[name].min > 0 else 1.0)
-        for name in selected
+        for name in selected if name not in critical_in_db  # Exclude critical from sorting
     ]
     selected_with_range.sort(key=lambda x: x[1], reverse=True)
 
-    selected_names = [name for name, _ in selected_with_range[:40]]
+    # Take top (50 - N_critical) from sorted list, then add ALL critical reactions
+    n_critical = len(critical_in_db)
+    n_other = 50 - n_critical
+    selected_names = [name for name, _ in selected_with_range[:n_other]]
+    selected_names.extend(critical_in_db)
 
     return selected_names
 
@@ -359,11 +377,11 @@ def main():
     print(f"\nPressure: {PRESSURE_MTORR} mTorr (fixed)")
     print(f"Ne constraint: {NE_MIN:.2e} to {NE_MAX:.2e} cm⁻³ (2.3e9 ± 30%)")
     print("Charge balance: Ni/Ne in [2, 7] range enforced via penalty term")
-    print("\nOptimizing ~43 parameters:")
+    print("\nOptimizing ~53 parameters:")
     print("  - Te: 1.0-1.5 eV (literature range for this discharge type)")
     print(f"  - Ne: {NE_MIN:.2e}-{NE_MAX:.2e} cm⁻³")
     print("  - E-field: 10-500 V/cm")
-    print("  - ~40 reaction rates")
+    print("  - ~50 reaction rates (expanded to include C2-producing reactions!)")
 
     print("\nSelecting tunable rates...")
     tunable_rates = select_tunable_rates()

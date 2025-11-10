@@ -323,11 +323,11 @@ def objective_function(x, param_names, params_base):
     if results is None:
         return 1e10
 
-    # Species target errors (H weight increased to 20.0 to match CH importance)
+    # Species target errors (all species equally weighted)
     weights = {
-        'H': 20.0,   # Increased from 1.0 - H and CH equally important now
+        'H': 20.0,
         'CH': 20.0,
-        'C2': 3.0
+        'C2': 20.0   # Increased from 3.0 - all three species equal priority
     }
 
     species_error = 0.0

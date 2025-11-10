@@ -211,6 +211,9 @@ def run_simulation(rate_values, Te, ne, E_field, params_base, log_file=None):
         if not sol.success:
             return None
 
+        # DEBUG: Print integration endpoint
+        print(f"  [DEBUG] Integration: t_final={sol.t[-1]:.2f}s, nsteps={len(sol.t)}, H_final={sol.y[species.index('H'), -1]:.2e}")
+
         y_final = sol.y[:, -1]
 
         def get_density(name):

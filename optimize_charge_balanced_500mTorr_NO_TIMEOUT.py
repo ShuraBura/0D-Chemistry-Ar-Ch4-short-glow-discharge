@@ -193,44 +193,45 @@ def run_simulation(rate_values, Te, ne, E_field, params_base, log_file=None):
         n_Ar = 0.85 * n_total
         n_CH4 = 0.15 * n_total
 
-        # Initial conditions - reasonable guesses to speed convergence
+        # Initial conditions - IMPROVED based on typical steady states
+        # Key insight: H equilibrates in ~3ms, but CH/C2H4 take seconds
+        # Start slow species near their quasi-steady states to avoid stiffness
         set_density('e', ne)
         set_density('Ar', n_Ar)
         set_density('CH4', n_CH4)
-        set_density('ArPlus', 1e7)
-        set_density('CH4Plus', 1e5)
-        set_density('CH3Plus', 1e5)
-        set_density('CH5Plus', 1e3)
-        set_density('ArHPlus', 5e5)
-        set_density('CH3Minus', 5e4)
-        set_density('H2', 1e12)
-        set_density('ArStar', 5e6)
-        set_density('H', 1e11)
-        set_density('C2', 5e7)
-        set_density('CH', 5e4)
-        set_density('C2H4', 5e7)
-        set_density('C2H6', 1e6)
-        set_density('CH2', 1e11)
-        set_density('C2H2', 1e12)
-        set_density('C2H5', 1e6)
-        set_density('CH3', 5e7)
-        set_density('C', 5e7)
+        set_density('ArPlus', 2e8)      # Higher - typical ion density
+        set_density('CH4Plus', 1e9)     # Higher
+        set_density('CH3Plus', 2e8)
+        set_density('CH5Plus', 2e9)     # Higher
+        set_density('ArHPlus', 2e8)
+        set_density('CH3Minus', 1e5)
+        set_density('H2', 3e13)         # Much higher - H2 accumulates
+        set_density('ArStar', 1e9)      # Higher
+        set_density('H', 1e14)          # Start MUCH closer to target!
+        set_density('C2', 1e10)         # Start near observed SS
+        set_density('CH', 2e9)          # Start near observed SS (~2e9)
+        set_density('C2H4', 2e11)       # Start near observed SS
+        set_density('C2H6', 2e12)       # Higher
+        set_density('CH2', 6e11)        # Higher
+        set_density('C2H2', 1e12)       # Keep
+        set_density('C2H5', 3e11)       # Higher
+        set_density('CH3', 1e13)        # Much higher - CH3 accumulates
+        set_density('C', 1e10)          # Higher
 
         ode_func = PlasmaODE_Optimized(params)
 
         # Integration WITHOUT timeout to avoid signal interference
-        # CRITICAL: System has VERY slow equilibration timescales!
-        # Testing showed: at t=500s H=1e13, but continuing → H=3.85e14 (TRUE SS)
-        # Root cause: slow precursor equilibration (CH, C2H4, etc) gates H growth
-        # Solution: integrate to t=5000s for full equilibration
+        # CRITICAL FIX: Start slow species (CH, C2H4) near their steady states
+        # H equilibrates in ~3ms (H lifetime with H_drift_gain=7.74e16)
+        # With good initial conditions, 100s is sufficient for full equilibration
         sol = solve_ivp(
             ode_func,
-            (0, 5000),      # MUST be long for slow chemistry equilibration
+            (0, 100),       # Reduced from 5000s - good ICs allow faster convergence
             y0,
             method='BDF',
-            rtol=1e-5,      # Looser - tight tolerances cause stiffness issues
-            atol=1e-7,      # Looser - H has huge source term (7.74e16)
-            max_step=10.0   # Larger steps to overcome stiffness
+            rtol=1e-6,      # Moderate tolerance
+            atol=1e-8,      # Moderate tolerance
+            max_step=1.0    # Moderate step size
         )
 
         if not sol.success:

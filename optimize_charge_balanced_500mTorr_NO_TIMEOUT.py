@@ -218,17 +218,17 @@ def run_simulation(rate_values, Te, ne, E_field, params_base, log_file=None):
         ode_func = PlasmaODE_Optimized(params)
 
         # Integration WITHOUT timeout to avoid signal interference
-        # CRITICAL: Use very tight tolerances and small max_step to ensure full convergence!
-        # Testing shows even rtol=1e-6, atol=1e-8, max_step=1.0 stops at transient (H=1e13)
-        # when true steady state is H=2e14 (20× higher). Need even tighter settings!
+        # CRITICAL: Must integrate to TRUE steady state, not just t=100s!
+        # Testing showed t=100s stops at H=1e13 (transient), but TRUE SS is H=2e14 (20× higher)
+        # Solution: integrate to t=500s to ensure all species reach steady state
         sol = solve_ivp(
             ode_func,
-            (0, 100),
+            (0, 500),       # INCREASED from 100s - H takes ~150s to reach steady state
             y0,
             method='BDF',
-            rtol=1e-7,      # Very tight: was 1e-6
-            atol=1e-9,      # Very tight: was 1e-8
-            max_step=0.5    # Very small: was 1.0 (force fine resolution of H dynamics)
+            rtol=1e-7,      # Very tight
+            atol=1e-9,      # Very tight
+            max_step=0.5    # Force fine resolution
         )
 
         if not sol.success:

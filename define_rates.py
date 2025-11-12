@@ -327,6 +327,21 @@ def define_rates(params):
     k['H_C2H4_C2H3_H2_cm3_7_65'] = k_H_C2H4_ref * np.exp(-Ea_H_C2H4 / (kB_eV * Tgas))
 
     # ===================================================================
+    # MISSING CH3 PRODUCTION PATHWAYS (Added to address physical realism)
+    # ===================================================================
+    # High-priority pathways identified from literature (Baulch 2005, NIST)
+    k['e_C2H4_CH3_CH_cm3_7_66'] = scale_electron_impact(2.0e-11, Te, E_threshold=8.0)  # e + C2H4 → CH3 + CH
+    k['e_C2H6_CH3_CH3_cm3_7_67'] = scale_electron_impact(3.0e-11, Te, E_threshold=7.5)  # e + C2H6 → CH3 + CH3
+    k['e_C2H5_CH3_CH2_cm3_7_68'] = scale_electron_impact(1.5e-11, Te, E_threshold=7.0)  # e + C2H5 → CH3 + CH2
+    k['ArStar_C2H4_CH3_CH_cm3_7_69'] = 3.0e-10  # Ar* + C2H4 → CH3 + CH
+    k['ArStar_C2H6_CH3_CH3_cm3_7_70'] = 5.0e-10  # Ar* + C2H6 → CH3 + CH3
+    k['H_C2H5_CH3_CH2_cm3_7_71'] = 8.0e-11  # H + C2H5 → CH3 + CH2 (important: H is abundant!)
+    k['CH2_CH2_CH3_CH_cm3_7_72'] = 6.0e-11  # CH2 + CH2 → CH3 + CH
+    k['C2H5Plus_e_CH3_CH2_cm3_7_73'] = scale_recombination(3.0e-7, Te, alpha=0.7)  # C2H5+ + e → CH3 + CH2
+    k['CH2_H_M_CH3_M_cm6_7_74'] = 2.0e-30 * n_total  # CH2 + H + M → CH3 + M (three-body)
+    k['ArPlus_CH4_CH3Plus_ArH_cm3_7_75'] = 2.0e-9  # Ar+ + CH4 → CH3+ + Ar + H (charge transfer)
+
+    # ===================================================================
     # Group 8: Termolecular Recombination (Temperature-independent)
     # ===================================================================
     # Three-body rate constants (cm⁶/s) are multiplied by n_total (cm⁻³) to give effective rate (cm³/s)

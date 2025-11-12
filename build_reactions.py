@@ -262,6 +262,18 @@ def build_reactions(params):
     push(sto('C', 2), sto('C2', 1), k['C_C_M_C2_M_cm6_7_64'], 'C_C_M_C2_M_cm6_7_64')
     push(sto('H', 1, 'C2H4', 1), sto('C2H3', 1, 'H2', 1), k['H_C2H4_C2H3_H2_cm3_7_65'], 'H_C2H4_C2H3_H2_cm3_7_65')
 
+    # MISSING CH3 PRODUCTION PATHWAYS (added for physical realism)
+    push(sto('e', 1, 'C2H4', 1), sto('CH3', 1, 'CH', 1), k['e_C2H4_CH3_CH_cm3_7_66'], 'e_C2H4_CH3_CH_cm3_7_66')
+    push(sto('e', 1, 'C2H6', 1), sto('CH3', 2), k['e_C2H6_CH3_CH3_cm3_7_67'], 'e_C2H6_CH3_CH3_cm3_7_67')
+    push(sto('e', 1, 'C2H5', 1), sto('CH3', 1, 'CH2', 1), k['e_C2H5_CH3_CH2_cm3_7_68'], 'e_C2H5_CH3_CH2_cm3_7_68')
+    push(sto('ArStar', 1, 'C2H4', 1), sto('Ar', 1, 'CH3', 1, 'CH', 1), k['ArStar_C2H4_CH3_CH_cm3_7_69'], 'ArStar_C2H4_CH3_CH_cm3_7_69')
+    push(sto('ArStar', 1, 'C2H6', 1), sto('Ar', 1, 'CH3', 2), k['ArStar_C2H6_CH3_CH3_cm3_7_70'], 'ArStar_C2H6_CH3_CH3_cm3_7_70')
+    push(sto('H', 1, 'C2H5', 1), sto('CH3', 1, 'CH2', 1), k['H_C2H5_CH3_CH2_cm3_7_71'], 'H_C2H5_CH3_CH2_cm3_7_71')
+    push(sto('CH2', 2), sto('CH3', 1, 'CH', 1), k['CH2_CH2_CH3_CH_cm3_7_72'], 'CH2_CH2_CH3_CH_cm3_7_72')
+    push(sto('C2H5Plus', 1, 'e', 1), sto('CH3', 1, 'CH2', 1), k['C2H5Plus_e_CH3_CH2_cm3_7_73'], 'C2H5Plus_e_CH3_CH2_cm3_7_73')
+    push(sto('CH2', 1, 'H', 1), sto('CH3', 1), k['CH2_H_M_CH3_M_cm6_7_74'], 'CH2_H_M_CH3_M_cm6_7_74')
+    push(sto('ArPlus', 1, 'CH4', 1), sto('CH3Plus', 1, 'Ar', 1, 'H', 1), k['ArPlus_CH4_CH3Plus_ArH_cm3_7_75'], 'ArPlus_CH4_CH3Plus_ArH_cm3_7_75')
+
     # Group 8: Termolecular Recombination
     push(sto('H', 2), sto('H2', 1), k['H_H_M_H2_M_cm6_8_1'], 'H_H_M_H2_M_cm6_8_1')
     push(sto('CH3', 2), sto('C2H6', 1), k['CH3_CH3_M_C2H6_M_cm6_8_2'], 'CH3_CH3_M_C2H6_M_cm6_8_2')

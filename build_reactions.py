@@ -151,6 +151,9 @@ def build_reactions(params):
     push(sto('H2Plus', 1, 'H2', 1), sto('H3Plus', 1, 'H', 1), k['H2Plus_H2_H3Plus_H_cm3_5_13'], 'H2Plus_H2_H3Plus_H_cm3_5_13')
     push(sto('H3Plus', 1, 'CH4', 1), sto('CH5Plus', 1, 'H2', 1), k['H3Plus_CH4_CH5Plus_H2_cm3_5_14'], 'H3Plus_CH4_CH5Plus_H2_cm3_5_14')
     push(sto('H3Plus', 1, 'H2', 1), sto('H2Plus', 1, 'H2', 1), k['H3Plus_H2_H2Plus_H2_cm3_5_15'], 'H3Plus_H2_H2Plus_H2_cm3_5_15')
+    # ADDED: CH + Ar⁺ → CHPlus + Ar (fast ion-neutral charge transfer)
+    if 'ArPlus_CH_CHPlus_Ar_cm3_5_16' in k:
+        push(sto('ArPlus', 1, 'CH', 1), sto('CHPlus', 1, 'Ar', 1), k['ArPlus_CH_CHPlus_Ar_cm3_5_16'], 'ArPlus_CH_CHPlus_Ar_cm3_5_16')
 
     # Group 6: Dissociative Recombination
     push(sto('ArPlus', 1, 'e', 1), sto('Ar', 1), k['ArPlus_e_Ar_cm3_6_1'], 'ArPlus_e_Ar_cm3_6_1')
@@ -360,5 +363,12 @@ def build_reactions(params):
     push(sto('C3H2', 1), sto(), k['loss_C3H2_11_23'], 'loss_C3H2_11_23')
     push(sto('C3H5', 1), sto(), k['loss_C3H5_11_24'], 'loss_C3H5_11_24')
     push(sto('C2H2Star', 1), sto('C2H2', 1), k['loss_C2H2Star_11_25'], 'loss_C2H2Star_11_25')
+
+    # DUST/NANOPARTICLE LOSS REACTIONS (if enabled)
+    # Loss to growing dust particles via sticking
+    for sp_name in ['CH', 'CH2', 'CH3', 'C', 'C2', 'H']:
+        dust_key = f'dust_loss_{sp_name}_12'
+        if dust_key in k:
+            push(sto(sp_name, 1), sto(), k[dust_key], dust_key)
 
     return R, tags

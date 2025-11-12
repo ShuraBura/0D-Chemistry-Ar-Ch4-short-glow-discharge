@@ -200,6 +200,9 @@ def define_rates(params):
     k['H3Plus_CH4_CH5Plus_H2_cm3_5_14'] = 1.5e-9  # Proton transfer
     k['H3Plus_H2_H2Plus_H2_cm3_5_15'] = 6.4e-10  # Reverse formation (minor)
 
+    # ADDED: CH + Ar⁺ → products (fast ion-neutral reaction)
+    k['ArPlus_CH_CHPlus_Ar_cm3_5_16'] = 5.0e-9  # Charge transfer / ionization (typical 1e-9 to 1e-8)
+
     # ===================================================================
     # Group 6: Dissociative Recombination
     # NOW TEMPERATURE-DEPENDENT via Te scaling
@@ -440,5 +443,43 @@ def define_rates(params):
     k['loss_C3H2_11_23'] = 2e2
     k['loss_C3H5_11_24'] = 2e2
     k['loss_C2H2Star_11_25'] = 3e2
+
+    # ===================================================================
+    # DUST/NANOPARTICLE LOSS TERMS
+    # ===================================================================
+    # Loss rate: k_dust = n_dust × π × r_dust² × v_thermal × α_stick
+    # For CH: v_th ≈ 7e4 cm/s (300 K)
+    # Configurable via params['dust_density'], params['dust_radius'], params['dust_sticking']
+    # Default: moderate dust scenario (n=1e8 cm⁻³, r=50 nm, α=0.5)
+    #
+    # To enable/disable: set params['enable_dust_loss'] = True/False (default False)
+    # To tune: params['dust_multiplier'] = 0.1 to 10.0 (default 1.0)
+
+    enable_dust = params.get('enable_dust_loss', False)
+    dust_multiplier = params.get('dust_multiplier', 1.0)
+
+    if enable_dust:
+        # Dust parameters (can be customized via params)
+        n_dust = params.get('dust_density', 1e8)  # cm⁻³
+        r_dust = params.get('dust_radius', 50e-7)  # cm (50 nm default)
+        alpha_dust = params.get('dust_sticking', 0.5)  # dimensionless
+
+        # Thermal velocities at 300 K (cm/s)
+        v_thermal = {
+            'CH': 6.99e4,   # 13 amu
+            'CH2': 6.09e4,  # 14 amu
+            'CH3': 5.43e4,  # 15 amu
+            'C': 8.71e4,    # 12 amu
+            'C2': 6.16e4,   # 24 amu
+            'H': 1.73e5,    # 1 amu
+        }
+
+        # Calculate dust loss coefficients
+        for species, v_th in v_thermal.items():
+            k_dust_base = n_dust * 3.14159 * r_dust**2 * v_th * alpha_dust
+            k_dust = k_dust_base * dust_multiplier
+
+            # Add dust loss terms
+            k[f'dust_loss_{species}_12'] = k_dust
 
     return k

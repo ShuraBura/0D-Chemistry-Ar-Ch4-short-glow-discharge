@@ -267,6 +267,14 @@ def build_reactions(params):
     push(sto('CH3', 2), sto('C2H6', 1), k['CH3_CH3_M_C2H6_M_cm6_8_2'], 'CH3_CH3_M_C2H6_M_cm6_8_2')
     push(sto('CH3', 1, 'H', 1), sto('CH4', 1), k['CH3_H_M_CH4_M_cm6_8_3'], 'CH3_H_M_CH4_M_cm6_8_3')
 
+    # Three-body electron-ion recombination (CRITICAL for high-density stabilization)
+    push(sto('e', 1, 'ArPlus', 1), sto('Ar', 1), k['e_ArPlus_M_Ar_M_cm6_8_4'], 'e_ArPlus_M_Ar_M_cm6_8_4')
+    push(sto('e', 1, 'CH4Plus', 1), sto('CH4', 1), k['e_CH4Plus_M_CH4_M_cm6_8_5'], 'e_CH4Plus_M_CH4_M_cm6_8_5')
+    push(sto('e', 1, 'CH3Plus', 1), sto('CH3', 1), k['e_CH3Plus_M_CH3_M_cm6_8_6'], 'e_CH3Plus_M_CH3_M_cm6_8_6')
+    push(sto('e', 1, 'CH5Plus', 1), sto('CH4', 1, 'H', 1), k['e_CH5Plus_M_CH5_M_cm6_8_7'], 'e_CH5Plus_M_CH5_M_cm6_8_7')  # CH5 → CH4 + H
+    push(sto('e', 1, 'ArHPlus', 1), sto('Ar', 1, 'H', 1), k['e_ArHPlus_M_ArH_M_cm6_8_8'], 'e_ArHPlus_M_ArH_M_cm6_8_8')  # ArH → Ar + H
+    push(sto('e', 1, 'C2H5Plus', 1), sto('C2H4', 1, 'H', 1), k['e_C2H5Plus_M_C2H5_M_cm6_8_9'], 'e_C2H5Plus_M_C2H5_M_cm6_8_9')  # C2H5 → C2H4 + H
+
     # Group 9: Stick Reactions
     push(sto('H', 1), sto(), k['stick_H_9_1'], 'stick_H_9_1')
     push(sto('CH3', 1), sto(), k['stick_CH3_9_2'], 'stick_CH3_9_2')

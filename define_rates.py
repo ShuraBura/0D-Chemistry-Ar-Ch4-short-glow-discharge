@@ -32,6 +32,13 @@ def define_rates(params):
     Te = params.get('Te', 1.0)  # eV
     Tgas = params.get('Tgas', params.get('Tg', 400))  # K
 
+    # Calculate total gas density from pressure (for three-body reactions)
+    P_mTorr = params.get('P', 500.0)  # mTorr
+    P_Pa = P_mTorr * 0.133322
+    k_B = 1.380649e-23  # J/K
+    n_total_m3 = P_Pa / (k_B * Tgas)  # m⁻³
+    n_total = n_total_m3 * 1e-6  # Convert to cm⁻³
+
     # ===================================================================
     # Temperature Scaling Functions
     # ===================================================================
@@ -313,7 +320,7 @@ def define_rates(params):
     k['CH2_CH3_C2H2_H_H2_cm3_7_62'] = 1.2e-11
     k['CH2_C2H5_C2H2_CH3_H_cm3_7_63'] = 1.2e-11
     # New reactions from audit (Baulch 2005, Kushner)
-    k['C_C_M_C2_M_cm6_7_64'] = 1.0e-32
+    k['C_C_M_C2_M_cm6_7_64'] = 1.0e-32 * n_total  # C + C + M → C2 + M (three-body)
     # H + C2H4 → C2H3 + H2 with activation barrier Ea = 0.6 eV
     k_H_C2H4_ref = 1.0e-11  # cm³/s reference rate
     Ea_H_C2H4 = 0.6  # eV activation barrier (H abstraction from ethylene)
@@ -322,9 +329,20 @@ def define_rates(params):
     # ===================================================================
     # Group 8: Termolecular Recombination (Temperature-independent)
     # ===================================================================
-    k['H_H_M_H2_M_cm6_8_1'] = 1.0e-32  # Updated from 8e-33
-    k['CH3_CH3_M_C2H6_M_cm6_8_2'] = 3.6e-29
-    k['CH3_H_M_CH4_M_cm6_8_3'] = 5.0e-31  # New from audit
+    # Three-body rate constants (cm⁶/s) are multiplied by n_total (cm⁻³) to give effective rate (cm³/s)
+    k['H_H_M_H2_M_cm6_8_1'] = 1.0e-32 * n_total  # H + H + M → H2 + M
+    k['CH3_CH3_M_C2H6_M_cm6_8_2'] = 3.6e-29 * n_total  # CH3 + CH3 + M → C2H6 + M
+    k['CH3_H_M_CH4_M_cm6_8_3'] = 5.0e-31 * n_total  # CH3 + H + M → CH4 + M
+
+    # Three-body electron-ion recombination (provides stabilization at high densities)
+    # These are CRITICAL for preventing runaway ionization
+    # Rate constants from literature (Flannery 1969, Bates 1962)
+    k['e_ArPlus_M_Ar_M_cm6_8_4'] = 1.0e-25 * n_total  # e + Ar+ + M → Ar + M
+    k['e_CH4Plus_M_CH4_M_cm6_8_5'] = 1.0e-25 * n_total  # e + CH4+ + M → CH4 + M
+    k['e_CH3Plus_M_CH3_M_cm6_8_6'] = 1.0e-25 * n_total  # e + CH3+ + M → CH3 + M
+    k['e_CH5Plus_M_CH5_M_cm6_8_7'] = 1.0e-25 * n_total  # e + CH5+ + M → CH5 + M (then dissociates)
+    k['e_ArHPlus_M_ArH_M_cm6_8_8'] = 1.0e-25 * n_total  # e + ArH+ + M → ArH + M
+    k['e_C2H5Plus_M_C2H5_M_cm6_8_9'] = 1.0e-26 * n_total  # e + C2H5+ + M → C2H5 + M
 
     # ===================================================================
     # Group 9: Stick Reactions (Temperature-independent wall sticking)

@@ -32,6 +32,13 @@ def define_rates(params):
     Te = params.get('Te', 1.0)  # eV
     Tgas = params.get('Tgas', params.get('Tg', 400))  # K
 
+    # Calculate total gas density from pressure (for three-body reactions)
+    P_mTorr = params.get('P', 500.0)  # mTorr
+    P_Pa = P_mTorr * 0.133322
+    k_B = 1.380649e-23  # J/K
+    n_total_m3 = P_Pa / (k_B * Tgas)  # m⁻³
+    n_total = n_total_m3 * 1e-6  # Convert to cm⁻³
+
     # ===================================================================
     # Temperature Scaling Functions
     # ===================================================================
@@ -193,6 +200,9 @@ def define_rates(params):
     k['H3Plus_CH4_CH5Plus_H2_cm3_5_14'] = 1.5e-9  # Proton transfer
     k['H3Plus_H2_H2Plus_H2_cm3_5_15'] = 6.4e-10  # Reverse formation (minor)
 
+    # ADDED: CH + Ar⁺ → products (fast ion-neutral reaction)
+    k['ArPlus_CH_CHPlus_Ar_cm3_5_16'] = 5.0e-9  # Charge transfer / ionization (typical 1e-9 to 1e-8)
+
     # ===================================================================
     # Group 6: Dissociative Recombination
     # NOW TEMPERATURE-DEPENDENT via Te scaling
@@ -265,6 +275,10 @@ def define_rates(params):
     k['CH_H_CH2_cm3_7_21'] = 1e-10
     k['CH_C2H2_C3H2_H_cm3_7_22'] = 1e-10
     k['CH_CH3_C2H2_H2_cm3_7_23'] = 1e-10
+
+    # NEW: Missing CH hydrogenation reactions (Tsang & Hampson 1986, Baulch 2005)
+    k['CH_H2_CH2_H_cm3_7_NEW1'] = 1.0e-11  # CH + H2 → CH2 + H (Tsang & Hampson 1986)
+    k['CH2_H2_CH3_H_cm3_7_NEW2'] = 1.0e-11  # CH2 + H2 → CH3 + H (Baulch 2005)
     k['CH_C_C2_H2_cm3_7_24'] = 1e-10
     # H + CH4 → CH3 + H2 with activation barrier Ea = 0.5 eV
     k_H_CH4_ref = 6e-12  # cm³/s reference rate
@@ -313,18 +327,44 @@ def define_rates(params):
     k['CH2_CH3_C2H2_H_H2_cm3_7_62'] = 1.2e-11
     k['CH2_C2H5_C2H2_CH3_H_cm3_7_63'] = 1.2e-11
     # New reactions from audit (Baulch 2005, Kushner)
-    k['C_C_M_C2_M_cm6_7_64'] = 1.0e-32
+    k['C_C_M_C2_M_cm6_7_64'] = 1.0e-32 * n_total  # C + C + M → C2 + M (three-body)
     # H + C2H4 → C2H3 + H2 with activation barrier Ea = 0.6 eV
     k_H_C2H4_ref = 1.0e-11  # cm³/s reference rate
     Ea_H_C2H4 = 0.6  # eV activation barrier (H abstraction from ethylene)
     k['H_C2H4_C2H3_H2_cm3_7_65'] = k_H_C2H4_ref * np.exp(-Ea_H_C2H4 / (kB_eV * Tgas))
 
     # ===================================================================
+    # MISSING CH3 PRODUCTION PATHWAYS (Added to address physical realism)
+    # ===================================================================
+    # High-priority pathways identified from literature (Baulch 2005, NIST)
+    k['e_C2H4_CH3_CH_cm3_7_66'] = scale_electron_impact(2.0e-11, Te, E_threshold=8.0)  # e + C2H4 → CH3 + CH
+    k['e_C2H6_CH3_CH3_cm3_7_67'] = scale_electron_impact(3.0e-11, Te, E_threshold=7.5)  # e + C2H6 → CH3 + CH3
+    k['e_C2H5_CH3_CH2_cm3_7_68'] = scale_electron_impact(1.5e-11, Te, E_threshold=7.0)  # e + C2H5 → CH3 + CH2
+    k['ArStar_C2H4_CH3_CH_cm3_7_69'] = 3.0e-10  # Ar* + C2H4 → CH3 + CH
+    k['ArStar_C2H6_CH3_CH3_cm3_7_70'] = 5.0e-10  # Ar* + C2H6 → CH3 + CH3
+    k['H_C2H5_CH3_CH2_cm3_7_71'] = 8.0e-11  # H + C2H5 → CH3 + CH2 (important: H is abundant!)
+    k['CH2_CH2_CH3_CH_cm3_7_72'] = 6.0e-11  # CH2 + CH2 → CH3 + CH
+    k['C2H5Plus_e_CH3_CH2_cm3_7_73'] = scale_recombination(3.0e-7, Te, alpha=0.7)  # C2H5+ + e → CH3 + CH2
+    k['CH2_H_M_CH3_M_cm6_7_74'] = 2.0e-30 * n_total  # CH2 + H + M → CH3 + M (three-body)
+    k['ArPlus_CH4_CH3Plus_ArH_cm3_7_75'] = 2.0e-9  # Ar+ + CH4 → CH3+ + Ar + H (charge transfer)
+
+    # ===================================================================
     # Group 8: Termolecular Recombination (Temperature-independent)
     # ===================================================================
-    k['H_H_M_H2_M_cm6_8_1'] = 1.0e-32  # Updated from 8e-33
-    k['CH3_CH3_M_C2H6_M_cm6_8_2'] = 3.6e-29
-    k['CH3_H_M_CH4_M_cm6_8_3'] = 5.0e-31  # New from audit
+    # Three-body rate constants (cm⁶/s) are multiplied by n_total (cm⁻³) to give effective rate (cm³/s)
+    k['H_H_M_H2_M_cm6_8_1'] = 1.0e-32 * n_total  # H + H + M → H2 + M
+    k['CH3_CH3_M_C2H6_M_cm6_8_2'] = 3.6e-29 * n_total  # CH3 + CH3 + M → C2H6 + M
+    k['CH3_H_M_CH4_M_cm6_8_3'] = 5.0e-31 * n_total  # CH3 + H + M → CH4 + M
+
+    # Three-body electron-ion recombination (provides stabilization at high densities)
+    # These are CRITICAL for preventing runaway ionization
+    # Rate constants from literature (Flannery 1969, Bates 1962)
+    k['e_ArPlus_M_Ar_M_cm6_8_4'] = 1.0e-25 * n_total  # e + Ar+ + M → Ar + M
+    k['e_CH4Plus_M_CH4_M_cm6_8_5'] = 1.0e-25 * n_total  # e + CH4+ + M → CH4 + M
+    k['e_CH3Plus_M_CH3_M_cm6_8_6'] = 1.0e-25 * n_total  # e + CH3+ + M → CH3 + M
+    k['e_CH5Plus_M_CH5_M_cm6_8_7'] = 1.0e-25 * n_total  # e + CH5+ + M → CH5 + M (then dissociates)
+    k['e_ArHPlus_M_ArH_M_cm6_8_8'] = 1.0e-25 * n_total  # e + ArH+ + M → ArH + M
+    k['e_C2H5Plus_M_C2H5_M_cm6_8_9'] = 1.0e-26 * n_total  # e + C2H5+ + M → C2H5 + M
 
     # ===================================================================
     # Group 9: Stick Reactions (Temperature-independent wall sticking)
@@ -407,5 +447,43 @@ def define_rates(params):
     k['loss_C3H2_11_23'] = 2e2
     k['loss_C3H5_11_24'] = 2e2
     k['loss_C2H2Star_11_25'] = 3e2
+
+    # ===================================================================
+    # DUST/NANOPARTICLE LOSS TERMS
+    # ===================================================================
+    # Loss rate: k_dust = n_dust × π × r_dust² × v_thermal × α_stick
+    # For CH: v_th ≈ 7e4 cm/s (300 K)
+    # Configurable via params['dust_density'], params['dust_radius'], params['dust_sticking']
+    # Default: moderate dust scenario (n=1e8 cm⁻³, r=50 nm, α=0.5)
+    #
+    # To enable/disable: set params['enable_dust_loss'] = True/False (default False)
+    # To tune: params['dust_multiplier'] = 0.1 to 10.0 (default 1.0)
+
+    enable_dust = params.get('enable_dust_loss', False)
+    dust_multiplier = params.get('dust_multiplier', 1.0)
+
+    if enable_dust:
+        # Dust parameters (can be customized via params)
+        n_dust = params.get('dust_density', 1e8)  # cm⁻³
+        r_dust = params.get('dust_radius', 50e-7)  # cm (50 nm default)
+        alpha_dust = params.get('dust_sticking', 0.5)  # dimensionless
+
+        # Thermal velocities at 300 K (cm/s)
+        v_thermal = {
+            'CH': 6.99e4,   # 13 amu
+            'CH2': 6.09e4,  # 14 amu
+            'CH3': 5.43e4,  # 15 amu
+            'C': 8.71e4,    # 12 amu
+            'C2': 6.16e4,   # 24 amu
+            'H': 1.73e5,    # 1 amu
+        }
+
+        # Calculate dust loss coefficients
+        for species, v_th in v_thermal.items():
+            k_dust_base = n_dust * 3.14159 * r_dust**2 * v_th * alpha_dust
+            k_dust = k_dust_base * dust_multiplier
+
+            # Add dust loss terms
+            k[f'dust_loss_{species}_12'] = k_dust
 
     return k

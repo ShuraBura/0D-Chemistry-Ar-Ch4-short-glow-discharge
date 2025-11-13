@@ -151,6 +151,9 @@ def build_reactions(params):
     push(sto('H2Plus', 1, 'H2', 1), sto('H3Plus', 1, 'H', 1), k['H2Plus_H2_H3Plus_H_cm3_5_13'], 'H2Plus_H2_H3Plus_H_cm3_5_13')
     push(sto('H3Plus', 1, 'CH4', 1), sto('CH5Plus', 1, 'H2', 1), k['H3Plus_CH4_CH5Plus_H2_cm3_5_14'], 'H3Plus_CH4_CH5Plus_H2_cm3_5_14')
     push(sto('H3Plus', 1, 'H2', 1), sto('H2Plus', 1, 'H2', 1), k['H3Plus_H2_H2Plus_H2_cm3_5_15'], 'H3Plus_H2_H2Plus_H2_cm3_5_15')
+    # ADDED: CH + Ar⁺ → CHPlus + Ar (fast ion-neutral charge transfer)
+    if 'ArPlus_CH_CHPlus_Ar_cm3_5_16' in k:
+        push(sto('ArPlus', 1, 'CH', 1), sto('CHPlus', 1, 'Ar', 1), k['ArPlus_CH_CHPlus_Ar_cm3_5_16'], 'ArPlus_CH_CHPlus_Ar_cm3_5_16')
 
     # Group 6: Dissociative Recombination
     push(sto('ArPlus', 1, 'e', 1), sto('Ar', 1), k['ArPlus_e_Ar_cm3_6_1'], 'ArPlus_e_Ar_cm3_6_1')
@@ -254,6 +257,10 @@ def build_reactions(params):
     push(sto('CH', 1, 'C2H6', 1), sto('C2H2', 1, 'CH3', 1, 'H', 1), k['CH_C2H6_C2H2_CH3_H_cm3_7_57'], 'CH_C2H6_C2H2_CH3_H_cm3_7_57')
     push(sto('CH2', 2), sto('C2', 1, 'H2', 2), k['CH2_CH2_C2_H2_H2_cm3_7_58'], 'CH2_CH2_C2_H2_H2_cm3_7_58')
     push(sto('CH', 1, 'CH4', 1), sto('C2H4', 1, 'H', 1), k['CH_CH4_C2H4_H_cm3_7_59'], 'CH_CH4_C2H4_H_cm3_7_59')
+
+    # NEW: Missing CH2 hydrogenation (Baulch 2005)
+    if 'CH2_H2_CH3_H_cm3_7_NEW2' in k:
+        push(sto('CH2', 1, 'H2', 1), sto('CH3', 1, 'H', 1), k['CH2_H2_CH3_H_cm3_7_NEW2'], 'CH2_H2_CH3_H_cm3_7_NEW2')
     push(sto('CH', 1, 'C2H4', 1), sto('C3H4', 1, 'H', 1), k['CH_C2H4_C3H4_H_cm3_7_60'], 'CH_C2H4_C3H4_H_cm3_7_60')
     push(sto('CH3', 1, 'C2H5', 1), sto('C2H2', 1, 'CH3', 1, 'H2', 1), k['CH3_C2H5_C2H2_CH3_H2_cm3_7_61'], 'CH3_C2H5_C2H2_CH3_H2_cm3_7_61')
     push(sto('CH2', 1, 'CH3', 1), sto('C2H2', 1, 'H', 1, 'H2', 1), k['CH2_CH3_C2H2_H_H2_cm3_7_62'], 'CH2_CH3_C2H2_H_H2_cm3_7_62')
@@ -262,10 +269,30 @@ def build_reactions(params):
     push(sto('C', 2), sto('C2', 1), k['C_C_M_C2_M_cm6_7_64'], 'C_C_M_C2_M_cm6_7_64')
     push(sto('H', 1, 'C2H4', 1), sto('C2H3', 1, 'H2', 1), k['H_C2H4_C2H3_H2_cm3_7_65'], 'H_C2H4_C2H3_H2_cm3_7_65')
 
+    # MISSING CH3 PRODUCTION PATHWAYS (added for physical realism)
+    push(sto('e', 1, 'C2H4', 1), sto('CH3', 1, 'CH', 1), k['e_C2H4_CH3_CH_cm3_7_66'], 'e_C2H4_CH3_CH_cm3_7_66')
+    push(sto('e', 1, 'C2H6', 1), sto('CH3', 2), k['e_C2H6_CH3_CH3_cm3_7_67'], 'e_C2H6_CH3_CH3_cm3_7_67')
+    push(sto('e', 1, 'C2H5', 1), sto('CH3', 1, 'CH2', 1), k['e_C2H5_CH3_CH2_cm3_7_68'], 'e_C2H5_CH3_CH2_cm3_7_68')
+    push(sto('ArStar', 1, 'C2H4', 1), sto('Ar', 1, 'CH3', 1, 'CH', 1), k['ArStar_C2H4_CH3_CH_cm3_7_69'], 'ArStar_C2H4_CH3_CH_cm3_7_69')
+    push(sto('ArStar', 1, 'C2H6', 1), sto('Ar', 1, 'CH3', 2), k['ArStar_C2H6_CH3_CH3_cm3_7_70'], 'ArStar_C2H6_CH3_CH3_cm3_7_70')
+    push(sto('H', 1, 'C2H5', 1), sto('CH3', 1, 'CH2', 1), k['H_C2H5_CH3_CH2_cm3_7_71'], 'H_C2H5_CH3_CH2_cm3_7_71')
+    push(sto('CH2', 2), sto('CH3', 1, 'CH', 1), k['CH2_CH2_CH3_CH_cm3_7_72'], 'CH2_CH2_CH3_CH_cm3_7_72')
+    push(sto('C2H5Plus', 1, 'e', 1), sto('CH3', 1, 'CH2', 1), k['C2H5Plus_e_CH3_CH2_cm3_7_73'], 'C2H5Plus_e_CH3_CH2_cm3_7_73')
+    push(sto('CH2', 1, 'H', 1), sto('CH3', 1), k['CH2_H_M_CH3_M_cm6_7_74'], 'CH2_H_M_CH3_M_cm6_7_74')
+    push(sto('ArPlus', 1, 'CH4', 1), sto('CH3Plus', 1, 'Ar', 1, 'H', 1), k['ArPlus_CH4_CH3Plus_ArH_cm3_7_75'], 'ArPlus_CH4_CH3Plus_ArH_cm3_7_75')
+
     # Group 8: Termolecular Recombination
     push(sto('H', 2), sto('H2', 1), k['H_H_M_H2_M_cm6_8_1'], 'H_H_M_H2_M_cm6_8_1')
     push(sto('CH3', 2), sto('C2H6', 1), k['CH3_CH3_M_C2H6_M_cm6_8_2'], 'CH3_CH3_M_C2H6_M_cm6_8_2')
     push(sto('CH3', 1, 'H', 1), sto('CH4', 1), k['CH3_H_M_CH4_M_cm6_8_3'], 'CH3_H_M_CH4_M_cm6_8_3')
+
+    # Three-body electron-ion recombination (CRITICAL for high-density stabilization)
+    push(sto('e', 1, 'ArPlus', 1), sto('Ar', 1), k['e_ArPlus_M_Ar_M_cm6_8_4'], 'e_ArPlus_M_Ar_M_cm6_8_4')
+    push(sto('e', 1, 'CH4Plus', 1), sto('CH4', 1), k['e_CH4Plus_M_CH4_M_cm6_8_5'], 'e_CH4Plus_M_CH4_M_cm6_8_5')
+    push(sto('e', 1, 'CH3Plus', 1), sto('CH3', 1), k['e_CH3Plus_M_CH3_M_cm6_8_6'], 'e_CH3Plus_M_CH3_M_cm6_8_6')
+    push(sto('e', 1, 'CH5Plus', 1), sto('CH4', 1, 'H', 1), k['e_CH5Plus_M_CH5_M_cm6_8_7'], 'e_CH5Plus_M_CH5_M_cm6_8_7')  # CH5 → CH4 + H
+    push(sto('e', 1, 'ArHPlus', 1), sto('Ar', 1, 'H', 1), k['e_ArHPlus_M_ArH_M_cm6_8_8'], 'e_ArHPlus_M_ArH_M_cm6_8_8')  # ArH → Ar + H
+    push(sto('e', 1, 'C2H5Plus', 1), sto('C2H4', 1, 'H', 1), k['e_C2H5Plus_M_C2H5_M_cm6_8_9'], 'e_C2H5Plus_M_C2H5_M_cm6_8_9')  # C2H5 → C2H4 + H
 
     # Group 9: Stick Reactions
     push(sto('H', 1), sto(), k['stick_H_9_1'], 'stick_H_9_1')
@@ -340,5 +367,12 @@ def build_reactions(params):
     push(sto('C3H2', 1), sto(), k['loss_C3H2_11_23'], 'loss_C3H2_11_23')
     push(sto('C3H5', 1), sto(), k['loss_C3H5_11_24'], 'loss_C3H5_11_24')
     push(sto('C2H2Star', 1), sto('C2H2', 1), k['loss_C2H2Star_11_25'], 'loss_C2H2Star_11_25')
+
+    # DUST/NANOPARTICLE LOSS REACTIONS (if enabled)
+    # Loss to growing dust particles via sticking
+    for sp_name in ['CH', 'CH2', 'CH3', 'C', 'C2', 'H']:
+        dust_key = f'dust_loss_{sp_name}_12'
+        if dust_key in k:
+            push(sto(sp_name, 1), sto(), k[dust_key], dust_key)
 
     return R, tags

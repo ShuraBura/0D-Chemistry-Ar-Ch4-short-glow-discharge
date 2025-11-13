@@ -17,7 +17,7 @@ class PlasmaODE_Optimized:
         self.nr = len(self.R)
         self.k = params['k']
         self.tags = params['tags']
-        self.H_drift_gain = 0.0  # DISABLED - testing pure chemistry without external H source
+        self.H_drift_gain = 5.7e16  # cm⁻³/s - Based on H profile: y0=1.84e14 cm⁻³ baseline (73% of target 2.52e14)
 
         # Cache species indices
         self.e_idx = self.species.index('e')

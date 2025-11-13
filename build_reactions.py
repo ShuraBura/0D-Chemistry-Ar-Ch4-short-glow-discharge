@@ -257,6 +257,10 @@ def build_reactions(params):
     push(sto('CH', 1, 'C2H6', 1), sto('C2H2', 1, 'CH3', 1, 'H', 1), k['CH_C2H6_C2H2_CH3_H_cm3_7_57'], 'CH_C2H6_C2H2_CH3_H_cm3_7_57')
     push(sto('CH2', 2), sto('C2', 1, 'H2', 2), k['CH2_CH2_C2_H2_H2_cm3_7_58'], 'CH2_CH2_C2_H2_H2_cm3_7_58')
     push(sto('CH', 1, 'CH4', 1), sto('C2H4', 1, 'H', 1), k['CH_CH4_C2H4_H_cm3_7_59'], 'CH_CH4_C2H4_H_cm3_7_59')
+
+    # NEW: Missing CH2 hydrogenation (Baulch 2005)
+    if 'CH2_H2_CH3_H_cm3_7_NEW2' in k:
+        push(sto('CH2', 1, 'H2', 1), sto('CH3', 1, 'H', 1), k['CH2_H2_CH3_H_cm3_7_NEW2'], 'CH2_H2_CH3_H_cm3_7_NEW2')
     push(sto('CH', 1, 'C2H4', 1), sto('C3H4', 1, 'H', 1), k['CH_C2H4_C3H4_H_cm3_7_60'], 'CH_C2H4_C3H4_H_cm3_7_60')
     push(sto('CH3', 1, 'C2H5', 1), sto('C2H2', 1, 'CH3', 1, 'H2', 1), k['CH3_C2H5_C2H2_CH3_H2_cm3_7_61'], 'CH3_C2H5_C2H2_CH3_H2_cm3_7_61')
     push(sto('CH2', 1, 'CH3', 1), sto('C2H2', 1, 'H', 1, 'H2', 1), k['CH2_CH3_C2H2_H_H2_cm3_7_62'], 'CH2_CH3_C2H2_H_H2_cm3_7_62')

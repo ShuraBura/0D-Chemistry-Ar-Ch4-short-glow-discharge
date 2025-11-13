@@ -275,6 +275,10 @@ def define_rates(params):
     k['CH_H_CH2_cm3_7_21'] = 1e-10
     k['CH_C2H2_C3H2_H_cm3_7_22'] = 1e-10
     k['CH_CH3_C2H2_H2_cm3_7_23'] = 1e-10
+
+    # NEW: Missing CH hydrogenation reactions (Tsang & Hampson 1986, Baulch 2005)
+    k['CH_H2_CH2_H_cm3_7_NEW1'] = 1.0e-11  # CH + H2 → CH2 + H (Tsang & Hampson 1986)
+    k['CH2_H2_CH3_H_cm3_7_NEW2'] = 1.0e-11  # CH2 + H2 → CH3 + H (Baulch 2005)
     k['CH_C_C2_H2_cm3_7_24'] = 1e-10
     # H + CH4 → CH3 + H2 with activation barrier Ea = 0.5 eV
     k_H_CH4_ref = 6e-12  # cm³/s reference rate

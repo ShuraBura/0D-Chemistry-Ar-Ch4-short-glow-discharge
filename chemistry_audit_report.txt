@@ -1,0 +1,162 @@
+================================================================================
+CHEMISTRY NETWORK AUDIT - H, CH, C2
+================================================================================
+
+REACTIONS PRESENT IN MODEL:
+----------------------------
+
+KEY H REACTIONS:
+1. CH + H → C + H2                    k=1.2e-10 cm³/s (line 252)
+   - DOMINANT H LOSS in chemistry
+   - Source: Baulch et al. (2005) gas-phase kinetics database
+
+2. C2 + H → CH + C                    k=9.6e-11 cm³/s (line 255)
+   - DOMINANT CH PRODUCTION
+   - This is the PROBLEM reaction - couples C2 and H to explode CH!
+   - Source: Baulch database
+
+3. e + H2 → H + H                     k=6e-12 cm³/s (at Te=1eV, line 98)
+   - H production from electron impact
+   - Threshold: 8.8 eV
+
+4. Wall loss: H → products            k ~ γ*v/(4L)
+   - Sticking coefficient γ very uncertain (0.001-0.1)
+
+KEY CH REACTIONS:
+1. C2 + H → CH + C                    k=9.6e-11 cm³/s (line 255) [PRODUCTION]
+
+2. CH + H → C + H2                    k=1.2e-10 cm³/s (line 252) [LOSS]
+
+3. CH + CH → C2 + H2                  k=2.16e-10 cm³/s (line 189) [LOSS]
+   - Very slow compared to other losses
+   - Rate from Baulch (2005)
+
+4. C + CH → C2 + H                    k=1.2e-10 cm³/s (line 253)
+
+5. CH + CH3 → C2H4                    k=1.5e-10 cm³/s (line 254)
+
+6. CH + CH4 → C2H4 + H               k~6.7e-11*(T/293)^(-0.4) (lines 271-276)
+   - PRESENT! Temperature dependent
+
+7. Wall sticking: CH → loss           k ~ γ*v/(4L)
+   - Line 428: stick_CH_9_3
+
+KEY C2 REACTIONS:
+1. CH + CH → C2 + H2                  k=2.16e-10 cm³/s (line 189) [PRODUCTION]
+
+2. C + CH → C2 + H                    k=1.2e-10 cm³/s (line 253) [PRODUCTION]
+
+3. C2 + H → CH + C                    k=9.6e-11 cm³/s (line 255) [LOSS]
+
+4. e + C2H2 → C2 + H2                 k~5e-11 (at Te=1eV, line 110) [PRODUCTION]
+   - Electron-impact dissociation of acetylene
+
+5. Dust loss (if enabled):            k = n_dust * π * r² * v * α
+
+================================================================================
+POTENTIALLY MISSING REACTIONS:
+================================================================================
+
+1. H + H + M → H2 + M (three-body recombination)
+   STATUS: NOT FOUND in define_rates.py
+   Rate: k ~ 1e-32 cm^6/s at 300K (McEwan & Phillips 1975)
+   Impact: At nH~2e14 cm⁻³, n_total~2e16 cm⁻³:
+           Loss rate = k * nH² * M = 1e-32 * (2e14)² * 2e16 = 8e13 cm⁻³/s
+           NEGLIGIBLE compared to CH+H loss (6e12 cm⁻³/s)
+
+2. C + C + M → C2 + M (three-body C2 formation)
+   STATUS: NOT FOUND
+   Rate: k ~ 1e-33 cm^6/s (estimated)
+   Impact: At nC~?, very uncertain
+
+3. CH + H2 → CH2 + H  
+   STATUS: NOT FOUND
+   Rate: k ~ 1e-12 to 1e-11 cm³/s (Tsang & Hampson 1986)
+   Impact: At nCH~1e9, nH2~?: Could be significant CH loss
+   NEED TO ADD?
+
+4. CH + CH4 → C2H4 + H
+   STATUS: PRESENT! (line 271-276)
+   Rate: k = 6.7e-11 * (T/293)^(-0.4) cm³/s
+
+5. C2 + CH4 → products
+   STATUS: NOT FOUND
+   Rate: Unknown, likely small
+   
+6. H wall recombination with γ
+   STATUS: PRESENT (line 427)
+   Issue: γ_H very uncertain (0.001-0.1)
+
+7. C wall sticking  
+   STATUS: PRESENT (line 429)
+
+8. CH2 + H2 → CH3 + H
+   STATUS: NOT FOUND  
+   Rate: k ~ 1e-11 cm³/s (estimate)
+   May be important chain propagation
+
+================================================================================
+RATE CONSTANT SOURCES & CONDITIONS:
+================================================================================
+
+Baulch et al. (2005) - Gas-phase kinetics database
+   - Neutral-neutral reactions
+   - Temperature range: 200-3000K
+   - OUR CONDITIONS: T~400K - IN RANGE ✓
+
+Morgan (1992) - Electron impact cross sections
+   - Electron-impact dissociation/ionization
+   - Energy range: 0-20 eV
+   - OUR CONDITIONS: Te~1-2eV - IN RANGE ✓
+
+Janev & Reiter (2002) - Recombination rates
+   - Dissociative recombination
+   - Te range: 0.1-10 eV  
+   - OUR CONDITIONS: IN RANGE ✓
+
+================================================================================
+CRITICAL FINDINGS:
+================================================================================
+
+1. C2 + H → CH + C is THE problem
+   - Rate k=9.6e-11 is from Baulch (2005) at 300K
+   - Need to verify this rate at YOUR conditions (T~400K)
+   - This is for GROUND STATE C2
+   - Is your C2 vibrationally excited? That could change the rate!
+
+2. CH + H → C + H2 is main CH loss
+   - Rate k=1.2e-10 from Baulch
+   - Verified at 300K, should be OK at 400K
+
+3. MISSING: CH + H2 → CH2 + H
+   - Could provide additional CH loss
+   - Rate k~1e-12 to 1e-11 cm³/s
+   - At nH2~1e16 cm⁻³: Loss rate = 1e-11 * 1e9 * 1e16 = 1e14 cm⁻³/s
+   - THIS COULD BE IMPORTANT!
+
+4. H_drift_gain represents REAL physics
+   - From profile: y0 = 1.84e14 cm⁻³ baseline
+   - Estimated H_drift ~ 5.7e16 cm⁻³/s
+   - Likely H production at cathode + diffusion
+
+================================================================================
+RECOMMENDATIONS:
+================================================================================
+
+1. ADD: CH + H2 → CH2 + H
+   - Could significantly reduce CH
+   - Check literature for rate at 400K
+
+2. VERIFY: C2 + H → CH + C rate constant
+   - Check if C2 is vibrationally excited in your plasma
+   - Excited C2 could have different reactivity
+
+3. RE-ENABLE: H_drift_gain with value ~5.7e16 cm⁻³/s
+   - This represents physical H flux
+
+4. CHECK: H2 density in your model
+   - If nH2 is high, CH+H2 reaction could be important
+
+5. MEASURE (if possible): Vibrational temperature of C2
+   - This affects C2+H reaction rate
+

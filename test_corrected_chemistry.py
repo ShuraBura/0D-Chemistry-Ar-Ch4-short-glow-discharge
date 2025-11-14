@@ -43,7 +43,7 @@ params = {
                 'CH2Plus', 'C4H', 'H2Plus', 'C2H6Plus', 'C2H2Star', 'C3H6'],
     'stick_coeffs': {
         'ArPlus': 1.0, 'CH4Plus': 1.0, 'CH3Plus': 1.0, 'CH5Plus': 1.0,
-        'ArHPlus': 1.0, 'CH3Minus': 1.0, 'C2': 0.01, 'CH': 0.001, 'H': 0.0,
+        'ArHPlus': 1.0, 'CH3Minus': 1.0, 'C2': 0.001, 'CH': 0.001, 'H': 0.0,  # C2 changed from 0.01 to 0.001!
         'C': 0.01, 'CH2': 0.001, 'CH3': 0.001, 'C2H': 0.001, 'C2H2': 0.001,
         'C2H3': 0.001, 'C2H4': 0.001, 'C2H5': 0.001, 'C2H6': 0.001, 'C3H2': 0.001,
         'CHPlus': 1.0, 'C3H': 0.001, 'C4H2': 0.001, 'C3H3': 0.001, 'C3H4': 0.001,

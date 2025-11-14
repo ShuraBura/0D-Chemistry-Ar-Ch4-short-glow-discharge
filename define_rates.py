@@ -381,7 +381,7 @@ def define_rates(params):
     k['stick_CH3Plus_9_6'] = 1.16e4
     k['stick_CH5Plus_9_7'] = 1.09e4
     k['stick_ArHPlus_9_8'] = 7.14e3
-    k['stick_C2_9_9'] = 1.25e3
+    k['stick_C2_9_9'] = 1.25e2  # Changed from 1.25e3 (γ: 0.01 → 0.001, literature-based)
     k['stick_C_9_10'] = 6.25e3
     k['stick_C2H2_9_11'] = 5e2
     k['stick_C2H4_9_12'] = 5e2

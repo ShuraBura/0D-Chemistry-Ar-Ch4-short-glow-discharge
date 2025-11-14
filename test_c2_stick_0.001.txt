@@ -1,0 +1,36 @@
+================================================================================
+TESTING CORRECTED C2 CHEMISTRY
+================================================================================
+
+CORRECTIONS APPLIED:
+1. ❌ REMOVED: C2 + H → CH + C (k set to 0)
+2. ❌ REMOVED: CH + CH2 → C2 + H2 + H (k set to 0)
+3. ✓ FIXED: CH2 + CH2 → C2H2 + H2 (was C2 + H2 + H2)
+4. ✓ FIXED: CH + CH → C2H2 (was C2 + H2)
+5. ✓ FIXED: C2H2 + C → C2: rate 1.0e-10 → 2.0e-10
+6. ✓ FIXED: CH + H → C + H2: rate 1.2e-10 → 2.0e-10
+7. ✓ FIXED: H + C2H2 → C2: Arrhenius form (was 7.5e9× too high)
+
+Solving for steady state...
+
+================================================================================
+RESULTS
+================================================================================
+
+SPECIES DENSITIES:
+  H  = 1.57e+14 cm⁻³  (target: 2.30e14, ratio: 0.682)
+  CH = 8.00e+09 cm⁻³  (target: 1.34e9, ratio: 5.972)
+  C2 = 9.98e+07 cm⁻³  (target: 5.60e11, ratio: 0.000)
+
+Old C2 (with wrong rates): 2.75e+08 cm⁻³
+New C2 (with corrections):  9.98e+07 cm⁻³
+Improvement factor: 0.4×
+
+✓ H   : error =   31.8%
+✗ CH  : error =  497.2%
+✗ C2  : error =  100.0%
+
+RMS Error: 293.4%
+
+✗ Warning: C2 did not increase
+================================================================================

@@ -138,7 +138,8 @@ def build_reactions(params):
     push(sto('ArPlus', 1, 'CH4', 1), sto('CH3Plus', 1, 'H', 1, 'Ar', 1), k['ArPlus_CH4_CH3Plus_H_cm3_5_1'], 'ArPlus_CH4_CH3Plus_H_cm3_5_1')
     push(sto('CH3Plus', 1, 'CH4', 1), sto('CH5Plus', 1, 'CH2', 1), k['CH3Plus_CH4_CH5Plus_CH2_cm3_5_2'], 'CH3Plus_CH4_CH5Plus_CH2_cm3_5_2')
     push(sto('ArPlus', 1, 'CH3', 1), sto('CH3Plus', 1, 'Ar', 1), k['ArPlus_CH3_CH3Plus_cm3_5_3'], 'ArPlus_CH3_CH3Plus_cm3_5_3')
-    push(sto('CH', 2), sto('C2', 1, 'H2', 1), k['CH_CH_C2_H2_cm3_5_4'], 'CH_CH_C2_H2_cm3_5_4')
+    # CORRECTED: CH + CH → C2H2 (NOT C2 + H2!) - Baulch 2005
+    push(sto('CH', 2), sto('C2H2', 1), k['CH_CH_C2_H2_cm3_5_4'], 'CH_CH_C2_H2_cm3_5_4')
     push(sto('ArPlus', 1, 'CH4', 1), sto('Ar', 1, 'CH4Plus', 1), k['ArPlus_CH4_Ar_CH4Plus_cm3_5_5'], 'ArPlus_CH4_Ar_CH4Plus_cm3_5_5')
     push(sto('CH4Plus', 1, 'H2', 1), sto('CH5Plus', 1, 'H', 1), k['CH4Plus_H2_CH5Plus_H_cm3_5_6'], 'CH4Plus_H2_CH5Plus_H_cm3_5_6')
     push(sto('ArPlus', 1, 'H2', 1), sto('ArHPlus', 1, 'H', 1), k['ArPlus_H2_ArHPlus_H_cm3_5_7'], 'ArPlus_H2_ArHPlus_H_cm3_5_7')
@@ -241,7 +242,8 @@ def build_reactions(params):
     push(sto('CH', 1, 'C2H5', 1), sto('C3H6', 1), k['CH_C2H5_C3H6_cm3_7_41'], 'CH_C2H5_C3H6_cm3_7_41')
     push(sto('CH2', 2), sto('C2H2', 1, 'H2', 1), k['CH2_CH2_C2H2_H2_cm3_7_42'], 'CH2_CH2_C2H2_H2_cm3_7_42')
     push(sto('CH', 1, 'C', 1), sto('C2', 1, 'H', 1), k['CH_C_C2_H_cm3_7_43'], 'CH_C_C2_H_cm3_7_43')
-    push(sto('CH', 2), sto('C2', 1, 'H2', 1), k['CH_CH_C2_H2_cm3_7_44'], 'CH_CH_C2_H2_cm3_7_44')
+    # CORRECTED: CH + CH → C2H2 (NOT C2 + H2!) - Baulch 2005
+    push(sto('CH', 2), sto('C2H2', 1), k['CH_CH_C2_H2_cm3_7_44'], 'CH_CH_C2_H2_cm3_7_44')
     push(sto('CH', 1, 'C2H6', 1), sto('C3H6', 1, 'H', 1), k['CH_C2H6_C3H6_H_cm3_7_45'], 'CH_C2H6_C3H6_H_cm3_7_45')
     push(sto('CH', 1, 'C2H4', 1), sto('C2H2', 1, 'CH3', 1), k['CH_C2H4_C2H2_CH3_cm3_7_46'], 'CH_C2H4_C2H2_CH3_cm3_7_46')
     push(sto('C2H', 1, 'H', 1), sto('C2', 1, 'H2', 1), k['C2H_H_C2_H2_cm3_7_47'], 'C2H_H_C2_H2_cm3_7_47')
@@ -255,7 +257,8 @@ def build_reactions(params):
     push(sto('CH', 1, 'C2H5', 1), sto('C3H6', 1), k['CH_C2H5_C3H6_cm3_7_55'], 'CH_C2H5_C3H6_cm3_7_55')
     push(sto('C2H2', 1, 'CH', 1), sto('C3', 1, 'H2', 1, 'H', 1), k['C2H2_CH_C3_H2_H_cm3_7_56'], 'C2H2_CH_C3_H2_H_cm3_7_56')
     push(sto('CH', 1, 'C2H6', 1), sto('C2H2', 1, 'CH3', 1, 'H', 1), k['CH_C2H6_C2H2_CH3_H_cm3_7_57'], 'CH_C2H6_C2H2_CH3_H_cm3_7_57')
-    push(sto('CH2', 2), sto('C2', 1, 'H2', 2), k['CH2_CH2_C2_H2_H2_cm3_7_58'], 'CH2_CH2_C2_H2_H2_cm3_7_58')
+    # CORRECTED: CH2 + CH2 → C2H2 + H2 (NOT C2 + H2 + H2!) - Baulch 2005
+    push(sto('CH2', 2), sto('C2H2', 1, 'H2', 1), k['CH2_CH2_C2_H2_H2_cm3_7_58'], 'CH2_CH2_C2_H2_H2_cm3_7_58')
     push(sto('CH', 1, 'CH4', 1), sto('C2H4', 1, 'H', 1), k['CH_CH4_C2H4_H_cm3_7_59'], 'CH_CH4_C2H4_H_cm3_7_59')
 
     # NEW: Missing CH2 hydrogenation (Baulch 2005)

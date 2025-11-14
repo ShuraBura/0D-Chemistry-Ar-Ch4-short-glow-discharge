@@ -1,0 +1,31 @@
+================================================================================
+TESTING CORRECTED C2 CHEMISTRY
+================================================================================
+
+CORRECTIONS APPLIED:
+1. ❌ REMOVED: C2 + H → CH + C (k set to 0)
+2. ❌ REMOVED: CH + CH2 → C2 + H2 + H (k set to 0)
+3. ✓ FIXED: CH2 + CH2 → C2H2 + H2 (was C2 + H2 + H2)
+4. ✓ FIXED: CH + CH → C2H2 (was C2 + H2)
+5. ✓ FIXED: C2H2 + C → C2: rate 1.0e-10 → 2.0e-10
+6. ✓ FIXED: CH + H → C + H2: rate 1.2e-10 → 2.0e-10
+7. ✓ FIXED: H + C2H2 → C2: Arrhenius form (was 7.5e9× too high)
+
+Traceback (most recent call last):
+  File "/home/user/0D-Chemistry-Ar-Ch4-short-glow-discharge/build_reactions.py", line 45, in sto
+    idx = species.index(species_name)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: 'C2H2Star' is not in list
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/user/0D-Chemistry-Ar-Ch4-short-glow-discharge/test_corrected_chemistry.py", line 76, in <module>
+    reactions_list, rate_names = build_reactions(params)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/0D-Chemistry-Ar-Ch4-short-glow-discharge/build_reactions.py", line 114, in build_reactions
+    push(sto('ArStar', 1, 'C2H2', 1), sto('Ar', 1, 'C2H2Star', 1), k['ArStar_C2H2_Ar_C2H2Star_cm3_3_22'], 'ArStar_C2H2_Ar_C2H2Star_cm3_3_22')
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/0D-Chemistry-Ar-Ch4-short-glow-discharge/build_reactions.py", line 48, in sto
+    raise ValueError(f'Species {species_name} not found')
+ValueError: Species C2H2Star not found

@@ -249,10 +249,11 @@ def define_rates(params):
     # ===================================================================
     k['CH2_H_CH_H2_cm3_7_1'] = 1.0e-11
     k['CH2_H_C_H2_H_cm3_7_2'] = 1.2e-11
-    k['CH_H_C_H2_cm3_7_3'] = 1.2e-10
+    k['CH_H_C_H2_cm3_7_3'] = 2.0e-10  # Corrected from 1.2e-10 (Baulch 2005)
     k['C_CH_C2_H_cm3_7_4'] = 1.2e-10
     k['CH_CH3_C2H4_cm3_7_5'] = 1.5e-10  # Updated from 8e-11 (Baulch 2005)
-    k['C2_H_CH_C_cm3_7_6'] = 9.6e-11
+    # k['C2_H_CH_C_cm3_7_6'] = 9.6e-11  # DISABLED: Endothermic at T<1000K (NOT in Baulch)
+    k['C2_H_CH_C_cm3_7_6'] = 0.0  # Was 93% of C2 destruction - but doesn't occur at 570K!
     k['CH_CH2_C2H2_H_cm3_7_7'] = 1.2e-10
     k['C_CH3_C2_H2_H_cm3_7_8'] = 1.2e-10
     k['CH_C_C2_H_cm3_7_9'] = 1.2e-10
@@ -265,7 +266,7 @@ def define_rates(params):
     k['CH3_CH_C2H2_H2_cm3_7_16'] = 1.2e-10
     k['CH2_C_C2H2_cm3_7_17'] = 1e-10
     k['CH_C2H4_C2H2_CH3_cm3_7_18'] = 1e-10
-    k['C2H2_C_C2_CH2_cm3_7_19'] = 1e-10
+    k['C2H2_C_C2_CH2_cm3_7_19'] = 2.0e-10  # Corrected from 1.0e-10 (Baulch 2005)
     # CH + CH4 → C2H4 + H with temperature dependence (Thiesemann et al. 1997)
     # k = 6.7e-11 × (T/293)^(-0.4) cm³/s (barrierless addition, 290-700 K)
     k_CH_CH4_ref = 6.7e-11  # cm³/s at T=293K
@@ -285,7 +286,8 @@ def define_rates(params):
     Ea_H_CH4 = 0.5  # eV activation barrier
     kB_eV = 8.617333e-5  # eV/K
     k['H_CH4_CH3_H2_cm3_7_25'] = k_H_CH4_ref * np.exp(-Ea_H_CH4 / (kB_eV * Tgas))
-    k['CH2_CH_C2_H2_H_cm3_7_26'] = 1.2e-10
+    # k['CH2_CH_C2_H2_H_cm3_7_26'] = 1.2e-10  # DISABLED: NOT in Baulch ("garbage reaction")
+    k['CH2_CH_C2_H2_H_cm3_7_26'] = 0.0  # Was 21% of C2 production - but doesn't exist!
     k['CH_C2H2_C3H_H2_cm3_7_27'] = 1e-10
     k['CH_C3H_C4H2_H_cm3_7_28'] = 1e-10
     k['CH_C2H2_C2H_CH2_cm3_7_29'] = 1e-10
@@ -312,7 +314,9 @@ def define_rates(params):
     k['C2H_H_C2_H2_cm3_7_47'] = 1e-10
     k['CH_CH2_C2H2_H_cm3_7_48'] = 1e-10
     k['CH3_CH3_C2H2_H2_H2_cm3_7_49'] = 1e-11
-    k['C2H2_H_C2_H2_H_cm3_7_50'] = 1e-11
+    # k['C2H2_H_C2_H2_H_cm3_7_50'] = 1e-11  # OLD: 7.5 billion times too high!
+    # Correct rate from Baulch (2005): k = 1.67e-14 × T^1.64 × exp(-15250/T)
+    k['C2H2_H_C2_H2_H_cm3_7_50'] = 1.67e-14 * Tgas**1.64 * np.exp(-15250/Tgas)  # Arrhenius form
     k['CH_H2_CH2_H_cm3_7_51'] = 1e-11
     k['C2_CH_C3_H_cm3_7_52'] = 1e-10
     k['CH2_C2H3_C2H2_CH3_cm3_7_53'] = 1e-10

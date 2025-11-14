@@ -1,0 +1,126 @@
+================================================================================
+RECALCULATING C2 PATHWAYS WITH CORRECT BAULCH RATE
+================================================================================
+
+H + C2H2 → C2 + H2 + H rate correction:
+  Model uses:   k = 1.0e-11 cm³/s (constant)
+  Baulch gives: k = 1.67e-14 * T^1.64 * exp(-15250/T)
+
+  At T = 570 K:
+    k_Baulch = 1.33e-21 cm³/s
+    k_model  = 1.00e-11 cm³/s
+    Ratio: k_model / k_Baulch = 7.53e+09
+
+  >>> Model rate is 7.5e+09× TOO HIGH! <<<
+
+================================================================================
+RUNNING SIMULATION WITH CORRECTED RATE
+================================================================================
+
+Final C2 density: 2.75e+08 cm^-3
+
+================================================================================
+C2 PRODUCTION WITH CORRECTED RATE (Total: 5.41e+12 cm^-3 s^-1)
+================================================================================
+
+Rank 1:  21.36%
+  CH + CH2 → H + C2 + H2
+  Rate: 1.15e+12 cm^-3 s^-1
+  k = 1.20e-10 cm^3/s
+  Tag: CH2_CH_C2_H2_H_cm3_7_26
+
+Rank 2:  18.46%
+  C2H2 + C → C2 + CH2
+  Rate: 9.98e+11 cm^-3 s^-1
+  k = 1.00e-10 cm^3/s
+  Tag: C2H2_C_C2_CH2_cm3_7_19
+
+Rank 3:  15.57%
+  CH2^2 → C2 + H2^2
+  Rate: 8.42e+11 cm^-3 s^-1
+  k = 1.00e-11 cm^3/s
+  Tag: CH2_CH2_C2_H2_H2_cm3_7_58
+
+Rank 4:  10.54%
+  H + C2H → C2 + H2
+  Rate: 5.70e+11 cm^-3 s^-1
+  k = 1.00e-10 cm^3/s
+  Tag: C2H_H_C2_H2_cm3_7_47
+
+Rank 5:   8.14%
+  e + C2H2 → C2 + H2
+  Rate: 4.40e+11 cm^-3 s^-1
+  k = 1.23e-09 cm^3/s
+  Tag: e_C2H2_C2_H2_cm3_1_16
+
+Rank 6:   4.73%
+  CH + C → H + C2
+  Rate: 2.55e+11 cm^-3 s^-1
+  k = 1.20e-10 cm^3/s
+  Tag: C_CH_C2_H_cm3_7_4
+
+Rank 7:   4.73%
+  CH + C → H + C2
+  Rate: 2.55e+11 cm^-3 s^-1
+  k = 1.20e-10 cm^3/s
+  Tag: CH_C_C2_H_cm3_7_9
+
+Rank 8:   4.40%
+  CH^2 → C2 + H2
+  Rate: 2.38e+11 cm^-3 s^-1
+  k = 2.16e-10 cm^3/s
+  Tag: CH_CH_C2_H2_cm3_5_4
+
+Rank 9:   3.94%
+  CH + C → C2 + H2
+  Rate: 2.13e+11 cm^-3 s^-1
+  k = 1.00e-10 cm^3/s
+  Tag: CH_C_C2_H2_cm3_7_24
+
+Rank 10:   3.94%
+  CH + C → H + C2
+  Rate: 2.13e+11 cm^-3 s^-1
+  k = 1.00e-10 cm^3/s
+  Tag: CH_C_C2_H_cm3_7_43
+
+================================================================================
+C2 DESTRUCTION (Total: 5.41e+12 cm^-3 s^-1)
+================================================================================
+
+Rank 1:  92.59%
+  H + C2 → CH + C
+  Rate: 5.01e+12 cm^-3 s^-1
+  k = 9.60e-11 cm^3/s
+
+Rank 2:   6.36%
+  C2 → 
+  Rate: 3.44e+11 cm^-3 s^-1
+  k = 1.25e+03 cm^3/s
+
+Rank 3:   1.02%
+  C2 → 
+  Rate: 5.50e+10 cm^-3 s^-1
+  k = 2.00e+02 cm^3/s
+
+Rank 4:   0.02%
+  C2 + CH → H + C3
+  Rate: 9.12e+08 cm^-3 s^-1
+  k = 1.00e-10 cm^3/s
+
+Rank 5:   0.02%
+  C2 + CH → H + C3
+  Rate: 9.12e+08 cm^-3 s^-1
+  k = 1.00e-10 cm^3/s
+
+================================================================================
+COMPARISON: OLD vs NEW
+================================================================================
+
+With WRONG rate (k=1e-11):
+  H + C2H2 contributed 95% of C2 production
+
+With CORRECT rate (k=1.33e-21):
+  Now see results above ^^^
+
+This reveals the ACTUAL C2 production mechanism!
+================================================================================

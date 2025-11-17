@@ -217,7 +217,7 @@ def build_reactions(params):
     push(sto('CH3', 1, 'CH', 1), sto('C2H2', 1, 'H2', 1), k['CH3_CH_C2H2_H2_cm3_7_16'], 'CH3_CH_C2H2_H2_cm3_7_16')
     push(sto('CH2', 1, 'C', 1), sto('C2H2', 1), k['CH2_C_C2H2_cm3_7_17'], 'CH2_C_C2H2_cm3_7_17')
     push(sto('CH', 1, 'C2H4', 1), sto('C2H2', 1, 'CH3', 1), k['CH_C2H4_C2H2_CH3_cm3_7_18'], 'CH_C2H4_C2H2_CH3_cm3_7_18')
-    push(sto('C2H2', 1, 'C', 1), sto('C2', 1, 'CH2', 1), k['C2H2_C_C2_CH2_cm3_7_19'], 'C2H2_C_C2_CH2_cm3_7_19')
+    push(sto('C2H2', 1, 'C', 1), sto('C3H', 1, 'H', 1), k['C2H2_C_C2_CH2_cm3_7_19'], 'C2H2_C_C2_CH2_cm3_7_19')  # FIXED: Literature shows C + C2H2 → C3H + H, NOT C2 + CH2!
     push(sto('CH', 1, 'CH4', 1), sto('C2H4', 1, 'H', 1), k['CH_CH4_C2H4_H_cm3_7_20'], 'CH_CH4_C2H4_H_cm3_7_20')
     push(sto('CH', 1, 'H', 1), sto('CH2', 1), k['CH_H_CH2_cm3_7_21'], 'CH_H_CH2_cm3_7_21')
     push(sto('CH', 1, 'C2H2', 1), sto('C3H2', 1, 'H', 1), k['CH_C2H2_C3H2_H_cm3_7_22'], 'CH_C2H2_C3H2_H_cm3_7_22')

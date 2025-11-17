@@ -250,13 +250,13 @@ def define_rates(params):
     k['CH2_H_CH_H2_cm3_7_1'] = 1.0e-11
     k['CH2_H_C_H2_H_cm3_7_2'] = 1.2e-11
     k['CH_H_C_H2_cm3_7_3'] = 2.0e-10  # Corrected from 1.2e-10 (Baulch 2005)
-    k['C_CH_C2_H_cm3_7_4'] = 1.2e-10
+    k['C_CH_C2_H_cm3_7_4'] = 1.05e-12  # From literature: 6.3e11 cm³/mol/s = 1.05e-12 cm³/s
     k['CH_CH3_C2H4_cm3_7_5'] = 1.5e-10  # Updated from 8e-11 (Baulch 2005)
     # k['C2_H_CH_C_cm3_7_6'] = 9.6e-11  # DISABLED: Endothermic at T<1000K (NOT in Baulch)
     k['C2_H_CH_C_cm3_7_6'] = 0.0  # Was 93% of C2 destruction - but doesn't occur at 570K!
     k['CH_CH2_C2H2_H_cm3_7_7'] = 1.2e-10
     k['C_CH3_C2_H2_H_cm3_7_8'] = 1.2e-10
-    k['CH_C_C2_H_cm3_7_9'] = 1.2e-10
+    k['CH_C_C2_H_cm3_7_9'] = 1.05e-12  # From literature: 6.3e11 cm³/mol/s = 1.05e-12 cm³/s
     k['CH_CH3_C2H3_H_cm3_7_10'] = 8e-11
     k['CH_Ar_Ar_C_H_cm3_7_11'] = 1e-15
     k['C_H_CH_cm3_7_12'] = 8e-11
@@ -280,7 +280,7 @@ def define_rates(params):
     # NEW: Missing CH hydrogenation reactions (Tsang & Hampson 1986, Baulch 2005)
     k['CH_H2_CH2_H_cm3_7_NEW1'] = 1.0e-11  # CH + H2 → CH2 + H (Tsang & Hampson 1986)
     k['CH2_H2_CH3_H_cm3_7_NEW2'] = 1.0e-11  # CH2 + H2 → CH3 + H (Baulch 2005)
-    k['CH_C_C2_H2_cm3_7_24'] = 1e-10
+    k['CH_C_C2_H2_cm3_7_24'] = 1.05e-12  # From literature: 6.3e11 cm³/mol/s = 1.05e-12 cm³/s (CH + C → C2 + H2)
     # H + CH4 → CH3 + H2 with activation barrier Ea = 0.5 eV
     k_H_CH4_ref = 6e-12  # cm³/s reference rate
     Ea_H_CH4 = 0.5  # eV activation barrier
@@ -307,7 +307,7 @@ def define_rates(params):
     k['CH3_CH3_C2H6_cm3_7_40'] = 1e-11
     k['CH_C2H5_C3H6_cm3_7_41'] = 1e-10
     k['CH2_CH2_C2H2_H2_cm3_7_42'] = 1e-11
-    k['CH_C_C2_H_cm3_7_43'] = 1e-10
+    k['CH_C_C2_H_cm3_7_43'] = 1.05e-12  # From literature: 6.3e11 cm³/mol/s = 1.05e-12 cm³/s
     k['CH_CH_C2_H2_cm3_7_44'] = 1.0e-10  # Confirmed (Baulch 2005)
     k['CH_C2H6_C3H6_H_cm3_7_45'] = 1e-11
     k['CH_C2H4_C2H2_CH3_cm3_7_46'] = 1e-10
